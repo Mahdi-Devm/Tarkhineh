@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import Dropdown from './Dropdown'
 
 type ItemHeader = {
@@ -15,6 +15,13 @@ type MenuItemProps = {
 }
 
 const MenuItem = ({ label, index, activeDropdown, onClick }: MenuItemProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleClick = (index: number) => {
+    onClick(index)
+    setIsOpen(!isOpen)
+  }
+
   return (
     <div
       className={`relative flex cursor-pointer items-center pb-1 transition-all duration-300 ${
@@ -22,7 +29,7 @@ const MenuItem = ({ label, index, activeDropdown, onClick }: MenuItemProps) => {
           ? 'border-b-2 border-[#417F56] font-semibold text-[#417F56]'
           : 'text-gray-500'
       }`}
-      onClick={() => onClick(index)}
+      onClick={() => handleClick(index)}
     >
       {typeof label === 'object' ? (
         <Dropdown
@@ -37,6 +44,12 @@ const MenuItem = ({ label, index, activeDropdown, onClick }: MenuItemProps) => {
         <span className="text-xl transition-all duration-300 hover:scale-105 hover:text-[#417F56]">
           {label}
         </span>
+      )}
+      {isOpen && (
+        <div
+          className="bg-opacity-50 fixed inset-0 z-40 backdrop-blur-sm"
+          onClick={() => setIsOpen(false)}
+        />
       )}
     </div>
   )

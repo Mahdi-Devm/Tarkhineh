@@ -27,7 +27,7 @@ function ListHeader() {
   }
 
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-col gap-4 md:flex-row">
       {Object.entries(itemHeader).map(([key, item], index) => (
         <MenuItem
           key={key}
