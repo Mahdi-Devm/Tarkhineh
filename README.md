@@ -1,32 +1,33 @@
-# Tarkhineh 🌿
+# Tarkhineh Project
 
-Welcome to **Tarkhineh**, a modern and user-friendly mobile login and registration interface, designed to provide a smooth and seamless experience for users. This project showcases the power of React and modern UI/UX principles with a focus on clarity, simplicity, and elegance. 🌟
+A modern and responsive web application built with the latest technologies.
 
-## 🚀 Features
-
-- **Responsive Design** 📱: Fully optimized for both desktop and mobile views, ensuring a consistent user experience across all devices.
-- **Modal with Background Blur** 💫: A stylish modal window with a blurred background to create an immersive experience.
-- **Tailwind CSS** 🖌️: A utility-first CSS framework used for designing a responsive, flexible, and beautiful layout.
-- **Logo and Branding** 🔥: Custom logo component to create a unique identity.
-- **Smooth Animations** 🎞️: Subtle animations and transitions enhance the overall user experience.
-- **Interactive Input Fields** ✍️: Clean, easy-to-use input fields with real-time focus effects for a professional look.
-
-## 📸 Screenshots
-
-![Tarkhineh Screenshot](https://via.placeholder.com/150)  
-*Example screenshot of the project interface.*
-
-## 🔧 Technologies Used
+## Technologies Used
 
 - **React** ⚛️: A JavaScript library for building user interfaces.
-- **Tailwind CSS** 🌈: For sleek, minimalistic, and responsive designs.
-- **React Icons** 📦: To enhance the user experience with beautiful icons like the close icon in modals.
+- **Tailwind CSS** 🌈: A utility-first CSS framework for building sleek, minimalistic, and responsive designs.
+- **React Icons** 📦: A library for adding scalable vector icons to your app.
+- **React Router** 🛣️: For handling navigation and routing between pages.
+- **React Hook Form** 📋: For handling form validation and data submission.
+- **React Query** 🔄: For managing server state and data fetching.
+- **Redux** 🔄: A predictable state container for JavaScript apps, used to manage and centralize application state.
+- **React Toastify** 🔔: A library for displaying notifications in React apps, with easy-to-use toast messages.
 
-## 🎯 Goal
+## Features
 
-Tarkhineh aims to provide users with a simple yet highly functional interface for mobile authentication, ensuring a delightful experience with every interaction.
+- **Responsive Design**: Built with Tailwind CSS for a responsive and sleek user experience.
+- **User Authentication**: Users can sign up and log in with their mobile numbers.
+- **Dynamic Routing**: Seamlessly navigate through pages with React Router.
+- **Real-Time Data**: Fetch and manage data with React Query.
+- **State Management**: Centralized state management with Redux.
+- **Notifications**: Real-time toast notifications for user actions.
 
-## 📥 Installation
+## Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Mahdi-Devm/Tarkhineh.git
 
 Clone this repository to your local machine:
 
