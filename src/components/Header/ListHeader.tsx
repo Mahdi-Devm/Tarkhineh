@@ -22,15 +22,15 @@ function ListHeader() {
           key={index}
           className={`flex cursor-pointer items-center pb-1 ${
             activeItem === index
-              ? 'border-b-2 border-[#417F56] font-bold text-[#417F56]'
+              ? 'border-b-2 border-[#417F56] font-semibold text-[#417F56]'
               : 'text-gray-500'
           } transition-all duration-300`}
           onClick={() => setActiveItem(index)}
         >
           {typeof item === 'object' ? (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center space-x-2">
               <span>{item.icon}</span>
-              <span>{item.label}</span>
+              <span className="text-[#717171]">{item.label}</span>
             </div>
           ) : (
             <span>{item}</span>

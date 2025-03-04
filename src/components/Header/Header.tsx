@@ -4,7 +4,7 @@ import ListHeader from './ListHeader'
 
 function Header() {
   return (
-    <header className="flex h-[115px] items-center justify-center">
+    <header className="flex h-[115px] items-center justify-around">
       <IconHeader />
       <ListHeader />
       <Logo />
