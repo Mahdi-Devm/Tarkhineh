@@ -24,11 +24,11 @@ const MenuItem = ({ label, index, activeDropdown, onClick }: MenuItemProps) => {
 
   return (
     <div
-      className={`relative flex cursor-pointer items-center pb-1 transition-all duration-300 ${
+      className={`relative flex cursor-pointer flex-col pb-2 transition-all duration-300 sm:flex-row sm:items-center ${
         activeDropdown === index
           ? 'border-b-2 border-[#417F56] font-semibold text-[#417F56]'
-          : 'text-gray-500'
-      }`}
+          : 'text-gray-700'
+      } text-right hover:text-[#417F56] sm:text-left`}
       onClick={() => handleClick(index)}
     >
       {typeof label === 'object' ? (
@@ -41,10 +41,11 @@ const MenuItem = ({ label, index, activeDropdown, onClick }: MenuItemProps) => {
           onClick={onClick}
         />
       ) : (
-        <span className="text-xl transition-all duration-300 hover:scale-105 hover:text-[#417F56]">
+        <span className="rounded-md px-3 py-1 text-lg transition-all duration-300 hover:scale-105 sm:px-4 sm:py-2 sm:text-base">
           {label}
         </span>
       )}
+
       {isOpen && (
         <div
           className="bg-opacity-50 fixed inset-0 z-40 backdrop-blur-sm"
