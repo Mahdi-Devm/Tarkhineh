@@ -1,8 +1,8 @@
-import AddaddressProfile from "../components/AddaddressProfile";
-import InterestsProfile from "../components/InterestsProfile";
-import LogoutProfile from "../components/LogoutProfile";
-import Profile from "../components/Profile";
-import TrackingordersProfile from "../components/TrackingordersProfile";
+import Profile from "../components/Profile/Profile";
+import AddaddressProfile from "../components/Profile/AddaddressProfile";
+import InterestsProfile from "../components/Profile/InterestsProfile";
+import LogoutProfile from "../components/Profile/LogoutProfile";
+import TrackingordersProfile from "../components/Profile/TrackingordersProfile";
 
 function ProfileLayoutPage() {
   return (
