@@ -10,7 +10,7 @@ function IconHeader() {
       <div className="h-[40px] w-[40px] rounded-md bg-[#E5F2E9] p-[8px]">
         <CiShoppingCart className="h-[24px] w-[24px]" />
       </div>
-      <div className="h-[40px] w-[40px] rounded-md bg-[#E5F2E9] p-[8px]">
+      <div className="hidden h-[40px] w-[40px] rounded-md bg-[#E5F2E9] p-[8px] md:flex">
         <CiSearch className="h-[24px] w-[24px]" />
       </div>
     </div>
