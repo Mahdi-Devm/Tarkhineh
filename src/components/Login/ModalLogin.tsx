@@ -16,9 +16,9 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className={`fixed ${
+      className={`fixed h-full w-full backdrop-blur-sm ${
         isMobile
-          ? 'bg-opacity-50 bottom-0 h-full w-full bg-gray-800 backdrop-blur-sm'
+          ? 'bg-opacity-50 bottom-0'
           : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'
       } z-50 flex items-center justify-center transition-all duration-500`}
     >
