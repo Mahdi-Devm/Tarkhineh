@@ -1,4 +1,5 @@
 import { FaAngleDown } from 'react-icons/fa6'
+import { useState } from 'react'
 
 const itemHeader = {
   name: 'تماس با ما',
@@ -10,17 +11,25 @@ const itemHeader = {
 }
 
 function ListHeader() {
+  const [activeItem, setActiveItem] = useState(null)
+
   return (
     <div className="flex gap-4">
-      {Object.values(itemHeader).map((item, index) => (
-        <div key={index} className="flex items-center">
+      {Object.values(itemHeader).map((item, index: number) => (
+        <div
+          key={index}
+          className={`flex cursor-pointer items-center pb-1 ${
+            activeItem === index
+              ? 'border-b-2 border-[#417F56] font-bold text-[#417F56]'
+              : 'text-gray-500'
+          } transition-all duration-300`}
+          onClick={() => setActiveItem(index)}
+        >
           {typeof item === 'object' ? (
-            <>
-              <div className="flex items-center justify-center">
-                <span>{item.icon}</span>
-                <span>{item.label}</span>
-              </div>
-            </>
+            <div className="flex items-center justify-center">
+              <span>{item.icon}</span>
+              <span>{item.label}</span>
+            </div>
           ) : (
             <span>{item}</span>
           )}
