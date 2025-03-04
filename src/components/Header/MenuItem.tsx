@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Dropdown from './Dropdown'
 
 type ItemHeader = {
@@ -10,22 +11,36 @@ type ItemHeader = {
 type MenuItemProps = {
   label: string | ItemHeader
   index: number
+  path: string
   activeDropdown: number | null
   onClick: (index: number) => void
 }
-
-const MenuItem = ({ label, index, activeDropdown, onClick }: MenuItemProps) => {
+const MenuItem = ({
+  label,
+  index,
+  path,
+  activeDropdown,
+  onClick,
+}: MenuItemProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const handleClick = (index: number) => {
     onClick(index)
     setIsOpen(!isOpen)
+    navigate(path)
   }
+
+  const isActive = location.pathname === path
+
+  const hasDropdown =
+    typeof label === 'object' && label.dropdownItems?.length > 0
 
   return (
     <div
       className={`relative flex cursor-pointer flex-col pb-2 transition-all duration-300 sm:flex-row sm:items-center ${
-        activeDropdown === index
+        isActive
           ? 'border-b-2 border-[#417F56] font-semibold text-[#417F56]'
           : 'text-gray-700'
       } text-right hover:text-[#417F56] sm:text-left`}
@@ -46,7 +61,7 @@ const MenuItem = ({ label, index, activeDropdown, onClick }: MenuItemProps) => {
         </span>
       )}
 
-      {isOpen && (
+      {isOpen && hasDropdown && (
         <div
           className="bg-opacity-50 fixed inset-0 z-40 backdrop-blur-sm"
           onClick={() => setIsOpen(false)}

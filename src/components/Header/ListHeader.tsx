@@ -16,6 +16,7 @@ function ListHeader() {
           key={key}
           label={item}
           index={index}
+          path={item.path}
           activeDropdown={activeDropdown}
           onClick={handleDropdownClick}
         />
