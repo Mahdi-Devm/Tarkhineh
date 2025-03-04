@@ -1,5 +1,5 @@
 const AddaddressProfile = () => {
-  return <div>AddaddressProfile</div>;
-};
+  return <div>AddaddressProfile</div>
+}
 
-export default AddaddressProfile;
+export default AddaddressProfile
