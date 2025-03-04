@@ -18,29 +18,29 @@ const Modal: React.FC<ModalProps> = ({
     <div
       className={`fixed ${
         isMobile
-          ? 'bg-opacity-50 bottom-0 h-full w-full bg-gray-800'
+          ? 'bg-opacity-50 bottom-0 h-full w-full bg-gray-800 backdrop-blur-sm'
           : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'
-      } z-50 flex items-center justify-center transition-all duration-300`}
+      } z-50 flex items-center justify-center transition-all duration-500`}
     >
-      <div className="relative w-[90%] rounded-lg bg-white p-6 shadow-lg md:w-[400px]">
-        <h2 className="mb-4 text-xl font-bold">مدال</h2>
+      <div className="relative w-[90%] max-w-[400px] transform rounded-lg bg-white p-8 shadow-lg transition-all duration-500">
+        <h2 className="mb-6 text-center text-xl font-bold">مدال</h2>
 
         <div className="flex flex-col items-center text-center">
-          <div className="felx items-center justify-center">
+          <div className="mb-4 flex justify-center">
             <Logo />
           </div>
-          <p className="mb-2 text-sm">ورود / ثبت‌نام</p>
-          <p className="mb-4 text-sm text-[#717171]">
+
+          <p className="mb-4 text-sm text-gray-600">
             با وارد کردن شماره موبایل کد تاییدی برای شما ارسال خواهد شد.
           </p>
 
           <input
             type="text"
             placeholder="شماره تلفن"
-            className="mb-4 w-full rounded-lg border border-gray-300 p-2 focus:border-black focus:outline-none"
+            className="mb-6 w-full rounded-lg border border-gray-300 p-3 transition-all duration-300 focus:border-blue-500 focus:outline-none"
           />
 
-          <button className="w-full rounded-lg bg-[#EDEDED] py-2 text-black transition-colors duration-300 hover:bg-[#e1e0e0]">
+          <button className="w-full rounded-lg bg-[#417F56] py-3 text-white transition-colors duration-300 hover:bg-[#365E42] focus:outline-none">
             ادامه
           </button>
 
@@ -52,7 +52,7 @@ const Modal: React.FC<ModalProps> = ({
 
         <button
           onClick={toggleModal}
-          className="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700"
+          className="absolute top-4 right-4 p-2 text-gray-500 transition-all duration-300 hover:text-gray-700"
         >
           <IoIosClose className="h-[24px] w-[24px]" />
         </button>

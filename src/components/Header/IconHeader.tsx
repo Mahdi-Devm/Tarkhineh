@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { CiUser, CiShoppingCart, CiSearch } from 'react-icons/ci'
 import Modal from '../Login/ModalLogin'
+import ModalLoginMobile from '../Login/ModalLoginMobile'
 
 const IconHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -35,11 +36,15 @@ const IconHeader = () => {
         </div>
       </div>
 
-      <Modal
-        isMobile={isMobile}
-        isModalOpen={isModalOpen}
-        toggleModal={toggleModal}
-      />
+      {isMobile ? (
+        <ModalLoginMobile isOpen={isModalOpen} toggleModal={toggleModal} />
+      ) : (
+        <Modal
+          isMobile={isMobile}
+          isModalOpen={isModalOpen}
+          toggleModal={toggleModal}
+        />
+      )}
     </div>
   )
 }
