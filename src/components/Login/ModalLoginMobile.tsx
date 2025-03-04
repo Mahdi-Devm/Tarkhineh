@@ -9,9 +9,9 @@ const ModalLoginMobile = ({
   toggleModal: () => void
 }) => {
   return (
-    <div className="">
+    <div>
       <div
-        className={`fixed bottom-0 left-0 h-full w-full backdrop-blur-sm transition-all duration-500${
+        className={`fixed bottom-0 left-0 h-full w-full backdrop-blur-sm transition-all duration-500 ${
           isOpen ? 'translate-y-0' : 'translate-y-full'
         } z-50 flex items-center justify-center`}
       >
