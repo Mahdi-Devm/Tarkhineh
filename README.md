@@ -1,4 +1,4 @@
-# Tarkhineh Project
+# Tarkhineh Project 🌱
 
 A modern and responsive web application built with the latest technologies.
 
@@ -12,6 +12,11 @@ A modern and responsive web application built with the latest technologies.
 - **React Query** 🔄: For managing server state and data fetching.
 - **Redux** 🔄: A predictable state container for JavaScript apps, used to manage and centralize application state.
 - **React Toastify** 🔔: A library for displaying notifications in React apps, with easy-to-use toast messages.
+- **TypeScript** 📝: A statically typed superset of JavaScript that helps to catch errors early during development.
+
+## Note
+
+This section is currently being updated. Please check back later for the most up-to-date information on the technologies and features used in this project. Thank you for your patience!
 
 ## Features
 
@@ -21,15 +26,15 @@ A modern and responsive web application built with the latest technologies.
 - **Real-Time Data**: Fetch and manage data with React Query.
 - **State Management**: Centralized state management with Redux.
 - **Notifications**: Real-time toast notifications for user actions.
+- **Type Safety**: Utilize TypeScript for better code quality, type safety, and easier maintenance.
+
+## Note
+
+This section is currently being updated. Please check back later for the most up-to-date information on the technologies and features used in this project. Thank you for your patience!
 
 ## Getting Started
 
 Clone the repository:
-
-```bash
-git clone https://github.com/Mahdi-Devm/Tarkhineh.git
-
-Clone this repository to your local machine:
 
 ```bash
 git clone https://github.com/Mahdi-Devm/Tarkhineh.git
