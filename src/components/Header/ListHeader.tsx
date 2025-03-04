@@ -62,7 +62,6 @@ function ListHeader() {
                 <FaAngleDown />
               </div>
 
-              {/* منوی دراپ‌داون */}
               {activeDropdown === index && item.dropdownItems && (
                 <div className="absolute top-full left-0 mt-2 w-48 rounded-md border border-gray-200 bg-white py-2 shadow-lg">
                   {item.dropdownItems.map((dropdownItem, dropdownIndex) => (
