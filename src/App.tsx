@@ -4,7 +4,6 @@ import BranchPage from './pages/Branchpage'
 import CompletionInformation from './pages/CompletionInformation'
 import ContactPage from './pages/ContactPage'
 import FAQ from './pages/FAQ'
-import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
 import MenuPage from './pages/MenuPage'
 import PaymentPage from './pages/PaymentPage'
@@ -27,7 +26,6 @@ const App = () => {
           <Route path="/completion-info" element={<CompletionInformation />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQ />} />
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
