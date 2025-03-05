@@ -25,9 +25,9 @@ function Footer() {
   }
 
   return (
-    <div className="w-full bg-[url(https://s3-alpha-sig.figma.com/img/85b4/9d91/9346f0ad088135a337fb916e224331cf?Expires=1742169600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=QsufMwy1UAx1D0yDZTe5VcNTKcWqlydWXy8MaFHYSSyfoEgu46Y-mDix2VicDMlA871kZR7gCABFCHHzVjTJ-1vYwzCwfjTRb28i-SvozfIUDy8Xec1BhM48W1AST7hfr9U4dpy~BLrUwuzfwMlOLcKDlBl~uyum5rluYequwZyYPv2GA7HGFpUIIFoPDMSw4-l-3XmFaxNWdph9GV27jLM-4kKBkI97YpsfRXiuJjyw2JvgX7A0VMU9tqLDklgGRbXdpe4pXAtyNbglbJgJLUNzwXBOOPMDhL022KYiA-tfRr-jAQCLC9a7DTx7MuG~nCd8tXZ-UxU4eHiLhTAYxw__)] bg-cover bg-center px-5 py-12 text-white sm:px-10">
-      <div className="flex flex-col items-start justify-between gap-10 md:flex-row">
-        <div className="hidden w-full md:block md:w-[80%]">
+    <div className="w-full bg-[url(https://s3-alpha-sig.figma.com/img/85b4/9d91/9346f0ad088135a337fb916e224331cf?Expires=1742169600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=QsufMwy1UAx1D0yDZTe5VcNTKcWqlydWXy8MaFHYSSyfoEgu46Y-mDix2VicDMlA871kZR7gCABFCHHzVjTJ-1vYwzCwfjTRb28i-SvozfIUDy8Xec1BhM48W1AST7hfr9U4dpy~BLrUwuzfwMlOLcKDlBl~uyum5rluYequwZyYPv2GA7HGFpUIIFoPDMSw4-l-3XmFaxNWdph9GV27jLM-4kKBkI97YpsfRXiuJjyw2JvgX7A0VMU9tqLDklgGRbXdpe4pXAtyNbglbJgJLUNzwXBOOPMDhL022KYiA-tfRr-jAQCLC9a7DTx7MuG~nCd8tXZ-UxU4eHiLhTAYxw__)] bg-cover bg-center px-10 py-0 text-white sm:px-15 sm:py-4">
+      <div className="mx-auto flex max-w-screen-xl flex-col items-start justify-between gap-10 md:w-full md:flex-row">
+        <div className="hidden w-full md:block md:w-[85%]">
           <h3 className="mb-3 text-right text-2xl font-bold">پیام به ترخینه</h3>
           <form className="space-y-4" onSubmit={handleSubmit(handelclick)}>
             <div className="flex flex-col gap-3 md:flex-row">
@@ -91,24 +91,35 @@ function Footer() {
         </div>
 
         <div className="w-full text-right md:w-[50%]">
-          <h3 className="mb-3 text-2xl font-bold">شعبه‌های ترخینه</h3>
+          <h3 className="mb-3 text-2xl font-bold sm:text-xl md:text-2xl">
+            پیام به ترخینه
+          </h3>
           <div className="mr-3">
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li className="text-lg font-semibold">شعبه اکباتان</li>
-              <li className="text-lg font-semibold">شعبه چالوس</li>
-              <li className="text-lg font-semibold">شعبه اقدسیه</li>
-              <li className="text-lg font-semibold">شعبه ونک</li>
+            <ul className="space-y-2 text-sm text-gray-300 sm:text-base">
+              <li className="text-lg font-semibold sm:text-base">
+                شعبه اکباتان
+              </li>
+              <li className="text-lg font-semibold sm:text-base">شعبه چالوس</li>
+              <li className="text-lg font-semibold sm:text-base">
+                شعبه اقدسیه
+              </li>
+              <li className="text-lg font-semibold sm:text-base">شعبه ونک</li>
             </ul>
           </div>
         </div>
-
         <div className="w-full text-right md:w-[50%]">
-          <h3 className="mb-3 text-2xl font-bold">دسترسی آسان</h3>
+          <h3 className="mb-3 text-2xl font-bold sm:text-xl md:text-2xl">
+            دسترسی آسان
+          </h3>
           <div className="mr-3">
             <ul className="space-y-2 text-sm text-gray-300">
-              <li className="text-lg font-semibold">پرسش‌های متداول</li>
-              <li className="text-lg font-semibold">قوانین ترخینه</li>
-              <li className="text-lg font-semibold">حریم خصوصی</li>
+              <li className="text-lg font-semibold sm:text-base">
+                پرسش‌های متداول
+              </li>
+              <li className="text-lg font-semibold sm:text-base">
+                قوانین ترخینه
+              </li>
+              <li className="text-lg font-semibold sm:text-base">حریم خصوصی</li>
             </ul>
           </div>
           <div className="mt-4 flex justify-end gap-4 text-2xl text-gray-400">
