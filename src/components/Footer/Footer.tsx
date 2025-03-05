@@ -1,6 +1,7 @@
 import { CiInstagram, CiTwitter, CiLinkedin } from 'react-icons/ci'
 import { useForm } from 'react-hook-form'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 type Inputs = {
   message: string
   fullName: string
@@ -18,12 +19,12 @@ function Footer() {
 
   const handelclick = (data: Inputs) => {
     console.log(data)
-    alert('پیام شما با موفقیت ارسال شد.')
+    toast.success('پیام شما با موفقیت ارسال شد.')
     reset()
   }
 
   return (
-    <div className="w-full bg-[url(https://s3-alpha-sig.figma.com/img/85b4/9d91/9346f0ad088135a337fb916e224331cf?Expires=1742169600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=QsufMwy1UAx1D0yDZTe5VcNTKcWqlydWXy8MaFHYSSyfoEgu46Y-mDix2VicDMlA871kZR7gCABFCHHzVjTJ-1vYwzCwfjTRb28i-SvozfIUDy8Xec1BhM48W1AST7hfr9U4dpy~BLrUwuzfwMlOLcKDlBl~uyum5rluYequwZyYPv2GA7HGFpUIIFoPDMSw4-l-3XmFaxNWdph9GV27jLM-4kKBkI97YpsfRXiuJjyw2JvgX7A0VMU9tqLDklgGRbXdpe4pXAtyNbglbJgJLUNzwXBOOPMDhL022KYiA-tfRr-jAQCLC9a7DTx7MuG~nCd8tXZ-UxU4eHiLhTAYxw__)] bg-cover bg-center px-15 py-20 text-white sm:px-10">
+    <div className="w-full bg-[url(https://s3-alpha-sig.figma.com/img/85b4/9d91/9346f0ad088135a337fb916e224331cf?Expires=1742169600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=QsufMwy1UAx1D0yDZTe5VcNTKcWqlydWXy8MaFHYSSyfoEgu46Y-mDix2VicDMlA871kZR7gCABFCHHzVjTJ-1vYwzCwfjTRb28i-SvozfIUDy8Xec1BhM48W1AST7hfr9U4dpy~BLrUwuzfwMlOLcKDlBl~uyum5rluYequwZyYPv2GA7HGFpUIIFoPDMSw4-l-3XmFaxNWdph9GV27jLM-4kKBkI97YpsfRXiuJjyw2JvgX7A0VMU9tqLDklgGRbXdpe4pXAtyNbglbJgJLUNzwXBOOPMDhL022KYiA-tfRr-jAQCLC9a7DTx7MuG~nCd8tXZ-UxU4eHiLhTAYxw__)] bg-cover bg-center px-5 py-12 text-white sm:px-10">
       <div className="flex flex-col items-start justify-between gap-10 md:flex-row">
         <div className="h-[204px] w-150">
           <h3 className="mb-3 text-right text-2xl font-bold">پیام به ترخینه</h3>
@@ -116,6 +117,7 @@ function Footer() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }
