@@ -10,24 +10,24 @@ function Footer() {
             <div className="flex gap-3">
               <textarea
                 placeholder="پیام شما"
-                className="w-full rounded-lg border border-gray-600 p-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500"
+                className="w-full rounded-lg border border-gray-600 p-2 text-right text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500"
               />
 
               <div className="flex h-[144px] w-[275px] flex-col gap-[12px]">
                 <input
                   type="text"
                   placeholder="نام و نام خانوادگی"
-                  className="h-[40px] w-[276px] rounded-lg border border-gray-600 p-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500"
+                  className="h-[40px] w-[276px] rounded-lg border border-gray-600 p-2 text-right text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500"
                 />
                 <input
                   type="text"
                   placeholder="شماره تماس"
-                  className="h-[40px] w-[276px] rounded-lg border border-gray-600 p-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500"
+                  className="h-[40px] w-[276px] rounded-lg border border-gray-600 p-2 text-right text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500"
                 />
                 <input
                   type="text"
                   placeholder="آدرس ایمیل (اختیاری)"
-                  className="h-[40px] w-[276px] rounded-lg border border-gray-600 p-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500"
+                  className="h-[40px] w-[276px] rounded-lg border border-gray-600 p-2 text-right text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500"
                 />
               </div>
             </div>
@@ -37,24 +37,28 @@ function Footer() {
           </form>
         </div>
 
-        <div className="w-50">
+        <div className="w-50 text-right">
           <h3 className="mb-3 text-2xl font-bold">شعبه‌های ترخینه</h3>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li className="text-lg font-semibold">شعبه اکباتان</li>
-            <li className="text-lg font-semibold">شعبه چالوس</li>
-            <li className="text-lg font-semibold">شعبه اقدسیه</li>
-            <li className="text-lg font-semibold">شعبه ونک</li>
-          </ul>
+          <div className="mr-3">
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li className="text-lg font-semibold">شعبه اکباتان</li>
+              <li className="text-lg font-semibold">شعبه چالوس</li>
+              <li className="text-lg font-semibold">شعبه اقدسیه</li>
+              <li className="text-lg font-semibold">شعبه ونک</li>
+            </ul>
+          </div>
         </div>
 
-        <div className="w-50">
+        <div className="w-50 text-right">
           <h3 className="mb-3 text-2xl font-bold">دسترسی آسان</h3>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li className="text-lg font-semibold">پرسش‌های متداول</li>
-            <li className="text-lg font-semibold">قوانین ترخینه</li>
-            <li className="text-lg font-semibold">حریم خصوصی</li>
-          </ul>
-          <div className="mt-4 flex gap-4 text-2xl text-gray-400">
+          <div className="mr-3">
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li className="text-lg font-semibold">پرسش‌های متداول</li>
+              <li className="text-lg font-semibold">قوانین ترخینه</li>
+              <li className="text-lg font-semibold">حریم خصوصی</li>
+            </ul>
+          </div>
+          <div className="mt-4 flex justify-end gap-4 text-2xl text-gray-400">
             <CiInstagram className="cursor-pointer transition hover:text-gray-300" />
             <CiTwitter className="cursor-pointer transition hover:text-gray-300" />
             <CiLinkedin className="cursor-pointer transition hover:text-gray-300" />
