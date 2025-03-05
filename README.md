@@ -1,54 +1,40 @@
-# React + TypeScript + Vite
+# Tarkhineh Project 🌱
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive web application built with the latest technologies.
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** ⚛️: A JavaScript library for building user interfaces.
+- **Tailwind CSS** 🌈: A utility-first CSS framework for building sleek, minimalistic, and responsive designs.
+- **React Icons** 📦: A library for adding scalable vector icons to your app.
+- **React Router** 🛣️: For handling navigation and routing between pages.
+- **React Hook Form** 📋: For handling form validation and data submission.
+- **React Query** 🔄: For managing server state and data fetching.
+- **Redux** 🔄: A predictable state container for JavaScript apps, used to manage and centralize application state.
+- **React Toastify** 🔔: A library for displaying notifications in React apps, with easy-to-use toast messages.
+- **TypeScript** 📝: A statically typed superset of JavaScript that helps to catch errors early during development.
 
-## Expanding the ESLint configuration
+## Note
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This section is currently being updated. Please check back later for the most up-to-date information on the technologies and features used in this project. Thank you for your patience!
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Responsive Design**: Built with Tailwind CSS for a responsive and sleek user experience.
+- **User Authentication**: Users can sign up and log in with their mobile numbers.
+- **Dynamic Routing**: Seamlessly navigate through pages with React Router.
+- **Real-Time Data**: Fetch and manage data with React Query.
+- **State Management**: Centralized state management with Redux.
+- **Notifications**: Real-time toast notifications for user actions.
+- **Type Safety**: Utilize TypeScript for better code quality, type safety, and easier maintenance.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Note
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+This section is currently being updated. Please check back later for the most up-to-date information on the technologies and features used in this project. Thank you for your patience!
+
+## Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Mahdi-Devm/Tarkhineh.git
