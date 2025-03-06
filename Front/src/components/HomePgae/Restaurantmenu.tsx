@@ -1,35 +1,34 @@
+import { useState, useEffect } from 'react'
 import { descriptions, images } from '../../constants/ItemMenuRes'
+import MenuGrid from './MenuGrid'
 
-function Restaurantmenu() {
+const RestaurantMenu: React.FC = () => {
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 640)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <div className="relative flex h-[500px] items-center justify-center">
       <div className="relative z-10 flex flex-col items-center">
-        <h1 className="mb-6 text-center text-3xl font-bold text-[rgba(53,53,53,1)]">
+        <h1 className="mt-10 mb-20 text-center text-[20px] font-bold text-[rgba(53,53,53,1)] sm:mt-0 sm:mb-6 sm:text-3xl">
           منوی رستوران
         </h1>
-        <div className="mt-25 flex flex-wrap justify-center gap-8">
-          {images.map((img, index) => (
-            <div
-              key={index}
-              className="relative flex h-[220px] w-[280px] flex-col items-center justify-center rounded-lg bg-[#417F56] shadow-xl"
-            >
-              <img
-                src={img}
-                alt={`Food item ${index + 1}`}
-                className={`absolute left-1/2 z-20 -translate-x-1/2 transform object-cover transition-all duration-300 ${
-                  index === 0 ? '-top-40 w-[260px]' : '-top-25 w-[260px]'
-                }`}
-              />
 
-              <div className="absolute -bottom-6 h-[48px] w-[180px] rounded-[4px] bg-[#F9F9F9] p-[8px] text-center text-[20px] font-medium font-semibold text-gray-700 shadow-md">
-                {descriptions[index]}
-              </div>
-            </div>
-          ))}
-        </div>
+        <MenuGrid
+          images={images}
+          descriptions={descriptions}
+          isMobile={isMobile}
+        />
       </div>
     </div>
   )
 }
 
-export default Restaurantmenu
+export default RestaurantMenu
