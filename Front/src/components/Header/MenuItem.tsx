@@ -39,9 +39,9 @@ const MenuItem = ({
 
   return (
     <div
-      className={`relative flex cursor-pointer flex-col pb-2 transition-all duration-300 sm:flex-row sm:items-center ${
+      className={`relative flex cursor-pointer flex-col pb-2 sm:flex-row sm:items-center ${
         isActive
-          ? 'border-b-2 border-[#417F56] font-semibold text-[#417F56]'
+          ? 'border-b-1 border-[#417F56] font-semibold text-[#417F56]'
           : 'text-gray-700'
       } text-right hover:text-[#417F56] sm:text-left`}
       onClick={() => handleClick(index)}
