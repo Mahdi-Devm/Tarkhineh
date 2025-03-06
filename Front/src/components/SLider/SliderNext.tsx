@@ -33,11 +33,18 @@ const SimpleSlider: React.FC = () => {
           <FaArrowLeft />
         </button>
 
-        <img
-          src={images[currentIndex]}
-          alt={`Slide ${currentIndex}`}
-          className="h-full w-full object-cover"
-        />
+        <div className="relative h-full w-full">
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Slide ${index}`}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+                index === currentIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
+        </div>
 
         <button
           onClick={goToNext}
@@ -45,18 +52,18 @@ const SimpleSlider: React.FC = () => {
         >
           <FaArrowRight />
         </button>
-      </div>
 
-      <div className="mt-4 flex space-x-2">
-        {images.map((_, index) => (
-          <div
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`h-3 w-3 cursor-pointer rounded-full transition-all ${
-              index === currentIndex ? 'bg-blue-500' : 'bg-gray-300'
-            }`}
-          />
-        ))}
+        <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 transform space-x-2">
+          {images.map((_, index) => (
+            <div
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-3 w-3 cursor-pointer rounded-full transition-all ${
+                index === currentIndex ? 'bg-blue-500' : 'bg-gray-300'
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
