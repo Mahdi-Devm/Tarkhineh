@@ -1,4 +1,4 @@
-import { images } from '../../constants/ItemMenuRes'
+import { descriptions, images } from '../../constants/ItemMenuRes'
 
 function Restaurantmenu() {
   return (
@@ -21,8 +21,8 @@ function Restaurantmenu() {
                 }`}
               />
 
-              <div className="absolute bottom-2 h-[48px] w-[155px] rounded-[4px] bg-[#F9F9F9] p-[8px] text-center text-sm font-medium text-gray-700">
-                توضیحات محصول
+              <div className="absolute -bottom-6 h-[48px] w-[180px] rounded-[4px] bg-[#F9F9F9] p-[8px] text-center text-[20px] font-medium font-semibold text-gray-700 shadow-md">
+                {descriptions[index]}
               </div>
             </div>
           ))}
