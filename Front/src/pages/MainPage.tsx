@@ -1,14 +1,10 @@
-import {
-  FaConciergeBell,
-  FaLeaf,
-  FaGlassCheers,
-  FaWifi,
-  FaUtensils,
-} from 'react-icons/fa'
-import { MdTrendingUp } from 'react-icons/md'
+import { CiUser } from 'react-icons/ci'
+import { TiChartAreaOutline } from 'react-icons/ti'
+import { CiWifiOn } from 'react-icons/ci'
 import Restaurantmenu from '../components/HomePgae/Restaurantmenu'
 import SliderNext from '../components/SLider/SliderNext'
-
+import { CiMemoPad } from 'react-icons/ci'
+import { TiChevronLeftOutline } from 'react-icons/ti'
 function MainPage() {
   return (
     <div className="flex flex-col">
@@ -29,38 +25,33 @@ function MainPage() {
         <div className="absolute inset-0 rounded-xl bg-black/70"></div>
 
         <div className="relative z-10 flex items-center gap-10 px-6 text-white">
-          <div className="grid grid-cols-3 gap-6 text-center">
-            <div className="flex flex-col items-center">
-              <FaConciergeBell className="text-6xl text-orange-400" />
-              <p className="text-sm">خدمات ویژه</p>
+          <div className="grid grid-cols-2 gap-8 text-center">
+            <div className="flex flex-col items-center transition-all duration-300 hover:scale-105 hover:text-gray-500/80">
+              <CiUser className="text-6xl transition-all duration-300 hover:cursor-pointer" />
+              <p className="text-[18px] font-medium">پرسنلی مجرب و حرفه‌ای</p>
             </div>
-            <div className="flex flex-col items-center">
-              <FaLeaf className="text-6xl text-green-400" />
-              <p className="text-sm">مواد ارگانیک</p>
+
+            <div className="flex flex-col items-center transition-all duration-300 hover:scale-105 hover:text-gray-500/80">
+              <CiWifiOn className="text-6xl transition-all duration-300 hover:cursor-pointer" />
+              <p className="text-[18px] font-medium">محیطی دلنشین و آرام</p>
             </div>
-            <div className="flex flex-col items-center">
-              <FaGlassCheers className="text-6xl text-blue-400" />
-              <p className="text-sm">فضای دوستانه</p>
+
+            <div className="flex flex-col items-center transition-all duration-300 hover:scale-105 hover:text-gray-500/80">
+              <TiChartAreaOutline className="text-6xl transition-all duration-300 hover:cursor-pointer" />
+              <p className="text-[18px] font-medium">کیفیت بالای غذاها</p>
             </div>
-            <div className="flex flex-col items-center">
-              <FaWifi className="text-6xl text-yellow-400" />
-              <p className="text-sm">محیطی دلنشین و آرام</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <MdTrendingUp className="text-6xl text-purple-400" />
-              <p className="text-sm">کیفیت بالای غذاها</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <FaUtensils className="text-6xl text-red-400" />
-              <p className="text-sm">منو متنوع</p>
+
+            <div className="flex flex-col items-center transition-all duration-300 hover:scale-105 hover:text-gray-500/80">
+              <CiMemoPad className="text-6xl transition-all duration-300 hover:cursor-pointer" />
+              <p className="text-[18px] font-medium">منو متنوع</p>
             </div>
           </div>
 
           <div className="mt-6 flex max-w-2xl flex-col text-justify text-lg font-medium">
-            <p className="text-right text-3xl font-semibold">
+            <p className="mb-5 text-right text-3xl font-bold">
               رستوران‌های زنجیره‌ای ترخینه
             </p>
-            <p>
+            <p className="font-medium">
               مهمان‌نوازی یکی از مهم‌ترین مشخصه‌های ایرانیان است و باعث افتخار
               ماست که بیش از 20 سال است خدمت‌گزار مردم شریف ایران هستیم. ما در
               رستوران‌های زنجیره‌ای ترخینه همواره تلاش کردیم که در محیطی اصیل بر
@@ -68,8 +59,9 @@ function MainPage() {
               شان شما عزیزان ارائه دهیم.
             </p>
 
-            <button className="mt-4 w-50 rounded-2xl border border-white px-4 py-2 text-white transition-all duration-300 hover:bg-transparent hover:text-gray-300">
-              اطلاعات بیشتر
+            <button className="mt-4 flex w-50 items-center justify-center gap-2 rounded border border-white px-4 py-2 text-white transition-all duration-300 hover:cursor-pointer hover:border-stone-300 hover:bg-transparent hover:text-gray-300">
+              <TiChevronLeftOutline className="text-2xl hover:text-stone-300" />{' '}
+              <p> اطلاعات بیشتر</p>
             </button>
           </div>
         </div>
