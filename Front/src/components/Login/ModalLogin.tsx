@@ -1,6 +1,8 @@
 import { IoIosClose } from 'react-icons/io'
 import Logo from '../Logo/Logo'
-
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import axios from 'axios'
 interface ModalProps {
   isMobile: boolean
   isModalOpen: boolean
@@ -12,6 +14,35 @@ const Modal: React.FC<ModalProps> = ({
   isModalOpen,
   toggleModal,
 }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ phone: string }>()
+
+  const queryClient = useQueryClient()
+
+  const loginMutation = useMutation({
+    mutationFn: async (data: { phone: string }) => {
+      const res = await axios.post(
+        'http://localhost:3000/api/v1/client/auth/SignIn',
+        data,
+      )
+      return res.data
+    },
+    onSuccess: (data) => {
+      alert(`OTP ارسال شد: ${data.otp}`)
+      queryClient.invalidateQueries(['getOtp'])
+    },
+    onError: (error: any) => {
+      alert(`خطا: ${error.response?.data?.message || 'مشکلی پیش آمد'}`)
+    },
+  })
+
+  const onSubmit = (data: { phone: string }) => {
+    loginMutation.mutate(data) // مقدار درست را ارسال کن
+  }
+
   if (!isModalOpen) return null
 
   return (
@@ -34,15 +65,31 @@ const Modal: React.FC<ModalProps> = ({
             با وارد کردن شماره موبایل کد تاییدی برای شما ارسال خواهد شد.
           </p>
 
-          <input
-            type="text"
-            placeholder="شماره تلفن"
-            className="mb-6 w-full rounded-lg border border-gray-300 p-3 transition-all duration-300 focus:border-blue-500 focus:outline-none"
-          />
+          {/* فرم ورود */}
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+            <input
+              type="text"
+              placeholder="شماره تلفن"
+              {...register('phone', {
+                required: 'شماره تلفن اجباری است',
+                pattern: {
+                  value: /^[0-9]{10,11}$/,
+                  message: 'شماره معتبر نیست',
+                },
+              })}
+              className="mb-2 w-full rounded-lg border border-gray-300 p-3 transition-all duration-300 focus:border-blue-500 focus:outline-none"
+            />
+            {errors.phone && (
+              <p className="text-xs text-red-500">{errors.phone.message}</p>
+            )}
 
-          <button className="w-full rounded-lg bg-[#417F56] py-3 text-white transition-colors duration-300 hover:bg-[#365E42] focus:outline-none">
-            ادامه
-          </button>
+            <button
+              type="submit"
+              className="mt-2 w-full rounded-lg bg-[#417F56] py-3 text-white transition-colors duration-300 hover:bg-[#365E42] focus:outline-none"
+            >
+              ادامه
+            </button>
+          </form>
 
           <p className="mt-4 text-xs text-gray-500">
             ورود و عضویت در ترخینه به منزله{' '}
