@@ -1,9 +1,11 @@
 import {
-  FaUtensils,
   FaConciergeBell,
   FaLeaf,
   FaGlassCheers,
+  FaWifi,
+  FaUtensils,
 } from 'react-icons/fa'
+import { MdTrendingUp } from 'react-icons/md'
 import Restaurantmenu from '../components/HomePgae/Restaurantmenu'
 import SliderNext from '../components/SLider/SliderNext'
 
@@ -26,27 +28,35 @@ function MainPage() {
 
         <div className="absolute inset-0 rounded-xl bg-black/70"></div>
 
-        <div className="relative z-10 flex flex-col items-center px-6 text-white">
-          <div className="flex w-full max-w-lg justify-between gap-4">
+        <div className="relative z-10 flex items-center gap-10 px-6 text-white">
+          <div className="grid grid-cols-3 gap-6 text-center">
             <div className="flex flex-col items-center">
-              <FaUtensils className="text-3xl" />
-              <p className="text-sm">غذای باکیفیت</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <FaConciergeBell className="text-3xl" />
+              <FaConciergeBell className="text-6xl text-orange-400" />
               <p className="text-sm">خدمات ویژه</p>
             </div>
             <div className="flex flex-col items-center">
-              <FaLeaf className="text-3xl" />
+              <FaLeaf className="text-6xl text-green-400" />
               <p className="text-sm">مواد ارگانیک</p>
             </div>
             <div className="flex flex-col items-center">
-              <FaGlassCheers className="text-3xl" />
+              <FaGlassCheers className="text-6xl text-blue-400" />
               <p className="text-sm">فضای دوستانه</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <FaWifi className="text-6xl text-yellow-400" />
+              <p className="text-sm">محیطی دلنشین و آرام</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <MdTrendingUp className="text-6xl text-purple-400" />
+              <p className="text-sm">کیفیت بالای غذاها</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <FaUtensils className="text-6xl text-red-400" />
+              <p className="text-sm">منو متنوع</p>
             </div>
           </div>
 
-          <div className="mt-6 max-w-2xl text-justify text-lg font-medium">
+          <div className="mt-6 flex max-w-2xl flex-col text-justify text-lg font-medium">
             <p className="text-right text-3xl font-semibold">
               رستوران‌های زنجیره‌ای ترخینه
             </p>
@@ -57,11 +67,11 @@ function MainPage() {
               پایه معماری و طراحی مدرن در کنار طبیعتی دلنواز، غذایی سالم و درخور
               شان شما عزیزان ارائه دهیم.
             </p>
-          </div>
 
-          <button className="mt-4 border border-white px-6 py-2 text-white transition-all duration-300 hover:bg-transparent hover:text-gray-300">
-            اطلاعات بیشتر
-          </button>
+            <button className="mt-4 w-50 rounded-2xl border border-white px-4 py-2 text-white transition-all duration-300 hover:bg-transparent hover:text-gray-300">
+              اطلاعات بیشتر
+            </button>
+          </div>
         </div>
       </div>
     </div>
