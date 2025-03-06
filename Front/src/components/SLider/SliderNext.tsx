@@ -1,76 +1,57 @@
-// JSX
-import HeroSlider, { Slide, Nav, OverlayContainer } from 'hero-slider'
-import Wrapper from '../../Ui/Wrapper/Wrapper'
-import Title from '../../Ui/Title/Title'
-import Subtitle from '../../Ui/Subtitle/Subtitle'
+import React, { useState } from 'react'
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa' // استفاده از آیکون‌های react-icons
 
-// Images
-const bogliasco = 'https://i.imgur.com/Gu5Cznz.jpg'
-const countyClare = 'https://i.imgur.com/idjXzVQ.jpg'
-const craterRock = 'https://i.imgur.com/8DYumaY.jpg'
-const giauPass = 'https://i.imgur.com/8IuucQZ.jpg'
+// تصاویر
+const images: string[] = [
+  'https://i.imgur.com/Gu5Cznz.jpg', // bogliasco
+  'https://i.imgur.com/idjXzVQ.jpg', // countyClare
+  'https://i.imgur.com/8DYumaY.jpg', // craterRock
+  'https://i.imgur.com/8IuucQZ.jpg', // giauPass
+]
 
-const SliderNext = () => {
+const SimpleSlider: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0) // state برای نگهداری اندیس تصویر فعلی
+
+  // تابع برای رفتن به تصویر قبلی
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1,
+    )
+  }
+
+  // تابع برای رفتن به تصویر بعدی
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1,
+    )
+  }
+
   return (
-    <HeroSlider
-      slidingAnimation="left_to_right"
-      orientation="horizontal"
-      initialSlide={1}
-      onBeforeChange={(previousSlide, nextSlide) =>
-        console.log('onBeforeChange', previousSlide, nextSlide)
-      }
-      onChange={(nextSlide) => console.log('onChange', nextSlide)}
-      onAfterChange={(nextSlide) => console.log('onAfterChange', nextSlide)}
-      style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.33)',
-      }}
-      settings={{
-        slidingDuration: 250,
-        slidingDelay: 100,
-        shouldAutoplay: true,
-        shouldDisplayButtons: true,
-        autoplayDuration: 5000,
-        height: '100vh',
-      }}
-    >
-      <OverlayContainer>
-        <Wrapper>
-          <Title>Basic Slider</Title>
-          <Subtitle>Slides' background attachment set to fixed</Subtitle>
-        </Wrapper>
-      </OverlayContainer>
+    <div className="relative mx-auto flex w-full max-w-[800px] items-center justify-center">
+      {/* دکمه قبلی */}
+      <button
+        onClick={goToPrevious}
+        className="absolute top-1/2 left-0 flex -translate-y-1/2 transform cursor-pointer items-center justify-center rounded-full border-none bg-black/50 p-2.5 text-2xl text-white"
+      >
+        <FaArrowLeft />
+      </button>
 
-      <Slide
-        background={{
-          backgroundImage: giauPass,
-          backgroundAttachment: 'fixed',
-        }}
+      {/* نمایش تصویر فعلی */}
+      <img
+        src={images[currentIndex]}
+        alt={`Slide ${currentIndex}`}
+        className="h-auto w-full rounded-lg shadow-lg"
       />
 
-      <Slide
-        background={{
-          backgroundImage: bogliasco,
-          backgroundAttachment: 'fixed',
-        }}
-      />
-
-      <Slide
-        background={{
-          backgroundImage: countyClare,
-          backgroundAttachment: 'fixed',
-        }}
-      />
-
-      <Slide
-        background={{
-          backgroundImage: craterRock,
-          backgroundAttachment: 'fixed',
-        }}
-      />
-
-      <Nav />
-    </HeroSlider>
+      {/* دکمه بعدی */}
+      <button
+        onClick={goToNext}
+        className="absolute top-1/2 right-0 flex -translate-y-1/2 transform cursor-pointer items-center justify-center rounded-full border-none bg-black/50 p-2.5 text-2xl text-white"
+      >
+        <FaArrowRight />
+      </button>
+    </div>
   )
 }
 
-export default SliderNext
+export default SimpleSlider
