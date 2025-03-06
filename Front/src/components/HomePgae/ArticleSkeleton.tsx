@@ -11,7 +11,7 @@ function ArticleSkeleton() {
         {branches.map((branch) => (
           <div
             key={branch.id}
-            className="relative flex w-full flex-col items-center overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 hover:border hover:border-[#315F41] md:w-[320px]"
+            className="relative flex w-full flex-col items-center overflow-hidden rounded-lg border border-transparent bg-white shadow-lg transition-all duration-300 hover:border-[#315F41]/50 md:w-[320px]"
           >
             <img
               src={branch.image}
