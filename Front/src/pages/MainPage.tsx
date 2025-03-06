@@ -3,6 +3,7 @@ import SliderNext from '../components/SLider/SliderNext'
 import IconsMainPageServices from '../components/HomePgae/IconsMainPageServices'
 import ImageMainPageServices from '../components/HomePgae/ImageMainPageServices'
 import InformationMAinPageServices from '../components/HomePgae/InformationMAinPageServices'
+import ArticleSkeleton from '../components/HomePgae/ArticleSkeleton'
 
 function MainPage() {
   return (
@@ -18,6 +19,7 @@ function MainPage() {
           <InformationMAinPageServices />
         </div>
       </div>
+      <ArticleSkeleton />
     </div>
   )
 }
