@@ -7,6 +7,12 @@ const images: string[] = [
   'https://s3-alpha-sig.figma.com/img/c0a6/3243/23879f9f8eb72cd3ec37eb55f5c078b5?Expires=1742169600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=AKWx8DnUn7PB8XQgtG3v-o0t8-aXxCDmCQjcPa9lqHpl348qD4KHqN2CsBbmjtCmvMRnO1WCsqze7~jWrP92st2oTsukrQwubWAt3o7gzpIUf86727aD4atOfFf7qD6xTxUgfc26c3S28sF9NbNMVcO1xWILHXGF6-BRasNQ~BYeA62-i6inUPvdCSDqhCBjU6ZXxSedosjx4zZfRU9SlzWXb5SfD8e54DJYyn6p-yBzvmSGLdoTav-ALb0dQleJJ0olx-evgebqL3D9arKilKmsUUBo6MV3iC0gR5gpyg0CDXrTffgAYSt6GLVUrzqEnWouvQutHharD7gF6xK0Mw__',
 ]
 
+const texts: string[] = [
+  'تجربه غذای سالم و گیاهی به سبک ترخینه',
+  'لذت غذای خوشمزه و با کیفیت',
+  'محیطی دلنشین برای صرف غذا',
+]
+
 const SimpleSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
 
@@ -27,26 +33,29 @@ const SimpleSlider: React.FC = () => {
       <div className="relative flex h-[300px] w-full items-center justify-center overflow-hidden rounded-lg shadow-lg sm:h-[400px] md:h-[500px] lg:h-[336px]">
         <button
           onClick={goToPrevious}
-          className="absolute top-1/2 left-2 z-10 flex -translate-y-1/2 transform cursor-pointer items-center justify-center rounded-full border-none bg-black/50 p-2 text-xl text-white transition-all hover:bg-black/70 sm:left-4 sm:p-3 sm:text-2xl"
+          className="absolute top-1/2 left-2 z-20 flex -translate-y-1/2 transform cursor-pointer items-center justify-center rounded-full border-none bg-black/50 p-2 text-xl text-white transition-all hover:bg-black/70 sm:left-4 sm:p-3 sm:text-2xl"
         >
           <FaArrowLeft />
         </button>
 
         <div className="relative h-full w-full">
           {images.map((image, index) => (
-            <div key={index} className="relative h-full w-full">
+            <div
+              key={index}
+              className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${
+                index === currentIndex ? 'z-10 opacity-100' : 'z-0 opacity-0'
+              }`}
+            >
               <img
                 src={image}
                 alt={`Slide ${index}`}
                 loading="lazy"
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-                  index === currentIndex ? 'opacity-100' : 'opacity-0'
-                }`}
+                className="h-full w-full object-cover"
               />
               {index === currentIndex && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30 p-4 text-center text-white">
                   <h2 className="text-xl font-bold sm:text-2xl md:text-3xl lg:text-4xl">
-                    متن دلخواه شما
+                    {texts[index]}
                   </h2>
                 </div>
               )}
@@ -56,12 +65,12 @@ const SimpleSlider: React.FC = () => {
 
         <button
           onClick={goToNext}
-          className="absolute top-1/2 right-2 z-10 flex -translate-y-1/2 transform cursor-pointer items-center justify-center rounded-full border-none bg-black/50 p-2 text-xl text-white transition-all hover:bg-black/70 sm:right-4 sm:p-3 sm:text-2xl"
+          className="absolute top-1/2 right-2 z-20 flex -translate-y-1/2 transform cursor-pointer items-center justify-center rounded-full border-none bg-black/50 p-2 text-xl text-white transition-all hover:bg-black/70 sm:right-4 sm:p-3 sm:text-2xl"
         >
           <FaArrowRight />
         </button>
 
-        <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 transform space-x-2 sm:bottom-4">
+        <div className="absolute bottom-2 left-1/2 z-20 flex -translate-x-1/2 transform space-x-2 sm:bottom-4">
           {images.map((_, index) => (
             <div
               key={index}
