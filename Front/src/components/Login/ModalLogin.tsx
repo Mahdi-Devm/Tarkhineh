@@ -7,6 +7,7 @@ import axios, { AxiosError } from 'axios'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useAuth } from '../../Context/AuthContext'
 
 interface ModalProps {
   isMobile: boolean
@@ -32,10 +33,10 @@ const Modal: React.FC<ModalProps> = ({
   } = useForm<FormData>()
 
   const queryClient = useQueryClient()
+  const { setIsAuthenticated } = useAuth()
 
   const [timer, setTimer] = React.useState<number>(120)
 
-  // Timer effect
   React.useEffect(() => {
     let interval: NodeJS.Timeout
     if (timer > 0) {
@@ -65,7 +66,7 @@ const Modal: React.FC<ModalProps> = ({
       )
 
       if (!res.ok) {
-        throw new Error('مشکلی پیش آمد')
+        throw new Error('مشکلی پیش آمد 1')
       }
 
       const dataResponse = await res.json()
@@ -74,44 +75,44 @@ const Modal: React.FC<ModalProps> = ({
     onSuccess: (data) => {
       toast.success(`OTP ارسال شد: ${data}`)
       queryClient.invalidateQueries(['getOtp'])
-      setTimer(120) // Reset timer on success
-    },
-    onError: (error: AxiosError) => {
-      console.log('🔴 خطای سرور:', error.message)
-      toast.error(`خطا: ${error.message || 'مشکلی پیش آمد'}`)
+      setTimer(120)
     },
   })
 
   const otpVerificationMutation = useMutation({
-    mutationFn: async (data: {
-      mobile: string
-      otpCode: string
-    }): Promise<any> => {
-      const payload = { mobile: data.mobile, otpCode: data.otpCode }
-
+    mutationFn: async (data: { mobile: string; otpCode: string }) => {
       const res = await axios.post(
         'http://localhost:3000/api/v1/client/auth/SignIn',
-        payload,
-        {
-          headers: { 'Content-Type': 'application/json' },
-        },
+        { mobile: data.mobile, otpCode: data.otpCode },
+        { headers: { 'Content-Type': 'application/json' } },
       )
-
       return res.data
     },
     onSuccess: (data) => {
-      if (data && data.access_token) {
+      if (data?.access_token) {
         Cookies.set('accessToken', data.access_token, { expires: 30 })
         toast.success('ورود موفقیت‌آمیز بود.')
         queryClient.invalidateQueries(['getOtp'])
         toggleModal()
-      } else {
-        toast.error('مشکلی در دریافت توکن رخ داد.')
+
+        if (setIsAuthenticated) {
+          setIsAuthenticated(true)
+        } else {
+          console.error('setIsAuthenticated مقداردهی نشده است!')
+        }
       }
     },
-
     onError: (error: AxiosError) => {
-      toast.error(`خطا: ${error.response?.data?.message || 'مشکلی پیش آمد'}`)
+      console.error('Error Object:', error)
+      if (error.response) {
+        toast.error(`خطا: ${error.response.data?.message || 'مشکلی پیش آمد'}`)
+      } else if (error.request) {
+        toast.error(
+          'مشکلی در اتصال به سرور وجود دارد. لطفاً اینترنت را بررسی کنید.',
+        )
+      } else {
+        toast.error('یک خطای ناشناخته رخ داد. لطفاً دوباره تلاش کنید.')
+      }
     },
   })
 
@@ -131,7 +132,7 @@ const Modal: React.FC<ModalProps> = ({
         isMobile
           ? 'bg-opacity-50 bottom-0'
           : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'
-      } z-50 flex items-center justify-center transition-all duration-500`}
+      } z-100 flex items-center justify-center transition-all duration-500`}
     >
       <div className="relative w-[90%] max-w-[400px] transform rounded-2xl bg-white p-8 shadow-lg transition-all duration-500">
         <h2 className="mb-6 text-center text-2xl font-bold text-[#417F56]">

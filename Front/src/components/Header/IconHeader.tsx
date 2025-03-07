@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { CiUser, CiShoppingCart, CiSearch } from 'react-icons/ci'
 import Modal from '../Login/ModalLogin'
+import { useAuth } from '../../Context/AuthContext'
+import { CiLogin } from 'react-icons/ci'
 
 const IconHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768)
-
+  const { isAuthenticated } = useAuth()
   const toggleModal = () => setIsModalOpen((prev) => !prev)
 
   useEffect(() => {
@@ -22,12 +24,13 @@ const IconHeader = () => {
           className="h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px]"
           onClick={toggleModal}
         >
-          <CiUser className="h-[24px] w-[24px]" />
+          {isAuthenticated ? (
+            <CiUser className="h-[24px] w-[24px]" />
+          ) : (
+            <CiLogin className="h-[24px] w-[24px]" />
+          )}
         </div>
-        <div
-          className="h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px]"
-          onClick={toggleModal}
-        >
+        <div className="h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px]">
           <CiShoppingCart className="h-[24px] w-[24px]" />
         </div>
         <div className="hidden h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px] md:flex">
@@ -43,5 +46,4 @@ const IconHeader = () => {
     </div>
   )
 }
-
 export default IconHeader
