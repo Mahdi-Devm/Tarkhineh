@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 function Footer() {
   return (
-    <div
+    <footer
       className="relative w-full bg-cover bg-center px-4 py-8 text-white sm:px-8 md:px-16 lg:px-32"
       style={{
         backgroundImage:
@@ -33,7 +33,7 @@ function Footer() {
       </div>
 
       <ToastContainer />
-    </div>
+    </footer>
   )
 }
 
