@@ -52,7 +52,7 @@ const Modal: React.FC<ModalProps> = ({
       return dataResponse
     },
     onSuccess: (data) => {
-      alert(`OTP ارسال شد: ${data.otp}`)
+      alert(`OTP ارسال شد: ${data}`)
       queryClient.invalidateQueries(['getOtp'])
     },
     onError: (error: AxiosError) => {
@@ -67,7 +67,6 @@ const Modal: React.FC<ModalProps> = ({
       otpCode: string
     }): Promise<any> => {
       const payload = { mobile: data.mobile, otpCode: data.otpCode }
-
       console.log(payload)
       const res = await axios.post(
         'http://localhost:3000/api/v1/client/auth/SignIn',
@@ -76,12 +75,12 @@ const Modal: React.FC<ModalProps> = ({
           headers: { 'Content-Type': 'application/json' },
         },
       )
-
       return res.data
     },
     onSuccess: () => {
       alert('ورود موفقیت‌آمیز بود.')
       queryClient.invalidateQueries(['getOtp'])
+      toggleModal()
     },
     onError: (error: AxiosError) => {
       console.log('🔴 خطای سرور:', error.response?.data)
