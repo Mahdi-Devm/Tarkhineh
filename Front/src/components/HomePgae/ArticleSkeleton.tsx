@@ -2,16 +2,16 @@ import { branches } from '../../constants/ItemBlogMainPAge'
 
 function ArticleSkeleton() {
   return (
-    <div className="p-6 font-sans">
-      <h1 className="mb-8 text-center text-3xl font-bold text-gray-800">
+    <div className="p-4 font-sans sm:p-6">
+      <h1 className="mb-6 text-center text-2xl font-bold text-gray-800 sm:mb-8 sm:text-3xl">
         ترضیبه گردی
       </h1>
 
-      <div className="mb-5 flex w-full flex-wrap gap-6">
+      <div className="mb-5 flex w-full flex-wrap justify-center gap-4 sm:gap-6">
         {branches.map((branch) => (
           <div
             key={branch.id}
-            className="relative flex w-full flex-col items-center overflow-hidden rounded-lg border border-transparent bg-white shadow-lg transition-all duration-300 hover:border-[#315F41]/50 md:w-[320px]"
+            className="relative flex w-full flex-col items-center overflow-hidden rounded-lg border border-transparent bg-white shadow-lg transition-all duration-300 hover:border-[#315F41]/50 sm:w-[calc(50%-1rem)] md:w-[320px]"
           >
             <img
               src={branch.image}
@@ -27,14 +27,14 @@ function ArticleSkeleton() {
             </span>
 
             <div className="p-4">
-              <h2 className="text-center text-xl font-semibold text-gray-700">
+              <h2 className="text-center text-lg font-semibold text-gray-700 sm:text-xl">
                 {branch.name}
               </h2>
-              <p className="text-center font-medium text-gray-600">
+              <p className="text-center text-sm font-medium text-gray-600 sm:text-base">
                 {branch.address}
               </p>
-              <div className="flex items-center justify-center">
-                <button className="h-[32px] w-[128px] rounded border border-stone-500 transition-colors duration-300 hover:cursor-pointer hover:border-[#315F41] hover:text-[#315F41]">
+              <div className="mt-3 flex items-center justify-center">
+                <button className="h-[32px] w-[128px] rounded border border-stone-500 text-sm transition-colors duration-300 hover:cursor-pointer hover:border-[#315F41] hover:text-[#315F41] sm:text-base">
                   صفحه شعبه
                 </button>
               </div>
