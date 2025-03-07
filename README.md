@@ -1,7 +1,3 @@
-بله، من به اشتباه آدرس بک‌اند را اضافه نکردم. اینجا قسمت درست با آدرس بک‌اند برای شما آماده شده:
-
----
-
 # 🌱 Tarkhineh Restaurant
 
 A modern, fully-featured, and responsive web application built with the latest web technologies to provide a seamless and intuitive user experience. Whether you're browsing products, managing your tasks, or interacting with real-time data, Tarkhineh is designed to be efficient, user-friendly, and visually appealing.
@@ -48,5 +44,3 @@ git clone https://github.com/Mahdi-Devm/Tarkhineh.git
 After cloning, follow the instructions in the repository to install the required dependencies and start the application. You'll have everything up and running in no time!
 
 ---
-
-حالا آدرس ریپازیتوری بک‌اند در بخش **Backend Repository - Tarkhineh Website** اضافه شده است.
