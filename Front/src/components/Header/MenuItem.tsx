@@ -63,7 +63,7 @@ const MenuItem = ({
 
       {isOpen && hasDropdown && (
         <div
-          className="bg-opacity-50 fixed inset-0 z-40 backdrop-blur-sm"
+          className="bg-opacity-50 fixed inset-0 z-40 backdrop-blur-sm md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
