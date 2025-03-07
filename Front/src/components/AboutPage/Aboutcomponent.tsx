@@ -1,3 +1,5 @@
+import { CiUser, CiWifiOn, CiMemoPad } from 'react-icons/ci'
+import { TiChartAreaOutline } from 'react-icons/ti'
 function AboutComponent() {
   return (
     <section>
@@ -13,18 +15,20 @@ function AboutComponent() {
         </h1>
       </div>
 
-      <div className="mt-8 px-4 sm:px-8 md:px-16 lg:px-32">
-        <h3 className="mb-4 text-2xl font-bold text-gray-800">درباره ما</h3>
+      <div className="mt-15 px-4 sm:px-8 md:px-16 lg:px-32">
+        <h3 className="mb-4 text-right text-2xl font-bold text-gray-800">
+          درباره ما
+        </h3>
         <div className="flex flex-col gap-6 md:flex-row">
           <div
-            className="h-[300px] w-full rounded-2xl bg-cover bg-center md:w-1/2"
+            className="h-[492px] w-[600px] rounded-2xl bg-cover bg-center md:w-1/2"
             style={{
               backgroundImage:
                 'url(https://www.figma.com/file/a1A9NqKpy0fC9pQpVBkTaa/image/d291baf96ea6f971b29ed1930912d8ecff3a24ed)',
             }}
           ></div>
 
-          <div className="w-full space-y-4 text-justify text-gray-700 md:w-1/2">
+          <div className="h-[492px] w-[600px] space-y-4 text-right text-[20px] text-[#717171] md:w-1/2">
             <p>
               رستوران‌های زنجیره‌ای ترخینه در سال ۱۳۶۸ افتتاح گردیده‌اند و در طی
               این سال‌ها همواره با ارائه غذاهای باکیفیت و سرویس سریع و به موقع
@@ -47,6 +51,47 @@ function AboutComponent() {
               روز که همه ایرانیان سالم و سلامت باشند.
             </p>
           </div>
+        </div>
+      </div>
+      <div className="mt-20 flex h-[168px] w-full max-w-[1400px] items-center justify-around rounded-2xl bg-[#EDEDED] px-4">
+        <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
+          <CiUser
+            size={50}
+            className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
+          />
+          <p className="text-md mt-2 text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
+            About Us
+          </p>
+        </div>
+
+        <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
+          <CiWifiOn
+            size={50}
+            className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
+          />
+          <p className="text-md mt-2 text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
+            Contact Us
+          </p>
+        </div>
+
+        <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
+          <CiMemoPad
+            size={50}
+            className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
+          />
+          <p className="text-md mt-2 text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
+            Our Story
+          </p>
+        </div>
+
+        <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
+          <TiChartAreaOutline
+            size={50}
+            className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
+          />
+          <p className="text-md mt-2 text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
+            Our Mission
+          </p>
         </div>
       </div>
     </section>
