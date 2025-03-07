@@ -1,34 +1,35 @@
 import { CiUser, CiWifiOn, CiMemoPad } from 'react-icons/ci'
 import { TiChartAreaOutline } from 'react-icons/ti'
+
 function AboutComponent() {
   return (
     <section>
       <div
-        className="relative flex h-[336px] w-full items-center justify-center rounded-2xl bg-cover bg-center px-4 py-8 text-white sm:px-8 md:px-16 lg:px-32"
+        className="relative flex h-[200px] w-full items-center justify-center rounded-2xl bg-cover bg-center px-4 py-8 text-white sm:h-[250px] sm:px-8 md:h-[300px] md:px-16 lg:h-[336px] lg:px-32"
         style={{
           backgroundImage:
             'linear-gradient(0deg, rgba(70, 94, 78, 0.5), rgba(73, 104, 83, 0.5)), linear-gradient(0deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url(https://s3-alpha-sig.figma.com/img/6514/c844/a184b0a2eda096baec6229c93f4ea140?Expires=1742169600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Od58ieMAlY~dw9L8nIurxWxSdZ3ery5gjTuo3uTgd3Gm219plhsrMP6RNwJJzhuyn4Lewr2YN7t3kvTW83H59VjEtqVMzyq8Y8wo5fIDL5~YGB5RnG~pinZQCaFoJTHgf4MQGoXOxz~8asu4Q1y8uxM1h-MTHFxRI8xms7EWylYFLcXFeHZhWdnbIiUK8axfdtsEar3A6zZt845jTLedX9BIfcytW~UKFYoYFumZUG6YaKIByKGZm1ZcSmZaAMykpwYtgo6RkxD9aaL0uj5KKCTvHzwMD7BAl-46tAvF~EeLf93voNgY0v4~4PbjoLE7GAoUqrWTqG6CGB8rehx7FQ__)',
         }}
       >
-        <h1 className="text-3xl font-bold text-white">
+        <h1 className="text-xl font-bold text-white sm:text-2xl md:text-3xl">
           !درباره ترخینه بیشتر بدانید
         </h1>
       </div>
 
-      <div className="mt-15 px-4 sm:px-8 md:px-16 lg:px-32">
-        <h3 className="mb-4 text-right text-2xl font-bold text-gray-800">
+      <div className="mt-8 px-4 sm:px-8 md:px-16 lg:px-32">
+        <h3 className="mb-4 text-right text-xl font-bold text-gray-800 sm:text-2xl">
           درباره ما
         </h3>
         <div className="flex flex-col gap-6 md:flex-row">
           <div
-            className="h-[492px] w-[600px] rounded-2xl bg-cover bg-center md:w-1/2"
+            className="h-[200px] w-full rounded-2xl bg-cover bg-center sm:h-[300px] md:h-[400px] md:w-1/2"
             style={{
               backgroundImage:
                 'url(https://www.figma.com/file/a1A9NqKpy0fC9pQpVBkTaa/image/d291baf96ea6f971b29ed1930912d8ecff3a24ed)',
             }}
           ></div>
 
-          <div className="h-[492px] w-[600px] space-y-4 text-right text-[20px] text-[#717171] md:w-1/2">
+          <div className="w-full space-y-4 text-right text-base text-[#717171] sm:text-lg md:w-1/2">
             <p>
               رستوران‌های زنجیره‌ای ترخینه در سال ۱۳۶۸ افتتاح گردیده‌اند و در طی
               این سال‌ها همواره با ارائه غذاهای باکیفیت و سرویس سریع و به موقع
@@ -53,43 +54,45 @@ function AboutComponent() {
           </div>
         </div>
       </div>
-      <div className="mt-20 flex h-[168px] w-full max-w-[1400px] items-center justify-around rounded-2xl bg-[#EDEDED] px-4">
+
+      <div className="mt-12 flex h-auto w-full max-w-[1400px] flex-wrap items-center justify-around gap-4 rounded-2xl bg-[#EDEDED] px-4 py-6 sm:mt-20 sm:h-[168px] sm:flex-nowrap sm:gap-0 sm:py-0">
+        {/* آیتم ۱ */}
         <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
           <CiUser
-            size={50}
+            size={40}
             className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
           />
-          <p className="text-md mt-2 text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
+          <p className="sm:text-md mt-2 text-sm text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
             About Us
           </p>
         </div>
 
         <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
           <CiWifiOn
-            size={50}
+            size={40}
             className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
           />
-          <p className="text-md mt-2 text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
+          <p className="sm:text-md mt-2 text-sm text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
             Contact Us
           </p>
         </div>
 
         <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
           <CiMemoPad
-            size={50}
+            size={40}
             className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
           />
-          <p className="text-md mt-2 text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
+          <p className="sm:text-md mt-2 text-sm text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
             Our Story
           </p>
         </div>
 
         <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
           <TiChartAreaOutline
-            size={50}
+            size={40}
             className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
           />
-          <p className="text-md mt-2 text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
+          <p className="sm:text-md mt-2 text-sm text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
             Our Mission
           </p>
         </div>
