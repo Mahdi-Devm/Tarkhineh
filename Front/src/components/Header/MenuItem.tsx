@@ -41,8 +41,8 @@ const MenuItem = ({
     <div
       className={`relative flex cursor-pointer flex-col pb-2 sm:flex-row sm:items-center ${
         isActive
-          ? 'border-b-1 border-[#417F56] font-semibold text-[#417F56]'
-          : 'text-gray-700'
+          ? 'border-b-1 border-[#417F56] text-[20px] font-semibold text-[#417F56]'
+          : 'text-[#717171]'
       } text-right hover:text-[#417F56] sm:text-left`}
       onClick={() => handleClick(index)}
     >
@@ -70,5 +70,4 @@ const MenuItem = ({
     </div>
   )
 }
-
 export default MenuItem
