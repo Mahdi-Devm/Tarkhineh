@@ -106,13 +106,31 @@ function Delegate() {
         }}
       />
 
-      <div>
-        <h1>دریافت مشاوره</h1>
-        <form>
-          <input type="text" placeholder="نام" className="mb-4 border p-2" />
-          <input type="text" placeholder="ایمیل" className="mb-4 border p-2" />
-          <input type="text" placeholder="پیام" className="mb-4 border p-2" />
+      <div className="my-10 flex w-full flex-col items-center justify-center rounded-lg p-6">
+        <h1 className="mb-6 text-center text-2xl font-semibold text-[#417F56]">
+          دریافت مشاوره
+        </h1>
+        <form className="flex w-250 gap-x-5">
+          <input
+            type="text"
+            placeholder="زمان ایده‌آل"
+            className="mb-4 h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none"
+          />
+
+          <input
+            type="email"
+            placeholder="شماره تماس"
+            className="mb-4 h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none"
+          />
+
+          <input
+            placeholder="نام و نام‌خانوادگی"
+            className="h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none"
+          />
         </form>
+        <button className="transform cursor-pointer rounded-lg border border-[#417F56] bg-[#417F56] px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-105 hover:bg-white hover:text-[#417F56] hover:shadow-lg">
+          درخواست مشاوره
+        </button>
       </div>
     </div>
   )
