@@ -36,14 +36,11 @@ function Delegate() {
       />
 
       <div className="mt-8 flex justify-center">
-        <div
-          className="flex items-center justify-center rounded-lg p-4"
-          style={{ width: '1224px', height: 'auto' }}
-        >
+        <div className="flex w-full max-w-[1224px] flex-wrap justify-center gap-4 p-4">
           {DataDelegate.map((item, index) => (
             <div
               key={index}
-              className="m-4 flex flex-col items-center justify-center rounded-lg"
+              className="flex flex-col items-center justify-center rounded-lg"
               style={{ width: '220px', height: '220px' }}
             >
               <img
@@ -59,21 +56,15 @@ function Delegate() {
         </div>
       </div>
 
-      <hr
-        style={{
-          borderColor: '#CBCBCB',
-          borderWidth: '1px',
-          width: '1224px',
-          margin: '20px auto',
-        }}
-      />
-      <div className="mx-auto flex h-[220px] w-[925px] flex-col items-center justify-center">
+      <hr className="mx-auto my-6 w-full max-w-[1224px] border-t border-[#CBCBCB]" />
+
+      <div className="mx-auto flex w-full max-w-[925px] flex-col items-center justify-center">
         <h1 className="mb-10 text-center text-lg text-[24px] font-semibold">
           مزیت دریافت نمایندگی
         </h1>
 
-        <div className="flex w-full justify-center">
-          <div className="flex w-1/2 flex-col">
+        <div className="flex w-full flex-col sm:flex-row sm:justify-between">
+          <div className="mb-4 flex w-full flex-col sm:mb-0 sm:w-1/2">
             {data.map((item, index) => (
               <div key={index} className="mb-4 flex items-center">
                 <p className="w-full text-right text-[18px] font-normal text-[#353535]">
@@ -84,7 +75,7 @@ function Delegate() {
             ))}
           </div>
 
-          <div className="flex w-1/2 flex-col">
+          <div className="flex w-full flex-col sm:w-1/2">
             {data2.map((item, index) => (
               <div key={index} className="mb-4 flex items-center">
                 <p className="w-full text-right text-[18px] font-normal text-[#353535]">
@@ -97,35 +88,28 @@ function Delegate() {
         </div>
       </div>
 
-      <hr
-        style={{
-          borderColor: '#CBCBCB',
-          borderWidth: '1px',
-          width: '1224px',
-          margin: '20px auto',
-        }}
-      />
+      <hr className="mx-auto my-6 w-full max-w-[1224px] border-t border-[#CBCBCB]" />
 
       <div className="my-10 flex w-full flex-col items-center justify-center rounded-lg p-6">
         <h1 className="mb-6 text-center text-2xl font-semibold text-[#417F56]">
           دریافت مشاوره
         </h1>
-        <form className="flex w-250 gap-x-5">
+        <form className="flex w-full max-w-[925px] flex-col gap-5 sm:flex-row">
           <input
             type="text"
             placeholder="زمان ایده‌آل"
-            className="mb-4 h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none"
+            className="mb-4 h-[40px] w-full rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
           />
 
           <input
             type="email"
             placeholder="شماره تماس"
-            className="mb-4 h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none"
+            className="mb-4 h-[40px] w-full rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
           />
 
           <input
             placeholder="نام و نام‌خانوادگی"
-            className="h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none"
+            className="h-[40px] w-full rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
           />
         </form>
         <button className="transform cursor-pointer rounded-lg border border-[#417F56] bg-[#417F56] px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-105 hover:bg-white hover:text-[#417F56] hover:shadow-lg">
