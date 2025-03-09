@@ -22,8 +22,8 @@ function Delegate() {
 
       <div className="mt-8 flex justify-center">
         <div
-          className="flex items-center justify-center rounded-lg border border-gray-300 p-8"
-          style={{ width: '925px', height: 'auto' }}
+          className="flex items-center justify-center rounded-lg p-4"
+          style={{ width: '1224px', height: 'auto' }}
         >
           {DataDelegate.map((item, index) => (
             <div
@@ -36,12 +36,51 @@ function Delegate() {
                 alt={item.title}
                 className="mb-4 h-[120px] w-[120px] rounded-lg object-cover"
               />
-              <h3 className="text-center text-lg font-semibold text-gray-800">
+              <h3 className="text-center text-lg font-semibold text-[#353535]">
                 {item.title}
               </h3>
             </div>
           ))}
         </div>
+      </div>
+
+      <hr
+        style={{
+          borderColor: '#CBCBCB',
+          borderWidth: '1px',
+          width: '1224px',
+          margin: '20px auto',
+        }}
+      />
+      <div>
+        <h1>مزیت دریافت نمایندگی</h1>
+
+        <div>
+          <div>
+            <i></i>
+            <p></p>
+          </div>
+          <div>
+            <i></i>
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <hr
+        style={{
+          borderColor: '#CBCBCB',
+          borderWidth: '1px',
+          width: '1224px',
+          margin: '20px auto',
+        }}
+      />
+      <div>
+        <h1>دریافت مشاوره</h1>
+        <form>
+          <input type="text" />
+          <input type="text" />
+          <input type="text" />
+        </form>
       </div>
     </div>
   )
