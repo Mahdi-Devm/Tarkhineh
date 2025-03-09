@@ -33,27 +33,26 @@ function Delegate() {
   const [startDate, setStartDate] = useState<Date | null>(null)
 
   return (
-    <div>
+    <div className="font-sans">
       <ImageHeaderForIformatian
         height="336px"
         title="همین الان به خانواده بزرگ ترخینه بپیوندید!"
         image="https://www.figma.com/file/a1A9NqKpy0fC9pQpVBkTaa/image/943bda1b1c396fb1fd8e64992f82dd5ce96917b4"
       />
 
-      <div className="mt-8 flex justify-center">
-        <div className="flex w-full max-w-[1224px] flex-wrap justify-center gap-4 p-4">
+      <div className="mt-8">
+        <div className="mx-auto grid max-w-[1224px] grid-cols-2 gap-4 p-4 sm:grid-cols-2 md:grid-cols-4">
           {DataDelegate.map((item, index) => (
             <div
               key={index}
               className="flex flex-col items-center justify-center rounded-lg"
-              style={{ width: '220px', height: '220px' }}
             >
               <img
                 src={item.image}
                 alt={item.title}
-                className="mb-4 h-[120px] w-[120px] rounded-lg object-cover"
+                className="mb-4 h-[100px] w-[100px] rounded-lg object-cover sm:h-[100px] sm:w-[100px]"
               />
-              <h3 className="text-center text-lg font-semibold text-[#353535]">
+              <h3 className="text-center text-lg font-semibold text-[#353535] sm:text-sm">
                 {item.title}
               </h3>
             </div>
@@ -104,7 +103,7 @@ function Delegate() {
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             placeholderText="زمان ایده‌آل"
-            className="mb-4 h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
+            className="mb-4 h-[40px] w-full rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
             dateFormat="yyyy/MM/dd"
             isClearable
           />
@@ -112,12 +111,12 @@ function Delegate() {
           <input
             type="email"
             placeholder="شماره تماس"
-            className="mb-4 h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
+            className="mb-4 h-[40px] w-full rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
           />
 
           <input
             placeholder="نام و نام‌خانوادگی"
-            className="h-[40px] w-[392px] rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
+            className="h-[40px] w-full rounded-lg border border-stone-300 p-2 focus:ring-2 focus:ring-[#417F56] focus:outline-none sm:w-[392px]"
           />
         </form>
         <button className="transform cursor-pointer rounded-lg border border-[#417F56] bg-[#417F56] px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:scale-105 hover:bg-white hover:text-[#417F56] hover:shadow-lg">
