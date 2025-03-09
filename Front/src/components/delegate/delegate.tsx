@@ -3,12 +3,27 @@ import image from '../../assets/imageDelegate/sign.png'
 import image1 from '../../assets/imageDelegate/sign1.png'
 import image2 from '../../assets/imageDelegate/sign2.png'
 import image3 from '../../assets/imageDelegate/sign3.png'
+import { CiMaximize2 } from 'react-icons/ci'
 
 const DataDelegate = [
   { title: 'اعطای دستورالعمل پخت غذاها', image: image },
   { title: 'طرح‌های تشویقی ارتقای فروش', image: image1 },
   { title: 'تسهیلات راه‌اندازی رستوران و تجهیز آن', image: image2 },
   { title: 'بیش از 20 شعبه فعال در سراسر کشور', image: image3 },
+]
+
+const data = [
+  { name: 'مشاوره در امور حقوقی، مالی و مالیاتی' },
+  { name: 'پشتیبانی بازاریابی و منابع انسانی' },
+  { name: 'دریافت مشاوره جهت تامین مواد اولیه و تجهیزات' },
+  { name: 'طرح های تشویقی برای ارتقا فروش' },
+]
+
+const data2 = [
+  { name: 'مشاوره در امور حقوقی، مالی و مالیاتی' },
+  { name: 'پشتیبانی بازاریابی و منابع انسانی' },
+  { name: 'دریافت مشاوره جهت تامین مواد اولیه و تجهیزات' },
+  { name: 'طرح های تشویقی برای ارتقا فروش' },
 ]
 
 function Delegate() {
@@ -52,20 +67,36 @@ function Delegate() {
           margin: '20px auto',
         }}
       />
-      <div>
-        <h1>مزیت دریافت نمایندگی</h1>
+      <div className="mx-auto flex h-[220px] w-[925px] flex-col items-center justify-center">
+        <h1 className="mb-10 text-center text-lg text-[24px] font-semibold">
+          مزیت دریافت نمایندگی
+        </h1>
 
-        <div>
-          <div>
-            <i></i>
-            <p></p>
+        <div className="flex w-full justify-center">
+          <div className="flex w-1/2 flex-col">
+            {data.map((item, index) => (
+              <div key={index} className="mb-4 flex items-center">
+                <p className="w-full text-right text-[18px] font-normal text-[#353535]">
+                  {item.name}
+                </p>
+                <CiMaximize2 className="mr-2 text-xl text-[#417F56]" />
+              </div>
+            ))}
           </div>
-          <div>
-            <i></i>
-            <p></p>
+
+          <div className="flex w-1/2 flex-col">
+            {data2.map((item, index) => (
+              <div key={index} className="mb-4 flex items-center">
+                <p className="w-full text-right text-[18px] font-normal text-[#353535]">
+                  {item.name}
+                </p>
+                <CiMaximize2 className="mr-2 text-xl text-[#417F56]" />
+              </div>
+            ))}
           </div>
         </div>
       </div>
+
       <hr
         style={{
           borderColor: '#CBCBCB',
@@ -74,12 +105,13 @@ function Delegate() {
           margin: '20px auto',
         }}
       />
+
       <div>
         <h1>دریافت مشاوره</h1>
         <form>
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
+          <input type="text" placeholder="نام" className="mb-4 border p-2" />
+          <input type="text" placeholder="ایمیل" className="mb-4 border p-2" />
+          <input type="text" placeholder="پیام" className="mb-4 border p-2" />
         </form>
       </div>
     </div>
