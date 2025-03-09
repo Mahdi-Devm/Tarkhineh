@@ -16,8 +16,8 @@ function ImageHeaderForIformatian({ image, title, height }: Images) {
         height: height,
         backgroundBlendMode: 'overlay',
         backgroundImage: loaded
-          ? `linear-gradient(0deg, #21402B80 50%, #0000008C 55%), url(${image})`
-          : 'linear-gradient(0deg, #ddd 50%, #bbb 55%)',
+          ? `linear-gradient(0deg, #4d625480 50%, #0000008C 55%), url(${image})`
+          : 'linear-gradient(0deg, #ddd 50%, #605e5e 55%)',
       }}
     >
       <img

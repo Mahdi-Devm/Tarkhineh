@@ -1,5 +1,11 @@
+import Delegate from '../components/delegate/delegate'
+
 function AwardingAgentPage() {
-  return <div>AwardingAgentPage</div>
+  return (
+    <div>
+      <Delegate />
+    </div>
+  )
 }
 
 export default AwardingAgentPage
