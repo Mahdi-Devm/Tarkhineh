@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SliderArrow from './SliderArrow'
 import SliderDots from './SliderDots'
 import Slide from './Slide'
@@ -18,6 +18,14 @@ const SimpleSlider: React.FC = () => {
       prevIndex === images.length - 1 ? 0 : prevIndex + 1,
     )
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      goToNext()
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [currentIndex])
 
   return (
     <div className="relative mx-auto flex w-full max-w-[1400px] flex-col items-center justify-center">
