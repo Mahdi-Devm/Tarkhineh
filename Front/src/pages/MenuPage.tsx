@@ -2,9 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
 
 const fetchCategories = async () => {
-  const response = await fetch(
-    'http://localhost:3000/api/v1/admin/category?page=1',
-  )
+  const response = await fetch('/api/v1/admin/category?page=1')
+
   if (!response.ok) {
     throw new Error('خطا در دریافت داده‌ها')
   }
@@ -32,9 +31,21 @@ const MenuPage = () => {
     })
   }
 
+  const limitedData = data.slice(0, 4)
+
   return (
     <div>
       <SimpleSlider />
+      <div className="gap mt-5 flex h-[64px] w-full items-center justify-end gap-[32px] rounded-2xl bg-[#EDEDED] p-7 shadow-lg">
+        {limitedData.map((item) => (
+          <div
+            key={item.id}
+            className="cursor-pointer text-[20px] text-[#717171] transition-all duration-300 ease-in-out hover:scale-105 hover:text-[#417F56] hover:shadow-md"
+          >
+            <h3>{item.title}</h3>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
