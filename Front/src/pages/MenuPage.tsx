@@ -3,17 +3,17 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
 
-const fakeCategories = [
-  { id: 1, title: 'غذاهای ایرانی' },
-  { id: 2, title: 'غذاهای فست فود' },
-  { id: 3, title: 'غذاهای دریایی' },
-  { id: 4, title: 'غذاهای بین‌المللی' },
-  { id: 5, title: 'پیش‌غذاها' },
-  { id: 6, title: 'دسرها' },
-  { id: 7, title: 'نوشیدنی‌ها' },
-]
+interface Category {
+  id: number
+  title: string
+}
 
-const fetchCategories = async () => {
+interface SubCategory {
+  id: number
+  title: string
+}
+
+const fetchCategories = async (): Promise<Category[]> => {
   const response = await fetch('/api/v1/admin/category?page=1')
   if (!response.ok) {
     throw new Error('خطا در دریافت داده‌ها')
@@ -22,7 +22,9 @@ const fetchCategories = async () => {
   return data.categories
 }
 
-const fetchSubCategories = async (categoryId) => {
+const fetchSubCategories = async (
+  categoryId: number,
+): Promise<SubCategory[]> => {
   const response = await fetch(
     `/api/v1/admin/subcategory/category/${categoryId}?page=1`,
   )
@@ -34,28 +36,22 @@ const fetchSubCategories = async (categoryId) => {
 }
 
 const MenuPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState(5)
-  const [selectedSubCategory, setSelectedSubCategory] = useState('')
-
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value)
-    setSelectedSubCategory('')
-  }
+  const [selectedCategory, setSelectedCategory] = useState<number>(5)
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
 
   const {
     data: categories,
     isLoading,
     error,
-  } = useQuery({
+  } = useQuery<Category[], Error>({
     queryKey: ['main category'],
     queryFn: fetchCategories,
   })
 
-  const {
-    data: subCategories,
-    isLoading: subCategoryLoading,
-    error: subCategoryError,
-  } = useQuery({
+  const { data: subCategories, isLoading: subCategoryLoading } = useQuery<
+    SubCategory[],
+    Error
+  >({
     queryKey: ['subcategory', selectedCategory],
     queryFn: () => fetchSubCategories(selectedCategory),
     enabled: !!selectedCategory,
@@ -70,7 +66,6 @@ const MenuPage = () => {
 
   if (error) return <p>خطا در دریافت داده‌ها</p>
 
-  // فیلتر کردن آیتم‌های 1 تا 4
   const filteredCategories = categories?.slice(0, 4)
 
   return (
