@@ -1,34 +1,40 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
 
+const fetchCategories = async () => {
+  const response = await fetch(
+    'http://localhost:3000/api/v1/admin/category?page=1',
+  )
+  if (!response.ok) {
+    throw new Error('خطا در دریافت داده‌ها')
+  }
+  const data = await response.json()
+  return data.categories
+}
+
 const MenuPage = () => {
-  const { category } = useParams<{ category: string }>()
-  const navigate = useNavigate()
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['main category'],
+    queryFn: fetchCategories,
+  })
 
-  const categories: string[] = ['غذای اصلی', 'پیش غذا', 'دسر', 'نوشیدنی']
+  if (isLoading) return <p>در حال بارگذاری کاربران...</p>
+  if (error) {
+    console.log(error)
+    return <p>خطا در دریافت داده‌ها</p>
+  }
 
-  const handleCategoryClick = (category: string) => {
-    navigate(`/menu/${category}`)
+  console.log(data)
+
+  if (data && data.length > 0) {
+    data.forEach((category) => {
+      console.log(category.title)
+    })
   }
 
   return (
     <div>
       <SimpleSlider />
-
-      <ul className="mt-2 flex items-center justify-end gap-2 rounded-2xl bg-[#EDEDED] p-4">
-        {categories.map((cat) => (
-          <li
-            className="cursor-pointer text-[20px] font-medium transition-all duration-300 hover:scale-105 hover:text-blue-500"
-            key={cat}
-            onClick={() => handleCategoryClick(cat)}
-          >
-            {cat}
-          </li>
-        ))}
-      </ul>
-
-      {/* نمایش دسته‌بندی انتخابی */}
-      <div>{category && <p>دسته‌بندی انتخابی: {category}</p>}</div>
     </div>
   )
 }
