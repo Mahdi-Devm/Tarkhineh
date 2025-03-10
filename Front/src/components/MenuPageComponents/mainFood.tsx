@@ -1,7 +1,7 @@
 import React from 'react'
 
-function mainFood() {
+function MainFood() {
   return <div>mainFood</div>
 }
 
-export default mainFood
+export default MainFood

@@ -4,18 +4,17 @@ import { useQuery } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
 
 const fakeCategories = [
-  'غذاهای ایرانی',
-  'غذاهای فست فود',
-  'غذاهای دریایی',
-  'غذاهای بین‌المللی',
-  'پیش‌غذاها',
-  'دسرها',
-  'نوشیدنی‌ها',
+  { id: 1, title: 'غذاهای ایرانی' },
+  { id: 2, title: 'غذاهای فست فود' },
+  { id: 3, title: 'غذاهای دریایی' },
+  { id: 4, title: 'غذاهای بین‌المللی' },
+  { id: 5, title: 'پیش‌غذاها' },
+  { id: 6, title: 'دسرها' },
+  { id: 7, title: 'نوشیدنی‌ها' },
 ]
 
 const fetchCategories = async () => {
   const response = await fetch('/api/v1/admin/category?page=1')
-
   if (!response.ok) {
     throw new Error('خطا در دریافت داده‌ها')
   }
@@ -23,26 +22,56 @@ const fetchCategories = async () => {
   return data.categories
 }
 
-const MenuPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState('غذاهای ایرانی')
+const fetchSubCategories = async (categoryId) => {
+  const response = await fetch(
+    `/api/v1/admin/subcategory/category/${categoryId}?page=1`,
+  )
+  if (!response.ok) {
+    throw new Error('خطا در دریافت ساب‌کاتگوری‌ها')
+  }
+  const data = await response.json()
+  return data.subCategories
+}
 
-  const handleChange = (event) => {
+const MenuPage = () => {
+  const [selectedCategory, setSelectedCategory] = useState(5)
+  const [selectedSubCategory, setSelectedSubCategory] = useState('')
+
+  const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value)
+    setSelectedSubCategory('')
   }
 
-  const { data, isLoading, error } = useQuery({
+  const {
+    data: categories,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['main category'],
     queryFn: fetchCategories,
   })
 
-  if (isLoading)
-    return <p className="text-center text-gray-500">در حال بارگذاری...</p>
-  if (error) {
-    console.log(error)
-    return <p className="text-center text-red-500">خطا در دریافت داده‌ها</p>
-  }
+  const {
+    data: subCategories,
+    isLoading: subCategoryLoading,
+    error: subCategoryError,
+  } = useQuery({
+    queryKey: ['subcategory', selectedCategory],
+    queryFn: () => fetchSubCategories(selectedCategory),
+    enabled: !!selectedCategory,
+  })
 
-  const limitedData = data.slice(0, 4)
+  if (isLoading)
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
+      </div>
+    )
+
+  if (error) return <p>خطا در دریافت داده‌ها</p>
+
+  // فیلتر کردن آیتم‌های 1 تا 4
+  const filteredCategories = categories?.slice(0, 4)
 
   return (
     <>
@@ -50,10 +79,11 @@ const MenuPage = () => {
 
       <div className="container mx-auto px-5">
         <div className="mt-5 flex h-16 w-full items-center justify-end gap-8 rounded-2xl bg-[#F8F8F8] p-7 shadow-md">
-          {limitedData.map((item) => (
+          {filteredCategories?.map((item) => (
             <div
               key={item.id}
               className="cursor-pointer text-lg font-medium text-[#5A5A5A] transition-all duration-300 ease-in-out hover:scale-110 hover:font-bold hover:text-[#417F56]"
+              onClick={() => setSelectedCategory(item.id)}
             >
               <h3>{item.title}</h3>
             </div>
@@ -71,18 +101,29 @@ const MenuPage = () => {
 
           <div className="relative w-52">
             <select
-              value={selectedCategory}
-              onChange={handleChange}
-              className="h-12 cursor-pointer appearance-none rounded-full bg-[#417F56] px-6 pr-10 text-white shadow-md transition-all duration-300 outline-none hover:bg-[#355E44] hover:shadow-lg focus:ring-2 focus:ring-[#2E5E3A]"
+              value={selectedSubCategory}
+              onChange={(e) => setSelectedSubCategory(e.target.value)}
+              className="h-12 w-50 cursor-pointer appearance-none rounded-full bg-[#417F56] px-6 pr-10 text-white shadow-md transition-all duration-300 outline-none hover:bg-[#355E44] hover:shadow-lg focus:ring-2 focus:ring-[#2E5E3A]"
             >
-              {fakeCategories.map((category, index) => (
-                <option key={index} value={category} className="text-black">
-                  {category}
+              <option value="">همه ساب‌کاتگوری‌ها</option>
+              {subCategoryLoading ? (
+                <option value="" className="text-gray-500">
+                  در حال بارگذاری...
                 </option>
-              ))}
+              ) : (
+                subCategories?.map((subcategory) => (
+                  <option
+                    key={subcategory.id}
+                    value={subcategory.id}
+                    className="text-black"
+                  >
+                    {subcategory.title}
+                  </option>
+                ))
+              )}
             </select>
 
-            <FiChevronDown className="absolute top-1/2 right-10 -translate-y-1/2 text-xl text-white transition-transform duration-300 ease-in-out" />
+            <FiChevronDown className="absolute top-1/2 right-5 -translate-y-1/2 text-xl text-white transition-transform duration-300 ease-in-out" />
           </div>
         </div>
       </div>
