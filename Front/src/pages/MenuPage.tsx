@@ -73,11 +73,15 @@ const MenuPage = () => {
       <SimpleSlider />
 
       <div className="container mx-auto px-5">
-        <div className="mt-5 flex h-16 w-full items-center justify-end gap-8 rounded-2xl bg-[#F8F8F8] p-7 shadow-md">
+        <div className="mt-5 flex flex-wrap items-center justify-end gap-4 rounded-2xl bg-[#F8F8F8] p-7 shadow-md sm:flex-row sm:gap-8">
           {filteredCategories?.map((item) => (
             <div
               key={item.id}
-              className="cursor-pointer text-lg font-medium text-[#5A5A5A] transition-all duration-300 ease-in-out hover:scale-110 hover:font-bold hover:text-[#417F56]"
+              className={`cursor-pointer text-lg font-medium text-[#5A5A5A] transition-all duration-300 ease-in-out hover:scale-110 hover:font-bold hover:text-[#417F56] ${
+                item.id === selectedCategory
+                  ? 'scale-110 border-b-2 border-[#417F56] font-bold text-[#417F56]'
+                  : ''
+              }`}
               onClick={() => setSelectedCategory(item.id)}
             >
               <h3>{item.title}</h3>
@@ -85,7 +89,7 @@ const MenuPage = () => {
           ))}
         </div>
 
-        <div className="mx-auto mt-6 flex w-full max-w-3xl items-center gap-4">
+        <div className="mx-auto mt-6 flex w-full max-w-3xl flex-col items-center gap-4 sm:flex-row sm:gap-6">
           <form className="flex-1">
             <input
               className="h-12 w-full rounded-full bg-[#ECECEC] px-5 text-black transition-all duration-300 outline-none focus:bg-white focus:ring-2 focus:ring-[#417F56]"
@@ -94,13 +98,17 @@ const MenuPage = () => {
             />
           </form>
 
-          <div className="relative w-52">
+          <div className="relative w-full sm:w-52">
             <select
               value={selectedSubCategory}
               onChange={(e) => setSelectedSubCategory(e.target.value)}
-              className="h-12 w-50 cursor-pointer appearance-none rounded-full bg-[#417F56] px-6 pr-10 text-white shadow-md transition-all duration-300 outline-none hover:bg-[#355E44] hover:shadow-lg focus:ring-2 focus:ring-[#2E5E3A]"
+              className="h-12 w-full cursor-pointer appearance-none rounded-full bg-[#417F56] px-6 pr-10 text-white shadow-md transition-all duration-300 outline-none hover:bg-[#355E44] hover:shadow-lg focus:ring-2 focus:ring-[#2E5E3A] sm:w-50"
             >
-              <option value="">همه ساب‌کاتگوری‌ها</option>
+              <option value="">
+                {filteredCategories?.find(
+                  (category) => category.id === selectedCategory,
+                )?.title || 'همه ساب‌کاتگوری‌ها'}
+              </option>
               {subCategoryLoading ? (
                 <option value="" className="text-gray-500">
                   در حال بارگذاری...
