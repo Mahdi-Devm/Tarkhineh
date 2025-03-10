@@ -23,30 +23,38 @@ const MenuPage = () => {
     return <p>خطا در دریافت داده‌ها</p>
   }
 
-  console.log(data)
-
-  if (data && data.length > 0) {
-    data.forEach((category) => {
-      console.log(category.title)
-    })
-  }
-
   const limitedData = data.slice(0, 4)
 
   return (
-    <div>
+    <>
       <SimpleSlider />
-      <div className="gap mt-5 flex h-[64px] w-full items-center justify-end gap-[32px] rounded-2xl bg-[#EDEDED] p-7 shadow-lg">
-        {limitedData.map((item) => (
-          <div
-            key={item.id}
-            className="cursor-pointer text-[20px] text-[#717171] transition-all duration-300 ease-in-out hover:scale-105 hover:text-[#417F56] hover:shadow-md"
-          >
-            <h3>{item.title}</h3>
+      <div className="container mx-auto px-5">
+        <div className="mt-5 flex h-16 w-full items-center justify-end gap-8 rounded-2xl bg-[#EDEDED] p-7 shadow-lg">
+          {limitedData.map((item) => (
+            <div
+              key={item.id}
+              className="cursor-pointer text-lg font-medium text-[#717171] transition-all duration-300 ease-in-out hover:scale-105 hover:font-bold hover:text-[#417F56]"
+            >
+              <h3>{item.title}</h3>
+            </div>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-6 flex w-full max-w-3xl items-center gap-4">
+          <form className="flex-1">
+            <input
+              className="h-12 w-full rounded-full bg-[#CBCBCB] px-5 text-black transition-all duration-300 outline-none focus:bg-white focus:ring-2 focus:ring-[#417F56]"
+              type="text"
+              placeholder="جستجو..."
+            />
+          </form>
+
+          <div className="flex h-12 items-center justify-center rounded-full bg-[#417F56] px-5 text-white shadow-md transition-all duration-300 hover:bg-[#355E44] hover:shadow-lg">
+            <span className="text-lg font-semibold">🍽 غذاهای ایرانی</span>
           </div>
-        ))}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
