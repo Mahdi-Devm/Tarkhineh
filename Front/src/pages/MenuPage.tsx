@@ -2,7 +2,7 @@ import { FiChevronDown } from 'react-icons/fi'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
-
+import { CiShoppingCart } from 'react-icons/ci'
 interface Category {
   id: number
   title: string
@@ -127,6 +127,18 @@ const MenuPage = () => {
             </select>
 
             <FiChevronDown className="absolute top-1/2 right-5 -translate-y-1/2 text-xl text-white transition-transform duration-300 ease-in-out" />
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <button className="flex h-10 w-44 cursor-pointer items-center justify-center gap-3 rounded-2xl border border-[#417F56] bg-white p-2 text-[#417F56] shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#417F56] hover:text-white">
+            <p className="text-base font-medium">تکمیل خرید</p>
+            <CiShoppingCart className="h-6 w-6" />
+          </button>
+
+          <div>
+            <p className="text-2xl font-semibold tracking-wide text-[#353535] capitalize">
+              غذاهای ایرانی
+            </p>
           </div>
         </div>
       </div>
