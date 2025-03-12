@@ -28,46 +28,45 @@ const fakeItems = [
 
 function Interests() {
   return (
-    <div>
+    <div className="p-4">
       <HeaderListProfile tilte="علاقمندی‌ها" />
-      <div className="p-2">
-        <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
-          <input
-            className="h-[41px] w-[80%] rounded-2xl bg-stone-100 p-2 md:w-[351px]"
-            type="text"
-            placeholder="جستجو"
-          />
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {dataInterests.map((item) => (
-              <p
-                key={item.name}
-                className="cursor-pointer rounded-2xl bg-[#EDEDED] px-4 py-2 text-sm hover:bg-[#417F56] hover:text-white"
-              >
-                {item.name}
-              </p>
-            ))}
-          </div>
-        </div>
 
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {fakeItems.map((item, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center gap-2 rounded-2xl bg-white p-4 shadow-md transition hover:scale-105 hover:shadow-lg"
+      <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
+        <input
+          className="h-[41px] w-full max-w-md rounded-2xl bg-stone-100 p-2"
+          type="text"
+          placeholder="جستجو"
+        />
+        <div className="flex w-full gap-2 overflow-x-auto md:justify-center">
+          {dataInterests.map((item) => (
+            <p
+              key={item.name}
+              className="cursor-pointer rounded-2xl bg-[#EDEDED] px-4 py-2 text-sm whitespace-nowrap hover:bg-[#417F56] hover:text-white"
             >
-              <img
-                src={item.img}
-                alt={item.name}
-                className="h-[180px] w-[300px] rounded-lg object-cover"
-              />
-              <h2 className="text-lg font-semibold">{item.name}</h2>
-              <p className="text-[#717171]">تومان {item.price}</p>
-              <button className="h-[40px] w-[80%] rounded-md bg-[#417F56] text-white hover:bg-[#315A3D]">
-                افزودن به سبد خرید
-              </button>
-            </div>
+              {item.name}
+            </p>
           ))}
         </div>
+      </div>
+
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {fakeItems.map((item, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center gap-2 rounded-2xl bg-white p-4 shadow-md transition hover:scale-105 hover:shadow-lg"
+          >
+            <img
+              src={item.img}
+              alt={item.name}
+              className="h-[180px] w-full max-w-xs rounded-lg object-cover"
+            />
+            <h2 className="text-lg font-semibold">{item.name}</h2>
+            <p className="text-[#717171]">تومان {item.price}</p>
+            <button className="h-[40px] w-[80%] rounded-md bg-[#417F56] text-white hover:bg-[#315A3D]">
+              افزودن به سبد خرید
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   )
