@@ -4,7 +4,7 @@ import QuestionBox from '../components/FAQ-Rules-Privacy/QuestionBox'
 import { FAQData } from '../constants/DataFAQ'
 function FAQ() {
   return (
-    <>
+    <div className="mx-auto max-w-[1224px]">
       <div className="overflow-hidden rounded-2xl">
         <div className="absolute left-0 z-10 h-[336px] w-full bg-green-400/0 backdrop-brightness-50 backdrop-grayscale-100"></div>
         <ImageHeaderForIformatian
@@ -18,7 +18,7 @@ function FAQ() {
         <QuestionBox Data={FAQData} />
         
       </div>
-    </>
+    </div>
   )
 }
 

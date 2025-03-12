@@ -4,7 +4,7 @@ import ImageHeaderForIformatian from "../components/ImageHeaderForIformatian"
 import { RulesData } from "../constants/DataRules"
 
 function RulesPage() {
-  return <>
+  return <div className="mx-auto max-w-[1224px]">
   <div className="overflow-hidden rounded-2xl">
     <div className="absolute left-0 z-10 h-[336px] w-full bg-green-400/0 backdrop-brightness-50 "></div>
     <ImageHeaderForIformatian
@@ -18,7 +18,7 @@ function RulesPage() {
     <QuestionBox Data={RulesData} />
     
   </div>
-</>
+</div>
 }
 
 export default RulesPage
