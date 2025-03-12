@@ -27,8 +27,7 @@ function UserAccessList() {
   ]
 
   return (
-    <div className="mt-2 h-[206px] w-[272px] space-y-1">
-      {' '}
+    <div className="mt-2 h-auto w-full space-y-1 sm:w-full">
       {menuItems.map((item, index) => {
         const isActive = location.pathname === item.path
 
@@ -36,11 +35,11 @@ function UserAccessList() {
           <NavLink
             to={item.path}
             key={index}
-            className={`flex h-[38px] w-[264px] cursor-pointer items-center justify-between rounded-md p-2 transition duration-300 ${
+            className={`flex h-[38px] w-full cursor-pointer items-center justify-between rounded-md p-2 transition duration-300 ${
               isActive ? 'bg-[#417F56] text-white' : 'hover:bg-[#E5F2E9]'
             }`}
           >
-            <h1 className="text-[16px]">{item.title}</h1>
+            <h1 className="text-[16px] sm:text-sm">{item.title}</h1>
             <div
               className={`h-[20px] w-[20px] text-[25px] ${isActive ? 'text-white' : 'text-[#417F56]'}`}
             >
