@@ -72,20 +72,20 @@ function UserAccessList() {
 
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
-          <div className="scale-in rounded-lg bg-white p-8 shadow-lg transition-transform duration-300">
-            <h1 className="mb-10 text-center text-3xl text-[#0C0C0C]">خروح</h1>
-            <h2 className="mb-4 text-lg font-semibold text-[#353535]">
+          <div className="scale-in w-full max-w-[90%] rounded-lg bg-white p-6 shadow-lg transition-transform duration-300 sm:p-8 md:w-[400px] lg:w-[500px]">
+            <h1 className="mb-8 text-center text-3xl text-[#0C0C0C]">خروج</h1>
+            <h2 className="mb-4 text-center text-lg font-medium text-[#5c5b5b]">
               آیا مایل به خروج از حساب کاربری خود هستید؟
             </h2>
-            <div className="flex justify-around">
+            <div className="flex flex-col justify-around sm:flex-row">
               <button
-                className="w-[117px] rounded-md bg-[#FFF2F2] px-4 py-2 text-xl text-red-600 shadow-sm transition-transform duration-200 hover:scale-105"
+                className="mb-4 w-[117px] rounded-md bg-[#FFF2F2] px-4 py-2 text-xl text-red-600 shadow-sm transition-transform duration-200 hover:scale-105 sm:mb-0 sm:w-[140px]"
                 onClick={() => setShowModal(false)}
               >
                 خیر
               </button>
               <button
-                className="w-[117px] rounded-md bg-[#417F56] px-4 py-2 text-xl text-white shadow-sm transition-transform duration-200 hover:scale-105"
+                className="w-[117px] rounded-md bg-[#417F56] px-4 py-2 text-xl text-white shadow-sm transition-transform duration-200 hover:scale-105 sm:w-[140px]"
                 onClick={confirmLogout}
               >
                 بله
