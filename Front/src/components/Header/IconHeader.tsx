@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { CiUser, CiShoppingCart, CiSearch, CiLogin } from 'react-icons/ci'
+import { useNavigate } from 'react-router-dom'
 import Modal from '../Login/ModalLogin'
 import Cookies from 'js-cookie'
 
@@ -7,6 +8,7 @@ const IconHeader = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const token = Cookies.get('accessToken')
@@ -27,9 +29,12 @@ const IconHeader = () => {
     setIsModalOpen((prev) => !prev)
   }
 
-  const handleLogout = () => {
-    Cookies.remove('accessToken')
-    setIsAuthenticated(false)
+  const handleUserClick = () => {
+    if (isAuthenticated) {
+      navigate('/profile')
+    } else {
+      toggleModal()
+    }
   }
 
   return (
@@ -37,7 +42,7 @@ const IconHeader = () => {
       <div className="flex w-[154px] gap-2">
         <div
           className="h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px]"
-          onClick={isAuthenticated ? handleLogout : toggleModal}
+          onClick={handleUserClick}
         >
           {isAuthenticated ? (
             <CiUser className="h-[24px] w-[24px]" />
