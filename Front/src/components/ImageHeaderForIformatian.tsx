@@ -27,7 +27,7 @@ function ImageHeaderForIformatian({ image, title, height }: Images) {
         onLoad={() => setLoaded(true)}
       />
 
-      <h1 className="text-xl font-bold text-white sm:text-2xl md:text-3xl">
+      <h1 className="text-xl font-bold z-30 text-white sm:text-2xl md:text-3xl">
         {title}
       </h1>
 
