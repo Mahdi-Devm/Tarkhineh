@@ -5,7 +5,7 @@ import { FAQData } from '../constants/DataFAQ'
 function FAQ() {
   return (
     <>
-      <div className="overflow-hidden rounded-2xl bg-amber-200">
+      <div className="overflow-hidden rounded-2xl">
         <div className="absolute left-0 z-10 h-[336px] w-full bg-green-400/0 backdrop-brightness-50 backdrop-grayscale-100"></div>
         <ImageHeaderForIformatian
           title="سوالات متداول از ترخینه"
@@ -14,7 +14,7 @@ function FAQ() {
         />
       </div>
       <div className="mt-5 overflow-hidden text-right">
-        <Tag />
+        <Tag  />
         <QuestionBox Data={FAQData} />
         
       </div>
