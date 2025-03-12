@@ -1,19 +1,15 @@
-import Profile from "../components/Profile/Profile";
-import AddaddressProfile from "../components/Profile/AddaddressProfile";
-import InterestsProfile from "../components/Profile/InterestsProfile";
-import LogoutProfile from "../components/Profile/LogoutProfile";
-import TrackingordersProfile from "../components/Profile/TrackingordersProfile";
+import { Outlet } from 'react-router-dom'
+import SideBarProfile from '../components/Profile/SideBarProfile'
 
 function ProfileLayoutPage() {
   return (
-    <div>
-      <Profile />
-      <InterestsProfile />
-      <AddaddressProfile />
-      <LogoutProfile />
-      <TrackingordersProfile />
+    <div className="flex justify-center gap-5">
+      <div className="h-[494px] w-[912px] rounded-md border-1 border-[#CBCBCB]">
+        <Outlet />
+      </div>
+      <SideBarProfile />
     </div>
-  );
+  )
 }
 
-export default ProfileLayoutPage;
+export default ProfileLayoutPage

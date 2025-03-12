@@ -8,6 +8,7 @@ import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useAuth } from '../../Context/AuthContext'
+import { useNumber } from '../../Context/NumberUserForProfile'
 
 interface ModalProps {
   isMobile: boolean
@@ -34,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({
 
   const queryClient = useQueryClient()
   const { setIsAuthenticated } = useAuth()
-
+  const { setMobile } = useNumber()
   const [timer, setTimer] = React.useState<number>(120)
 
   React.useEffect(() => {
@@ -117,6 +118,7 @@ const Modal: React.FC<ModalProps> = ({
   })
 
   const onSubmit = (data: { mobile: string }) => {
+    setMobile(data.mobile)
     loginMutation.mutate({ mobile: data.mobile })
   }
 
