@@ -1,9 +1,12 @@
+import { useNumber } from '../../Context/NumberUserForProfile'
+
 function UserInformation() {
+  const { mobile } = useNumber()
   return (
     <div className="mt-3 flex h-[88px] justify-center gap-10">
       <div className="flex flex-col items-center justify-center gap-y-2">
         <h1 className="text-[18px] text-[#353535]">کاربر ترخینه</h1>
-        <p className="text-[12px] text-[#717171]">09134117601</p>
+        <p className="text-[12px] text-[#717171]">{mobile}</p>
       </div>
       <div className="flex">
         <img

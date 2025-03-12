@@ -6,6 +6,7 @@ import Profilelayoute from './components/Profile/Profilelayoute'
 import Trackingorders from './components/Profile/Trackingorders'
 import Interests from './components/Profile/Interests'
 import Addresses from './components/Profile/addresses'
+import { NumberProvider } from './Context/NumberUserForProfile'
 
 const Loader = () => (
   <div className="flex h-screen items-center justify-center">
@@ -35,39 +36,44 @@ const queryClient = new QueryClient()
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Router>
-          <Suspense fallback={<Loader />}>
-            <Routes>
-              <Route element={<PageLayoute />}>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/awarding-agent" element={<AwardingAgentPage />} />
-                <Route path="/branch" element={<BranchPage />} />
-                <Route
-                  path="/completion-info"
-                  element={<CompletionInformation />}
-                />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/menu" element={<MenuPage />} />
-                <Route path="/menu:category" element={<MenuPage />} />
-                <Route path="/payment" element={<PaymentPage />} />
-                <Route path="/privacy" element={<PrivacyPage />} />
-                <Route path="/profile" element={<ProfileLayoutPage />}>
-                  <Route index element={<Profilelayoute />} />
-                  <Route path="Profilelayoute" element={<Profilelayoute />} />
-                  <Route path="Trackingorders" element={<Trackingorders />} />
-                  <Route path="Interests" element={<Interests />} />
-                  <Route path="Addresses" element={<Addresses />} />
+      <NumberProvider>
+        <AuthProvider>
+          <Router>
+            <Suspense fallback={<Loader />}>
+              <Routes>
+                <Route element={<PageLayoute />}>
+                  <Route path="/" element={<MainPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route
+                    path="/awarding-agent"
+                    element={<AwardingAgentPage />}
+                  />
+                  <Route path="/branch" element={<BranchPage />} />
+                  <Route
+                    path="/completion-info"
+                    element={<CompletionInformation />}
+                  />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/menu" element={<MenuPage />} />
+                  <Route path="/menu:category" element={<MenuPage />} />
+                  <Route path="/payment" element={<PaymentPage />} />
+                  <Route path="/privacy" element={<PrivacyPage />} />
+                  <Route path="/profile" element={<ProfileLayoutPage />}>
+                    <Route index element={<Profilelayoute />} />
+                    <Route path="Profilelayoute" element={<Profilelayoute />} />
+                    <Route path="Trackingorders" element={<Trackingorders />} />
+                    <Route path="Interests" element={<Interests />} />
+                    <Route path="Addresses" element={<Addresses />} />
+                  </Route>
+                  <Route path="/rules" element={<RulesPage />} />
+                  <Route path="/cart" element={<ShopingCartPage />} />
                 </Route>
-                <Route path="/rules" element={<RulesPage />} />
-                <Route path="/cart" element={<ShopingCartPage />} />
-              </Route>
-            </Routes>
-          </Suspense>
-        </Router>
-      </AuthProvider>
+              </Routes>
+            </Suspense>
+          </Router>
+        </AuthProvider>
+      </NumberProvider>
     </QueryClientProvider>
   )
 }
