@@ -1,19 +1,13 @@
-import Profile from "../components/Profile/Profile";
-import AddaddressProfile from "../components/Profile/AddaddressProfile";
-import InterestsProfile from "../components/Profile/InterestsProfile";
-import LogoutProfile from "../components/Profile/LogoutProfile";
-import TrackingordersProfile from "../components/Profile/TrackingordersProfile";
+import Profile from '../components/Profile/Profile'
+import SideBarProfile from '../components/Profile/SideBarProfile'
 
 function ProfileLayoutPage() {
   return (
-    <div>
+    <div className="flex justify-center gap-5">
       <Profile />
-      <InterestsProfile />
-      <AddaddressProfile />
-      <LogoutProfile />
-      <TrackingordersProfile />
+      <SideBarProfile />
     </div>
-  );
+  )
 }
 
-export default ProfileLayoutPage;
+export default ProfileLayoutPage
