@@ -1,4 +1,4 @@
-export const Rules = [
+export const RulesData = [
     {
       title: 'حداقل سفارش',
       description:

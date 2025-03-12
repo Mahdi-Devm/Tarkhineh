@@ -1,4 +1,4 @@
-export const Privacy = [
+export const PrivacyData = [
   {
     title: 'حریم خصوصی',
     description:

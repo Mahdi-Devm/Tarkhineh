@@ -5,7 +5,9 @@ import { AuthProvider } from './Context/AuthContext'
 
 const Loader = () => (
   <div className="flex h-screen items-center justify-center">
-    <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
+    <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]">
+      
+    </div>
   </div>
 )
 
