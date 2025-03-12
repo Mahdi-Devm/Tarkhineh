@@ -1,7 +1,11 @@
-import React from 'react'
+import HeaderListProfile from './HeaderListProfile'
 
 function Addresses() {
-  return <div>Addresses</div>
+  return (
+    <div>
+      <HeaderListProfile tilte="آدرس‌های من" />
+    </div>
+  )
 }
 
 export default Addresses

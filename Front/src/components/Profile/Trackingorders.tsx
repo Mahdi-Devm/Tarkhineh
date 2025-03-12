@@ -1,7 +1,11 @@
-import React from 'react'
+import HeaderListProfile from './HeaderListProfile'
 
 function Trackingorders() {
-  return <div>Trackingorders</div>
+  return (
+    <div>
+      <HeaderListProfile tilte="پیگیری سفارشات" />
+    </div>
+  )
 }
 
 export default Trackingorders

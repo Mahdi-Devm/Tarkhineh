@@ -1,7 +1,11 @@
-import React from 'react'
+import HeaderListProfile from './HeaderListProfile'
 
 function Profilelayoute() {
-  return <div>Profilelayoute</div>
+  return (
+    <div>
+      <HeaderListProfile tilte="پروفایل من" />
+    </div>
+  )
 }
 
 export default Profilelayoute

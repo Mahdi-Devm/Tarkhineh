@@ -1,7 +1,11 @@
-import React from 'react'
+import HeaderListProfile from './HeaderListProfile'
 
 function Interests() {
-  return <div>Interests</div>
+  return (
+    <div>
+      <HeaderListProfile tilte="علاقمندی‌ها" />
+    </div>
+  )
 }
 
 export default Interests
