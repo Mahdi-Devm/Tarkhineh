@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
 import { CiShoppingCart } from 'react-icons/ci'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
+import { FaStar, FaRegStar } from 'react-icons/fa'
 
 interface Category {
   id: number
@@ -18,6 +20,10 @@ interface Product {
   id: number
   title: string
   price: number
+  image_url: string
+  description: string
+  rating: number // برای ذخیره رتبه بندی ستاره
+  isFavorite: boolean // برای ذخیره وضعیت علاقه مندی
 }
 
 const fetchCategories = async (): Promise<Category[]> => {
@@ -96,6 +102,25 @@ const MenuPage = () => {
 
   const filteredCategories = categories?.slice(0, 4)
 
+  const toggleFavorite = (productId: number) => {
+    // Toggle the favorite status for the product
+    const updatedProducts = products?.map((product) =>
+      product.id === productId
+        ? { ...product, isFavorite: !product.isFavorite }
+        : product,
+    )
+    // Set new products state with updated favorites (this could be managed globally or via state)
+    console.log(updatedProducts)
+  }
+
+  const handleStarClick = (productId: number, rating: number) => {
+    // Update rating of the product (mock implementation, you can replace it with your API call)
+    const updatedProducts = products?.map((product) =>
+      product.id === productId ? { ...product, rating: rating } : product,
+    )
+    console.log(updatedProducts)
+  }
+
   return (
     <>
       <SimpleSlider />
@@ -168,13 +193,37 @@ const MenuPage = () => {
               >
                 <img
                   src={`http://localhost:3000/${product.image_url}`}
-                  alt=""
+                  alt={product.title}
                 />
-                <h4 className="text-lg font-semibold">{product.name}</h4>
+                <h4 className="text-lg font-semibold">{product.title}</h4>
                 <p>{product.description}</p>
                 <p className="text-base text-[#5A5A5A]">
                   {product.price} تومان
                 </p>
+
+                {/* Displaying stars */}
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, index) => (
+                    <span
+                      key={index}
+                      onClick={() => handleStarClick(product.id, index + 1)}
+                    >
+                      {index < product.rating ? (
+                        <FaStar className="text-yellow-500" />
+                      ) : (
+                        <FaRegStar className="text-gray-400" />
+                      )}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Displaying favorite heart */}
+                <div
+                  className="mt-2 cursor-pointer text-red-500"
+                  onClick={() => toggleFavorite(product.id)}
+                >
+                  {product.isFavorite ? <FaHeart /> : <FaRegHeart />}
+                </div>
               </div>
             ))}
           </div>
