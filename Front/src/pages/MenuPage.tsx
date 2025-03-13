@@ -18,7 +18,7 @@ interface SubCategory {
 
 interface Product {
   id: number
-  title: string
+  name: string
   price: number
   image_url: string
   description: string
@@ -75,11 +75,10 @@ const MenuPage = () => {
     queryFn: fetchCategories,
   })
 
-  const {
-    data: subCategories,
-    isLoading: subCategoryLoading,
-    refetch: refetchSubCategories,
-  } = useQuery<SubCategory[], Error>({
+  const { data: subCategories, refetch: refetchSubCategories } = useQuery<
+    SubCategory[],
+    Error
+  >({
     queryKey: ['subcategory', selectedCategory],
     queryFn: () => fetchSubCategories(selectedCategory),
     enabled: !!selectedCategory,
@@ -99,7 +98,7 @@ const MenuPage = () => {
     if (subCategories && subCategories.length > 0 && !selectedSubCategory) {
       setSelectedSubCategory(subCategories[0].id.toString())
     }
-  }, [subCategories, selectedSubCategory])
+  }, [subCategories])
 
   useEffect(() => {
     if (selectedCategory) {
