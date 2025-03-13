@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
 import { CiShoppingCart } from 'react-icons/ci'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
-import { FaStar, FaRegStar } from 'react-icons/fa'
 
 interface Category {
   id: number
@@ -22,9 +21,8 @@ interface Product {
   price: number
   image_url: string
   description: string
-  rating: number // برای ذخیره رتبه بندی ستاره
-  isFavorite: boolean // برای ذخیره وضعیت علاقه مندی
-}
+  rating: number 
+  isFavorite: boolean
 
 const fetchCategories = async (): Promise<Category[]> => {
   const response = await fetch(
@@ -182,58 +180,81 @@ const MenuPage = () => {
             <FiChevronDown className="absolute top-1/2 right-5 -translate-y-1/2 text-xl text-white transition-transform duration-300 ease-in-out" />
           </div>
         </div>
-
-        <div className="mt-6">
-          <h3 className="text-2xl font-semibold">محصولات</h3>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {products?.map((product) => (
-              <div
-                key={product.id}
-                className="rounded-lg bg-white p-4 shadow-md transition-all hover:scale-105"
-              >
-                <img
-                  src={`http://localhost:3000/${product.image_url}`}
-                  alt={product.title}
-                />
-                <h4 className="text-lg font-semibold">{product.title}</h4>
-                <p>{product.description}</p>
-                <p className="text-base text-[#5A5A5A]">
-                  {product.price} تومان
-                </p>
-
-                {/* Displaying stars */}
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, index) => (
-                    <span
-                      key={index}
-                      onClick={() => handleStarClick(product.id, index + 1)}
-                    >
-                      {index < product.rating ? (
-                        <FaStar className="text-yellow-500" />
-                      ) : (
-                        <FaRegStar className="text-gray-400" />
-                      )}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Displaying favorite heart */}
-                <div
-                  className="mt-2 cursor-pointer text-red-500"
-                  onClick={() => toggleFavorite(product.id)}
-                >
-                  {product.isFavorite ? <FaHeart /> : <FaRegHeart />}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         <div className="mt-10 flex items-center justify-between">
           <button className="flex h-10 w-44 cursor-pointer items-center justify-center gap-3 rounded-2xl border border-[#417F56] bg-white p-2 text-[#417F56] shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#417F56] hover:text-white">
             <p className="text-base font-medium">تکمیل خرید</p>
             <CiShoppingCart className="h-6 w-6" />
           </button>
+        </div>
+
+        <div className="mt-6">
+          <h3 className="text-2xl font-semibold">محصولات</h3>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+            {products?.map((product) => (
+              <div
+                key={product.id}
+                className="flex items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all hover:scale-105"
+                style={{ minWidth: '600px', minHeight: '158px' }}
+              >
+                <div className="flex h-[158px] w-[600px] items-center justify-between">
+                  <div className="flex w-2/3 flex-col justify-between">
+                    <div className="flex items-center justify-between">
+                      <div
+                        className="cursor-pointer"
+                        onClick={() => toggleFavorite(product.id)}
+                      >
+                        {product.isFavorite ? (
+                          <FaHeart className="h-[24px] w-[24px] text-red-500" />
+                        ) : (
+                          <FaRegHeart className="h-[24px] w-[24px] text-gray-500" />
+                        )}
+                      </div>
+                      <h4 className="text-[20px] font-semibold">
+                        {product.name}
+                      </h4>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <p className="text-[18px] text-[#353535]">
+                        {product.price} تومان
+                      </p>
+                      <p className="text-[14px] text-[##353535]">
+                        {product.description}
+                      </p>
+                    </div>
+                    <div className="mt-8 flex items-center justify-center gap-1">
+                      <button className="flex h-[40px] w-[244px] items-center justify-center rounded-md bg-[#417F56] font-semibold text-white">
+                        افزودن به سبد خرید
+                      </button>
+                      {[...Array(5)].map((_, index) => (
+                        <svg
+                          key={index}
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-[24px] w-[24px] cursor-pointer text-yellow-400"
+                          fill={index < product.rating ? 'yellow' : 'none'}
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          onClick={() => handleStarClick(product.id, index + 1)}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 17.75l-6.36 3.34L7.3 13.5 2 8.63l7.36-.63L12 2l2.64 5.37 7.36.63-5.3 4.87 1.66 7.58z"
+                          />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+
+                  <img
+                    src={`http://localhost:3000/${product.image_url}`}
+                    alt=""
+                    className="h-[158px] w-[169px] rounded-md object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
