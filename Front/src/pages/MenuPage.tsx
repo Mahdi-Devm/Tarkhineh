@@ -14,7 +14,9 @@ interface SubCategory {
 }
 
 const fetchCategories = async (): Promise<Category[]> => {
-  const response = await fetch('/api/v1/admin/category?page=1')
+  const response = await fetch(
+    'http://localhost:3000/api/v1/admin/category?page=1',
+  )
   if (!response.ok) {
     throw new Error('خطا در دریافت داده‌ها')
   }
@@ -26,7 +28,7 @@ const fetchSubCategories = async (
   categoryId: number,
 ): Promise<SubCategory[]> => {
   const response = await fetch(
-    `/api/v1/admin/subcategory/category/${categoryId}?page=1`,
+    `http://localhost:3000/api/v1/admin/subcategory/category/${categoryId}?page=1`,
   )
   if (!response.ok) {
     throw new Error('خطا در دریافت ساب‌کاتگوری‌ها')
