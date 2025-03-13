@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
 import { CiShoppingCart } from 'react-icons/ci'
+
 interface Category {
   id: number
   title: string
@@ -11,6 +12,12 @@ interface Category {
 interface SubCategory {
   id: number
   title: string
+}
+
+interface Product {
+  id: number
+  title: string
+  price: number
 }
 
 const fetchCategories = async (): Promise<Category[]> => {
@@ -28,13 +35,24 @@ const fetchSubCategories = async (
   categoryId: number,
 ): Promise<SubCategory[]> => {
   const response = await fetch(
-    `http://localhost:3000/api/v1/admin/subcategory/category/${categoryId}?page=1`,
+    `http://localhost:3000/api/v1/admin/subCategories/category/${categoryId}?page=1`,
   )
   if (!response.ok) {
     throw new Error('خطا در دریافت ساب‌کاتگوری‌ها')
   }
   const data = await response.json()
   return data.subCategories
+}
+
+const fetchProduct = async (): Promise<Product[]> => {
+  const response = await fetch(
+    `http://localhost:3000/api/v1/admin/products?page=1`,
+  )
+  if (!response.ok) {
+    throw new Error('خطا در دریافت محصولات')
+  }
+  const data = await response.json()
+  return data.products
 }
 
 const MenuPage = () => {
@@ -59,7 +77,15 @@ const MenuPage = () => {
     enabled: !!selectedCategory,
   })
 
-  if (isLoading)
+  const { data: products, isLoading: productsLoading } = useQuery<
+    Product[],
+    Error
+  >({
+    queryKey: ['products'],
+    queryFn: fetchProduct,
+  })
+
+  if (isLoading || productsLoading)
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
@@ -131,17 +157,34 @@ const MenuPage = () => {
             <FiChevronDown className="absolute top-1/2 right-5 -translate-y-1/2 text-xl text-white transition-transform duration-300 ease-in-out" />
           </div>
         </div>
-        <div className="flex items-center justify-between">
+
+        <div className="mt-6">
+          <h3 className="text-2xl font-semibold">محصولات</h3>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {products?.map((product) => (
+              <div
+                key={product.id}
+                className="rounded-lg bg-white p-4 shadow-md transition-all hover:scale-105"
+              >
+                <img
+                  src={`http://localhost:3000/${product.image_url}`}
+                  alt=""
+                />
+                <h4 className="text-lg font-semibold">{product.name}</h4>
+                <p>{product.description}</p>
+                <p className="text-base text-[#5A5A5A]">
+                  {product.price} تومان
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-10 flex items-center justify-between">
           <button className="flex h-10 w-44 cursor-pointer items-center justify-center gap-3 rounded-2xl border border-[#417F56] bg-white p-2 text-[#417F56] shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#417F56] hover:text-white">
             <p className="text-base font-medium">تکمیل خرید</p>
             <CiShoppingCart className="h-6 w-6" />
           </button>
-
-          <div>
-            <p className="text-2xl font-semibold tracking-wide text-[#353535] capitalize">
-              غذاهای ایرانی
-            </p>
-          </div>
         </div>
       </div>
     </>
