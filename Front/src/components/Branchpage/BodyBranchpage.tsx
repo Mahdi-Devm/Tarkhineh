@@ -22,9 +22,9 @@ function BodyBranchpage() {
   })
 
   const productsPerPage = window.innerWidth >= 1300 ? 5 : 4
-  const [currentIndex1, setCurrentIndex1] = useState(0) // برای اسلایدر اول (پیشنهاد ویژه)
-  const [currentIndex2, setCurrentIndex2] = useState(0) // برای اسلایدر دوم (غذاهای محبوب)
-  const [currentIndex3, setCurrentIndex3] = useState(0) // برای اسلایدر سوم (غذاهای غیر ایرانی)
+  const [currentIndex1, setCurrentIndex1] = useState(0)
+  const [currentIndex2, setCurrentIndex2] = useState(0)
+  const [currentIndex3, setCurrentIndex3] = useState(0)
 
   const showNext = (sliderId, currentIndex, setCurrentIndex) => {
     if (currentIndex < data.length - productsPerPage) {
@@ -46,7 +46,6 @@ function BodyBranchpage() {
 
   return (
     <>
-      {/* اسلایدر اول: پیشنهاد ویژه */}
       <h1 className="mt-5 mr-8 text-right text-2xl font-semibold">
         پیشنهاد ویژه
       </h1>
