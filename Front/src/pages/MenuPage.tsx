@@ -32,12 +32,14 @@ const fetchSubCategories = async (
     throw new Error('خطا در دریافت ساب‌کاتگوری‌ها')
   }
   const data = await response.json()
+  console.log('subs',data)
   return data.subCategories
 }
 
 const MenuPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<number>(5)
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
+
 
   const {
     data: categories,
