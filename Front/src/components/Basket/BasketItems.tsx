@@ -4,10 +4,7 @@ const BasketItems = () => {
   return (
     <main className="mx-auto my-6 flex max-w-[1224px] flex-col gap-3 rounded-md max-md:p-3 max-sm:border sm:flex-row-reverse md:my-12 md:h-[554px]">
           <div className="h-[300px] w-full space-y-3 overflow-y-auto rounded-xl border border-zinc-400 p-3 sm:h-full">
-            <div className="h-[160px] w-full bg-green-200"></div>
-            <div className="h-[160px] w-full bg-green-200"></div>
-            <div className="h-[160px] w-full bg-green-200"></div>
-            <div className="h-[160px] w-full bg-green-200"></div>
+            
           </div>
           <div className="divide gap- h-fit min-h-[330px] w-full divide-y-2 divide-zinc-300 rounded-xl border px-4 sm:py-5 py-3 max-sm:border-t sm:border-zinc-400 md:max-w-[470px] md:text-[16px]">
             <div className="flex w-full justify-between py-3">
