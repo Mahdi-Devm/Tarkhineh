@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 interface Props {
   pathName: string
@@ -7,7 +6,7 @@ interface Props {
 const PaymentBreadcrumb = ({ pathName }: Props) => {
 
   return (
-    <div className="mx-auto w-full md:text-xl text-[12px] text-center text-[#CBCBCB]">
+    <div className="mx-auto w-full sm:text-xl text-[12px] text-center text-[#CBCBCB]">
       <Link className={pathName.includes('/cart')?'text-green-800':''} to={'/cart'}>
         سبد خرید
       </Link>
