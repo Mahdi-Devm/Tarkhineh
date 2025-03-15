@@ -3,8 +3,8 @@ import SideBarProfile from '../components/Profile/SideBarProfile'
 
 function ProfileLayoutPage() {
   return (
-    <div className="flex justify-center gap-5">
-      <div className="h-[494px] w-[912px] rounded-md border-1 border-[#CBCBCB]">
+    <div className="flex flex-col-reverse items-center gap-5 md:flex-row md:justify-center">
+      <div className="xs:w-[90%] h-auto w-[330px] rounded-md border border-[#CBCBCB] sm:w-[80%] md:h-[494px] md:w-[912px]">
         <Outlet />
       </div>
       <SideBarProfile />

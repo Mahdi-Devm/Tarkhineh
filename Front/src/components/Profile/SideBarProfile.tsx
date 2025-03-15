@@ -3,9 +3,9 @@ import UserInformation from './UserInformation'
 
 function SideBarProfile() {
   return (
-    <div className="h-[342px] w-[288px] rounded-md border-1 border-[#CBCBCB] p-2">
+    <div className="xs:h-[200px] xs:w-[200px] h-[342px] w-[288px] rounded-md border border-[#CBCBCB] p-2 sm:h-[280px] sm:w-[240px] md:h-auto md:w-[300px]">
       <UserInformation />
-      <hr className="w-[272px] text-[#757575]" />
+      <hr className="w-full text-[#757575]" />
       <UserAccessList />
     </div>
   )
