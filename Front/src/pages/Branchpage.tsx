@@ -1,5 +1,5 @@
 import BodyBranchpage from '../components/Branchpage/BodyBranchpage'
-import FooterBranchpage from '../components/Branchpage/FooterBranchpage'
+import TestimonialsSlider from '../components/Branchpage/FooterBranchpage'
 import SimpleSlider from '../components/SLider/SliderNext'
 
 function Branchpage() {
@@ -7,7 +7,7 @@ function Branchpage() {
     <div>
       <SimpleSlider />
       <BodyBranchpage />
-      <FooterBranchpage />
+      <TestimonialsSlider />
     </div>
   )
 }
