@@ -14,7 +14,7 @@ console.log(cardItems)
     <>
       <PaymentBreadcrumb pathName={pathname} />
       {cardItems.length > 0 ? (
-        <BasketItems/>
+        <BasketItems items={cardItems} />
       ) : (
         <EmptyCard/>
       )}
