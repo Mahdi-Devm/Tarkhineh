@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { motion } from 'framer-motion'
 
 interface MenuItemProps {
   img: string
@@ -9,7 +10,11 @@ interface MenuItemProps {
 
 const MenuItem: FC<MenuItemProps> = ({ img, description, index, isMobile }) => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: index * 0.2 }}
+      viewport={{ once: true }}
       className={`relative ${
         isMobile ? 'mb-18 flex h-[130px] w-[140px]' : 'flex h-[220px] w-[280px]'
       } flex-col items-center justify-center rounded-lg bg-[#417F56] shadow-xl`}
@@ -27,7 +32,6 @@ const MenuItem: FC<MenuItemProps> = ({ img, description, index, isMobile }) => {
               : '-top-25 w-[260px]'
         }`}
       />
-
       <div
         className={`absolute -bottom-6 ${
           isMobile
@@ -37,7 +41,7 @@ const MenuItem: FC<MenuItemProps> = ({ img, description, index, isMobile }) => {
       >
         {description}
       </div>
-    </div>
+    </motion.div>
   )
 }
 

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react'
 
 interface NumberContextType {
   mobile: string
@@ -7,14 +13,16 @@ interface NumberContextType {
 
 const NumberContext = createContext<NumberContextType | undefined>(undefined)
 
-export const NumberProvider: React.FC = ({ children }) => {
+interface NumberProviderProps {
+  children: ReactNode
+}
+
+export const NumberProvider: React.FC<NumberProviderProps> = ({ children }) => {
   const savedMobile = localStorage.getItem('mobile')
   const [mobile, setMobile] = useState<string>(savedMobile || '')
 
   useEffect(() => {
-    if (mobile) {
-      localStorage.setItem('mobile', mobile)
-    }
+    if (mobile) localStorage.setItem('mobile', mobile)
   }, [mobile])
 
   return (
@@ -26,8 +34,6 @@ export const NumberProvider: React.FC = ({ children }) => {
 
 export const useNumber = (): NumberContextType => {
   const context = useContext(NumberContext)
-  if (!context) {
-    throw new Error('useNumber must be used within an NumberProvider')
-  }
+  if (!context) throw new Error('useNumber باید در NumberProvider استفاده شود')
   return context
 }

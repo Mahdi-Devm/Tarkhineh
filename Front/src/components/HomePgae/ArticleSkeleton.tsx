@@ -1,17 +1,45 @@
+import { useEffect, useState } from 'react'
 import { branches } from '../../constants/ItemBlogMainPAge'
 
 function ArticleSkeleton() {
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+        }
+      },
+      { threshold: 0.5 },
+    )
+
+    const element = document.querySelector('#article-skeleton')
+    if (element) {
+      observer.observe(element)
+    }
+
+    return () => {
+      if (element) {
+        observer.unobserve(element)
+      }
+    }
+  }, [])
+
   return (
     <div className="p-4 font-sans sm:p-6">
       <h1 className="mb-6 text-center text-2xl font-bold text-gray-800 sm:mb-8 sm:text-3xl">
-        ترضیبه گردی
+        ترخیبه گردی
       </h1>
 
-      <div className="mb-5 flex w-full flex-wrap justify-center gap-4 sm:gap-6">
+      <div
+        id="article-skeleton"
+        className="mb-5 flex w-full flex-wrap justify-center gap-4 sm:gap-6"
+      >
         {branches.map((branch) => (
           <div
             key={branch.id}
-            className="relative flex w-full flex-col items-center overflow-hidden rounded-lg border border-transparent bg-white shadow-lg transition-all duration-300 hover:border-[#315F41]/50 sm:w-[calc(50%-1rem)] md:w-[320px]"
+            className={`relative flex w-full flex-col items-center overflow-hidden rounded-lg border border-transparent bg-white shadow-lg transition-all duration-300 hover:border-[#315F41]/50 sm:w-[calc(50%-1rem)] md:w-[320px] ${inView ? 'animate-fadeIn' : ''}`}
           >
             <img
               src={branch.image}

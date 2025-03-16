@@ -5,12 +5,15 @@ import { AuthProvider } from './Context/AuthContext'
 import Profilelayoute from './components/Profile/Profilelayoute'
 import Trackingorders from './components/Profile/Trackingorders'
 import Interests from './components/Profile/Interests'
-import Addresses from './components/Profile/addresses'
+
 import { NumberProvider } from './Context/NumberUserForProfile'
+import Addresses from './components/Profile/Addresses'
+
 import {Provider} from 'react-redux'
 import { store } from './redux/store'
 const Loader = () => (
   <div className="flex h-screen items-center justify-center">
+    <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
     <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
   </div>
 )

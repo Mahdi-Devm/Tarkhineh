@@ -48,13 +48,13 @@ const TestimonialsSlider = () => {
 
         <button
           onClick={prevSlide}
-          className="absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 hover:scale-125 hover:bg-orange-600 sm:p-1 md:p-2"
+          className="hover:[#1d3926] absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 hover:scale-125 sm:p-1 md:p-2"
         >
           ❮
         </button>
         <button
           onClick={nextSlide}
-          className="absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 hover:scale-125 hover:bg-orange-600 sm:p-1 md:p-2"
+          className="hover:[#326141] absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 hover:scale-125 sm:p-1 md:p-2"
         >
           ❯
         </button>
@@ -66,7 +66,7 @@ const TestimonialsSlider = () => {
               className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-300 ${
                 index === currentIndex
                   ? 'scale-150 bg-[#326141] shadow-md'
-                  : 'bg-gray-500 hover:bg-orange-400'
+                  : 'bg-gray-500 hover:bg-[#274e34]'
               } sm:h-2 sm:w-2 md:h-3 md:w-3`}
               onClick={() => setCurrentIndex(index)}
             ></span>

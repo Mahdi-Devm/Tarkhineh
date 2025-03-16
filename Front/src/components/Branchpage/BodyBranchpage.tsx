@@ -2,7 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { useState } from 'react'
-
+import { Dispatch, SetStateAction } from 'react'
+interface Product {
+  id: number
+  name: string
+  price: number
+  rating: number
+  image_url: string
+}
 const fetchProducts = async () => {
   try {
     const res = await axios.get(
@@ -26,19 +33,31 @@ function BodyBranchpage() {
   const [currentIndex2, setCurrentIndex2] = useState(0)
   const [currentIndex3, setCurrentIndex3] = useState(0)
 
-  const showNext = (sliderId, currentIndex, setCurrentIndex) => {
+  const showNext = (
+    sliderId: string,
+    currentIndex: number,
+    setCurrentIndex: Dispatch<SetStateAction<number>>,
+  ) => {
     if (currentIndex < data.length - productsPerPage) {
       setCurrentIndex(currentIndex + 1)
       const slider = document.getElementById(sliderId)
-      slider.style.transform = `translateX(-${(currentIndex + 1) * (100 / productsPerPage)}%)`
+      if (slider) {
+        slider.style.transform = `translateX(-${(currentIndex + 1) * (100 / productsPerPage)}%)`
+      }
     }
   }
 
-  const showPrev = (sliderId, currentIndex, setCurrentIndex) => {
+  const showPrev = (
+    sliderId: string,
+    currentIndex: number,
+    setCurrentIndex: Dispatch<SetStateAction<number>>,
+  ) => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1)
       const slider = document.getElementById(sliderId)
-      slider.style.transform = `translateX(-${(currentIndex - 1) * (100 / productsPerPage)}%)`
+      if (slider) {
+        slider.style.transform = `translateX(-${(currentIndex - 1) * (100 / productsPerPage)}%)`
+      }
     }
   }
 
@@ -56,7 +75,7 @@ function BodyBranchpage() {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ width: `${data.length * (100 / productsPerPage)}%` }}
           >
-            {data.map((product) => (
+            {data.map((product: Product) => (
               <div
                 key={product.id}
                 className={`w-1/${productsPerPage} box-border flex-shrink-0 p-2`}
@@ -127,7 +146,7 @@ function BodyBranchpage() {
               className="flex transition-transform duration-500 ease-in-out"
               style={{ width: `${data.length * (100 / productsPerPage)}%` }}
             >
-              {data.map((product) => (
+              {data.map((product: Product) => (
                 <div
                   key={product.id}
                   className={`w-1/${productsPerPage} box-border flex-shrink-0 p-2`}
@@ -200,7 +219,7 @@ function BodyBranchpage() {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ width: `${data.length * (100 / productsPerPage)}%` }}
           >
-            {data.map((product) => (
+            {data.map((product: Product) => (
               <div
                 key={product.id}
                 className={`w-1/${productsPerPage} box-border flex-shrink-0 p-2`}

@@ -82,7 +82,6 @@ const MenuPage = () => {
     data: categories,
     isLoading,
     error,
-    refetch: refetchCategories,
   } = useQuery<Category[], Error>({
     queryKey: ['main category'],
     queryFn: fetchCategories,
