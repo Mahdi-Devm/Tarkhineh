@@ -73,12 +73,7 @@ const MenuPage = () => {
   )
   console.log(cardItems)
   const dispatch = useDispatch()
-  const addtoCardHandle=(product:Product)=>{
-    
-      dispatch(addProduct(product))
-      
-   
-  }
+  
   
   const [selectedCategory, setSelectedCategory] = useState<number>(5)
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
@@ -254,7 +249,7 @@ const MenuPage = () => {
                     <div className="mt-8 flex items-center justify-center gap-1">
                       <button
                         
-                        onClick={()=>addtoCardHandle(product)}
+                        onClick={()=>dispatch(addProduct(product))}
                         className="flex h-[40px] w-[244px] items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500"
                       >
                         افزودن به سبد خرید
