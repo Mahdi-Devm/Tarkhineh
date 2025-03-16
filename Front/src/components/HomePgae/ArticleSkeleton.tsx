@@ -1,4 +1,5 @@
 import { branches } from '../../constants/ItemBlogMainPAge'
+import { motion } from 'framer-motion'
 
 function ArticleSkeleton() {
   return (
@@ -9,8 +10,12 @@ function ArticleSkeleton() {
 
       <div className="mb-5 flex w-full flex-wrap justify-center gap-4 sm:gap-6">
         {branches.map((branch) => (
-          <div
+          <motion.div
             key={branch.id}
+            initial={{ opacity: 0.6, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: false }}
             className="relative flex w-full flex-col items-center overflow-hidden rounded-lg border border-transparent bg-white shadow-lg transition-all duration-300 hover:border-[#315F41]/50 sm:w-[calc(50%-1rem)] md:w-[320px]"
           >
             <img
@@ -39,7 +44,7 @@ function ArticleSkeleton() {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

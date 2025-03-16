@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 type DropdownProps = {
   label: string
   icon: React.ReactNode
@@ -17,23 +19,28 @@ const Dropdown = ({
 }: DropdownProps) => {
   return (
     <div className="flex items-center justify-center space-x-2">
-      <div
-        className={`ml-2 transition-all ${
-          activeDropdown === index ? 'rotate-180' : ''
-        }`}
+      <motion.div
+        className={`ml-2 transition-all`}
+        animate={{ rotate: activeDropdown === index ? 180 : 0 }}
+        transition={{ type: 'spring', stiffness: 300 }}
         onClick={(e) => {
           e.stopPropagation()
           onClick(index)
         }}
       >
         {icon}
-      </div>
+      </motion.div>
       <span className="text-xl transition-all duration-300 hover:scale-105 hover:text-[#417F56]">
         {label}
       </span>
 
       {activeDropdown === index && dropdownItems && (
-        <div className="absolute top-full left-0 mt-2 w-48 rounded-md border border-gray-200 bg-white py-2 shadow-lg">
+        <motion.div
+          className="absolute top-full left-0 mt-2 w-48 rounded-md border border-gray-200 bg-white py-2 shadow-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
           {dropdownItems.map((dropdownItem, dropdownIndex) => (
             <div
               key={dropdownIndex}
@@ -42,7 +49,7 @@ const Dropdown = ({
               {dropdownItem}
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   )
