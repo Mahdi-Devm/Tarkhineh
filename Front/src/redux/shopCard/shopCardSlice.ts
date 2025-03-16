@@ -5,6 +5,7 @@ interface InitialState {
   amount: number
   products: Product[]
 }
+
 const initialState: InitialState = {
   products: [],
   amount: 0,
@@ -15,9 +16,19 @@ const shopCardSlice = createSlice({
   initialState,
   reducers: {
     addProduct:(state,action)=>{
-        state.products.push(...action.payload)
+        const existingItem =state.products.find(product=>product.id===action.payload.id)
+        if (existingItem) existingItem.qty++
+        else state.products.push({...action.payload,qty:1})
+    
+    },
+    removeProduct:(state,action)=>{
+         const existingItem =state.products.find(product=>product.id===action.payload.id)
+        
+        if (existingItem&& existingItem.qty>1) existingItem.qty--
+       else state.products= state.products.filter(p=>p.id!==action.payload.id)
+        console.log('item deleted:',action.payload)
     }
   },
 })
-
+export const {addProduct,removeProduct}=shopCardSlice.actions
 export default shopCardSlice.reducer

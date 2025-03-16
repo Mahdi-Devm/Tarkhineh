@@ -5,6 +5,9 @@ import SimpleSlider from '../components/SLider/SliderNext'
 import { CiShoppingCart } from 'react-icons/ci'
 import { CiHeart } from 'react-icons/ci'
 import { CiStar } from 'react-icons/ci'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
+import { addProduct, removeProduct } from '../redux/shopCard/shopCardSlice'
 
 interface Category {
   id: number
@@ -20,10 +23,11 @@ export interface Product {
   id: number
   name: string
   price: number
-  image_url?: string
+  image_url: string
   description: string
   rating: number
   isFavorite: boolean
+  qty: number | 0
 }
 
 const fetchCategories = async (): Promise<Category[]> => {
@@ -47,7 +51,7 @@ const fetchSubCategories = async (
     throw new Error('خطا در دریافت ساب‌کاتگوری‌ها')
   }
   const data = await response.json()
-  console.log('subs',data)
+  console.log('subs', data)
   return data.subCategories
 }
 
@@ -63,9 +67,21 @@ const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
 }
 
 const MenuPage = () => {
+  // add redux
+  const cardItems = useSelector(
+    (state: RootState) => state.cardReducer.products,
+  )
+  console.log(cardItems)
+  const dispatch = useDispatch()
+  const addtoCardHandle=(product:Product)=>{
+    
+      dispatch(addProduct(product))
+      
+   
+  }
+  
   const [selectedCategory, setSelectedCategory] = useState<number>(5)
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
-
 
   const {
     data: categories,
@@ -140,7 +156,6 @@ const MenuPage = () => {
     )
     console.log(updatedProducts)
   }
-
   return (
     <>
       <SimpleSlider />
@@ -231,9 +246,24 @@ const MenuPage = () => {
                         {product.description}
                       </p>
                     </div>
+                    { (
+                      <div className="flex border w-fit bg-green-200">
+                        {product.qty}
+                      </div>
+                    )}
                     <div className="mt-8 flex items-center justify-center gap-1">
-                      <button className="flex h-[40px] w-[244px] items-center justify-center rounded-md bg-[#417F56] font-semibold text-white">
+                      <button
+                        
+                        onClick={()=>addtoCardHandle(product)}
+                        className="flex h-[40px] w-[244px] items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500"
+                      >
                         افزودن به سبد خرید
+                      </button>
+                      <button
+                        onClick={() => dispatch(removeProduct(product))}
+                        className="border p-2"
+                      >
+                        💥
                       </button>
                       {[...Array(5)].map((_, index) => (
                         <CiStar
