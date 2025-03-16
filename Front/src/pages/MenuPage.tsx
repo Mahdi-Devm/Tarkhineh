@@ -47,7 +47,7 @@ const fetchSubCategories = async (
     throw new Error('خطا در دریافت ساب‌کاتگوری‌ها')
   }
   const data = await response.json()
-  console.log('subs',data)
+  console.log('subs', data)
   return data.subCategories
 }
 
@@ -66,12 +66,10 @@ const MenuPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<number>(5)
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
 
-
   const {
     data: categories,
     isLoading,
     error,
-    refetch: refetchCategories,
   } = useQuery<Category[], Error>({
     queryKey: ['main category'],
     queryFn: fetchCategories,

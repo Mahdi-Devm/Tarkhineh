@@ -9,7 +9,10 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useAuth } from '../../Context/AuthContext'
 import { useNumber } from '../../Context/NumberUserForProfile'
-
+interface OtpResponse {
+  otp: string
+  expiresIn: number
+}
 interface ModalProps {
   isMobile: boolean
   isModalOpen: boolean
@@ -39,19 +42,17 @@ const Modal: React.FC<ModalProps> = ({
   const [timer, setTimer] = React.useState<number>(120)
 
   React.useEffect(() => {
-    let interval: NodeJS.Timeout
     if (timer > 0) {
-      interval = setInterval(() => {
+      const interval = setInterval(() => {
         setTimer((prev) => prev - 1)
       }, 1000)
-    } else {
-      clearInterval(interval)
+
+      return () => clearInterval(interval)
     }
-    return () => clearInterval(interval)
   }, [timer])
 
   const loginMutation = useMutation({
-    mutationFn: async (data: { mobile: string }): Promise<any> => {
+    mutationFn: async (data: { mobile: string }): Promise<OtpResponse> => {
       const payload = JSON.stringify({ mobile: data.mobile })
 
       const res = await fetch(
@@ -75,7 +76,7 @@ const Modal: React.FC<ModalProps> = ({
     },
     onSuccess: (data) => {
       toast.success(`OTP ارسال شد: ${data}`)
-      queryClient.invalidateQueries(['getOtp'])
+      queryClient.invalidateQueries({ queryKey: ['getOtp'] })
       setTimer(120)
     },
   })
@@ -93,7 +94,7 @@ const Modal: React.FC<ModalProps> = ({
       if (data?.access_token) {
         Cookies.set('accessToken', data.access_token, { expires: 30 })
         toast.success('ورود موفقیت‌آمیز بود.')
-        queryClient.invalidateQueries(['getOtp'])
+        queryClient.invalidateQueries({ queryKey: ['getOtp'] })
         toggleModal()
 
         if (setIsAuthenticated) {
@@ -106,7 +107,7 @@ const Modal: React.FC<ModalProps> = ({
     onError: (error: AxiosError) => {
       console.error('Error Object:', error)
       if (error.response) {
-        toast.error(`خطا: ${error.response.data?.message || 'مشکلی پیش آمد'}`)
+        toast.error('مشکلی پیش آمد')
       } else if (error.request) {
         toast.error(
           'مشکلی در اتصال به سرور وجود دارد. لطفاً اینترنت را بررسی کنید.',

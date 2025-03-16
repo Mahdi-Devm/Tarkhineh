@@ -5,14 +5,13 @@ import { AuthProvider } from './Context/AuthContext'
 import Profilelayoute from './components/Profile/Profilelayoute'
 import Trackingorders from './components/Profile/Trackingorders'
 import Interests from './components/Profile/Interests'
-import Addresses from './components/Profile/addresses'
+
 import { NumberProvider } from './Context/NumberUserForProfile'
+import Addresses from './components/Profile/Addresses'
 
 const Loader = () => (
   <div className="flex h-screen items-center justify-center">
-    <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]">
-      
-    </div>
+    <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
   </div>
 )
 
@@ -36,11 +35,9 @@ const PageLayoute = lazy(() => import('./pages/PageLayoute'))
 const queryClient = new QueryClient()
 
 const App = () => {
- 
-   
   return (
     <QueryClientProvider client={queryClient}>
-      <NumberProvider >
+      <NumberProvider>
         <AuthProvider>
           <Router>
             <Suspense fallback={<Loader />}>
@@ -61,7 +58,10 @@ const App = () => {
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="/menu" element={<MenuPage />} />
                   <Route path="/menu:category" element={<MenuPage />} />
-                  <Route path="/cart/completion-info/payment" element={<PaymentPage />} />
+                  <Route
+                    path="/cart/completion-info/payment"
+                    element={<PaymentPage />}
+                  />
                   <Route path="/privacy" element={<PrivacyPage />} />
                   <Route path="/profile" element={<ProfileLayoutPage />}>
                     <Route index element={<Profilelayoute />} />

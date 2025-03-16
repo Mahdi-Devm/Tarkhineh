@@ -1,12 +1,19 @@
+import React from 'react'
+
 interface ContactProps {
   title: string
   address: string
   contactNumber: string
-  workingHours: string
+  workingHours?: string
   image: string
 }
 
-function ItemContact({ title, address, contactNumber, image }: ContactProps) {
+const ItemContact: React.FC<ContactProps> = ({
+  title,
+  address,
+  contactNumber,
+  image,
+}) => {
   return (
     <div className="mx-auto flex flex-col items-center overflow-hidden rounded-xl border border-[#CBCBCB] bg-white p-6 transition-all duration-300 hover:border-[#b0afaf] md:w-[90%] md:flex-row lg:w-[80%]">
       <div className="w-full p-6 md:w-1/2">
