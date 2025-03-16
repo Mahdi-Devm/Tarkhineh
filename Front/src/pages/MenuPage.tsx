@@ -16,11 +16,11 @@ interface SubCategory {
   title: string
 }
 
-interface Product {
+export interface Product {
   id: number
   name: string
   price: number
-  image_url: string
+  image_url?: string
   description: string
   rating: number
   isFavorite: boolean
@@ -197,6 +197,7 @@ const MenuPage = () => {
         <div className="mt-6">
           <h3 className="text-2xl font-semibold">محصولات</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+            {/* product item generation */}
             {products?.map((product) => (
               <div
                 key={product.id}

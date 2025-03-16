@@ -1,4 +1,5 @@
 const BasketItems = () => {
+
   return (
     <main className="mx-auto my-6 flex max-w-[1224px] flex-col gap-3 rounded-md max-md:p-3 max-sm:border sm:flex-row-reverse md:my-12 md:h-[554px]">
       <div className="h-[300px] w-full space-y-3 overflow-y-auto rounded-xl border border-zinc-400 p-3 sm:h-full"></div>
