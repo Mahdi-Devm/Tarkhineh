@@ -48,7 +48,7 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
         </div>
       ))}
       </div>
-      <div className="divide lg:self-start bg-yellow-300  h-fit min-h-[330px] w-full divide-y-2 divide-zinc-300 rounded-xl border px-4 py-3 max-sm:border-t sm:border-zinc-400 sm:py-5  md:text-[16px]">
+      <div className="divide lg:self-start  h-fit min-h-[330px] w-full divide-y-2 divide-zinc-300 rounded-xl border px-4 py-3 max-sm:border-t sm:border-zinc-400 sm:py-5  md:text-[16px]">
         <div className="flex w-full justify-between py-3">
           <span>trash </span>
           <span>سبد خرید ({items.length})</span>
