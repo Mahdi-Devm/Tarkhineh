@@ -11,6 +11,7 @@ import { addProduct, removeProduct } from '../redux/shopCard/shopCardSlice'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CiTrash } from 'react-icons/ci'
+import Cookies from 'js-cookie'
 interface Category {
   id: number
   title: string
@@ -33,8 +34,16 @@ export interface Product {
 }
 
 const fetchCategories = async (): Promise<Category[]> => {
+  const token = Cookies.get('accessToken')
   const response = await fetch(
     'http://localhost:3000/api/v1/admin/category?page=1',
+    {
+      method: 'GET',
+      headers: {
+        Accept: '*/*',
+        Authorization: `Bearer ${token}`,
+      },
+    },
   )
   if (!response.ok) {
     throw new Error('خطا در دریافت داده‌ها')
@@ -44,22 +53,44 @@ const fetchCategories = async (): Promise<Category[]> => {
 }
 
 const fetchSubCategories = async (
+  page: number,
   categoryId: number,
-): Promise<SubCategory[]> => {
-  const response = await fetch(
-    `http://localhost:3000/api/v1/admin/subCategories/category/${categoryId}?page=1`,
-  )
-  if (!response.ok) {
-    throw new Error('خطا در دریافت ساب‌کاتگوری‌ها')
+): Promise<any> => {
+  const token = Cookies.get('accessToken')
+  if (!token) {
+    throw new Error('توکن یافت نشد. لطفاً وارد شوید.')
   }
+
+  const response = await fetch(
+    `http://localhost:3000/api/v1/client/subCategories/category/${categoryId}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: '*/*',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+
+  if (!response.ok) {
+    throw new Error('خطا در دریافت زیرشاخه‌ها')
+  }
+
   const data = await response.json()
-  console.log('subs', data)
-  return data.subCategories
+  return data.subCategories || []
 }
 
 const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
+  const token = Cookies.get('accessToken')
   const response = await fetch(
-    `http://localhost:3000/api/v1/admin/products/subcategory/${subCategoryId}?page=1`,
+    `http://localhost:3000/api/v1/client/products/${subCategoryId}?page=1`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: '*/*',
+        Authorization: `Bearer ${token}`,
+      },
+    },
   )
   if (!response.ok) {
     throw new Error('خطا در دریافت محصولات')
@@ -93,7 +124,7 @@ const MenuPage = () => {
     Error
   >({
     queryKey: ['subcategory', selectedCategory],
-    queryFn: () => fetchSubCategories(selectedCategory),
+    queryFn: () => fetchSubCategories(1, selectedCategory),
     enabled: !!selectedCategory,
   })
 
@@ -128,6 +159,7 @@ const MenuPage = () => {
   const isProductInCart = (productId: number) => {
     return productsInCart.some((product: Product) => product.id === productId)
   }
+  console.log(subCategories)
   if (isLoading || productsLoading)
     return (
       <div className="flex h-screen items-center justify-center">
@@ -190,11 +222,13 @@ const MenuPage = () => {
               onChange={(e) => setSelectedSubCategory(e.target.value)}
               className="h-12 w-full cursor-pointer appearance-none rounded-full bg-[#417F56] px-6 pr-10 text-white shadow-md transition-all duration-300 outline-none hover:bg-[#355E44] hover:shadow-lg focus:ring-2 focus:ring-[#2E5E3A] sm:w-50"
             >
-              {subCategories?.map((subcategory) => (
-                <option key={subcategory.id} value={subcategory.id}>
-                  {subcategory.title}
-                </option>
-              ))}
+              {subCategories &&
+                Array.isArray(subCategories) &&
+                subCategories.map((subcategory) => (
+                  <option key={subcategory.id} value={subcategory.id}>
+                    {subcategory.title}
+                  </option>
+                ))}
             </select>
 
             <FiChevronDown className="absolute top-1/2 right-5 -translate-y-1/2 text-xl text-white transition-transform duration-300 ease-in-out" />

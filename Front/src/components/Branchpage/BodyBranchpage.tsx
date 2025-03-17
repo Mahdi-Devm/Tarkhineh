@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux'
 import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Cookies from 'js-cookie'
+
 interface Product {
   id: number
   name: string
@@ -15,9 +17,17 @@ interface Product {
   image_url: string
 }
 const fetchProducts = async () => {
+  const token = Cookies.get('accessToken')
   try {
     const res = await axios.get(
       'http://localhost:3000/api/v1/admin/products/subCategory/28?page=1',
+      {
+        method: 'GET',
+        headers: {
+          Accept: '*/*',
+          Authorization: `Bearer ${token}`,
+        },
+      },
     )
     return res.data.products
   } catch (err) {
@@ -125,7 +135,7 @@ function BodyBranchpage() {
                           },
                         )
                       }}
-                      className="mt-3 w-[210px] cursor-pointer rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
+                      className="mt-3 w-[210px] rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
                     >
                       افزودن به سبد
                     </button>
@@ -211,7 +221,7 @@ function BodyBranchpage() {
                             },
                           )
                         }}
-                        className="mt-3 w-[210px] cursor-pointer rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
+                        className="mt-3 w-[210px] rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
                       >
                         افزودن به سبد
                       </button>
@@ -295,7 +305,7 @@ function BodyBranchpage() {
                           },
                         )
                       }}
-                      className="mt-3 w-[210px] cursor-pointer rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
+                      className="mt-3 w-[210px] rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
                     >
                       افزودن به سبد
                     </button>
