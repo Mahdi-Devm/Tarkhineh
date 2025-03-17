@@ -8,7 +8,9 @@ import { CiStar } from 'react-icons/ci'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import { addProduct, removeProduct } from '../redux/shopCard/shopCardSlice'
-
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { CiTrash } from 'react-icons/ci'
 interface Category {
   id: number
   title: string
@@ -73,8 +75,7 @@ const MenuPage = () => {
   )
   console.log(cardItems)
   const dispatch = useDispatch()
-  
-  
+
   const [selectedCategory, setSelectedCategory] = useState<number>(5)
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
 
@@ -123,7 +124,10 @@ const MenuPage = () => {
       refetchProducts()
     }
   }, [selectedSubCategory, refetchProducts])
-
+  const productsInCart = useSelector((state: any) => state.cardReducer.products)
+  const isProductInCart = (productId: number) => {
+    return productsInCart.some((product: Product) => product.id === productId)
+  }
   if (isLoading || productsLoading)
     return (
       <div className="flex h-screen items-center justify-center">
@@ -206,7 +210,6 @@ const MenuPage = () => {
         <div className="mt-6">
           <h3 className="text-2xl font-semibold">محصولات</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
-            {/* product item generation */}
             {products?.map((product) => (
               <div
                 key={product.id}
@@ -240,25 +243,41 @@ const MenuPage = () => {
                         {product.description}
                       </p>
                     </div>
-                    { (
-                      <div className="flex border w-fit bg-green-200">
+                    {
+                      <div className="flex w-fit border bg-green-200">
                         {product.qty}
                       </div>
-                    )}
+                    }
                     <div className="mt-8 flex items-center justify-center gap-1">
                       <button
-                        
-                        onClick={()=>dispatch(addProduct(product))}
-                        className="flex h-[40px] w-[244px] items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500"
+                        onClick={() => {
+                          dispatch(addProduct(product))
+                          toast.success(
+                            '✅ محصول با موفقیت به سبد خرید اضافه شد!',
+                            {
+                              position: 'top-right',
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: 'colored',
+                            },
+                          )
+                        }}
+                        className="flex h-[40px] w-[244px] cursor-pointer items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500"
                       >
                         افزودن به سبد خرید
                       </button>
-                      <button
-                        onClick={() => dispatch(removeProduct(product))}
-                        className="border p-2"
-                      >
-                        💥
-                      </button>
+                      {isProductInCart(product.id) && (
+                        <button
+                          onClick={() => dispatch(removeProduct(product))}
+                          className="rounded-2xl border-1 border-stone-400 p-2"
+                        >
+                          <CiTrash />
+                        </button>
+                      )}
                       {[...Array(5)].map((_, index) => (
                         <CiStar
                           key={index}
