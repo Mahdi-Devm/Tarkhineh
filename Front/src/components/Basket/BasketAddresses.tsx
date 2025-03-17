@@ -1,6 +1,9 @@
 import { useState } from "react"
 import {  useForm } from "react-hook-form"
-interface FormData{
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { getAddress } from "../../redux/orderInfo/orderInfoSlice";
+export interface AddressData{
   title:string;
   receiveBySelf:boolean;
   phone:string;
@@ -9,12 +12,15 @@ interface FormData{
 }
 
 const BasketAddresses = () => {
+  const selectedAddress =useSelector((state:RootState)=>state.orderInfo.address)
+  console.log('address saved in state',selectedAddress) 
+  const dispatch=useDispatch()
   const [addressOpen,setAddressOpen]=useState(false)
-  const [addresses,setAddresses]=useState<FormData[]>([])
+  const [addresses,setAddresses]=useState<AddressData[]>([])
   
-  const {handleSubmit,register ,reset}=useForm<FormData>()
+  const {handleSubmit,register ,reset}=useForm<AddressData>()
 
-  const submitHandler=(data:FormData)=>{
+  const submitHandler=(data:AddressData)=>{
     console.log(data)
     setAddresses([...addresses,data])
     reset()
@@ -28,7 +34,8 @@ const BasketAddresses = () => {
           <button className="text-green-900" onClick={()=>setAddressOpen(!addressOpen)}>افزودن ادرس</button>
           <p>ادرس ها</p>
         </div>
-        {addresses?.length>0?addresses?.map(address=><div key={address.title} className="bg-amber-100 flex justify-between gap-3">
+        {addresses?.length>0?addresses?.map(address=><label onClick={()=>dispatch(getAddress(address))} htmlFor={address.address} key={address.title} className="bg-amber-100  flex justify-between gap-3">
+          <input type="radio" name="ali" className="  bg-red-200" id={address.address} />
           <div className="flex p-3 w-full justify-between ">
           <div>
             <button >✏</button>
@@ -37,7 +44,7 @@ const BasketAddresses = () => {
           <h2>{address.address}</h2>
           </div>
           
-        </div>
+        </label>
       ) : <div className="flex justify-center items-center ">ادرسی وجود ندارد</div>}
         
       </div>

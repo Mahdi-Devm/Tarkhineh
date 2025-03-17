@@ -15,7 +15,7 @@ const dispatch=useDispatch()
 const {isAuthenticated,setIsAuthenticated}=useAuth()
   return (
     <main className="mx-auto text-[#353535] my-6 flex max-w-[1224px] flex-col gap-3 rounded-md border-zinc-400 items-center lg:flex-row-reverse  ">
-      <div className="max-h-[400px]  w-full space-y-3 overflow-y-auto rounded-xl border border-zinc-400 p-3 ">
+      <div className="max-h-[400px] self-start w-full space-y-3 overflow-y-auto rounded-xl border border-zinc-400 p-3 ">
         {items.map(item=>(<div className="border border-zinc-300 rounded-xl overflow-hidden flex flex-row-reverse " key={item.id}>
           <div className="max-md:hidden w-[150px] bg-green-200 aspect-square ">
             <img className="w-full object-cover" src={`http://localhost:3000/${item.image_url}`} alt={item.name} />
@@ -48,7 +48,7 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
         </div>
       ))}
       </div>
-      <div className="divide lg:self-start  h-fit min-h-[330px] w-full divide-y-2 divide-zinc-300 rounded-xl border px-4 py-3 max-sm:border-t sm:border-zinc-400 sm:py-5  md:text-[16px]">
+      <div className="divide lg:self-start  h-fit min-h-[330px] w-full lg:max-w-[500px] divide-y-2 divide-zinc-300 rounded-xl border px-4 py-3 max-sm:border-t sm:border-zinc-400 sm:py-5  md:text-[16px]">
         <div className="flex w-full justify-between py-3">
           <span>trash </span>
           <span>سبد خرید ({items.length})</span>
