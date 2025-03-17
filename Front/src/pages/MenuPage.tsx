@@ -206,98 +206,104 @@ const MenuPage = () => {
             <CiShoppingCart className="h-6 w-6" />
           </button>
         </div>
-
         <div className="mt-6">
           <h3 className="text-2xl font-semibold">محصولات</h3>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
             {products?.map((product) => (
               <div
                 key={product.id}
-                className="flex items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:scale-105"
-                style={{ minWidth: '600px', minHeight: '158px' }}
+                className="flex flex-col items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:scale-105 sm:flex-row sm:gap-6" // اینجا فاصله به حالت گوشی اضافه شده
+                style={{ minHeight: '158px' }}
               >
-                <div className="flex h-[158px] w-[600px] items-center justify-between">
-                  <div className="flex w-2/3 flex-col justify-between">
-                    <div className="flex items-center justify-between">
-                      <div
-                        className="cursor-pointer transition-transform duration-300 hover:scale-125"
-                        onClick={() => toggleFavorite(product.id)}
-                      >
-                        {product.isFavorite ? (
-                          <CiHeart className="h-[24px] w-[24px] text-red-500 transition-all duration-300" />
-                        ) : (
-                          <CiHeart className="h-[24px] w-[24px] text-gray-500 transition-all duration-300" />
-                        )}
-                      </div>
+                <img
+                  src={`http://localhost:3000/${product.image_url}`}
+                  alt=""
+                  className="h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 sm:block md:hidden"
+                />
 
-                      <h4 className="text-[20px] font-semibold">
-                        {product.name}
-                      </h4>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <p className="text-[18px] text-[#353535]">
-                        <span>{product.price} </span>
-                        <span>تومان</span>
-                      </p>
-                      <p className="text-[14px] text-[#353535]">
-                        {product.description}
-                      </p>
-                    </div>
-                    {
-                      <div className="flex w-fit border bg-green-200">
-                        {product.qty}
-                      </div>
-                    }
-                    <div className="mt-8 flex items-center justify-center gap-1">
-                      <button
-                        onClick={() => {
-                          dispatch(addProduct(product))
-                          toast.success(
-                            '✅ محصول با موفقیت به سبد خرید اضافه شد!',
-                            {
-                              position: 'top-right',
-                              autoClose: 2000,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: 'colored',
-                            },
-                          )
-                        }}
-                        className="flex h-[40px] w-[244px] cursor-pointer items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500"
-                      >
-                        افزودن به سبد خرید
-                      </button>
-                      {isProductInCart(product.id) && (
-                        <button
-                          onClick={() => dispatch(removeProduct(product))}
-                          className="rounded-2xl border-1 border-stone-400 p-2"
-                        >
-                          <CiTrash />
-                        </button>
+                <div className="mt-4 flex w-full flex-col sm:mr-4 sm:w-2/3 sm:pl-4">
+                  <div className="flex items-center justify-between">
+                    <div
+                      className="cursor-pointer transition-transform duration-300 hover:scale-125"
+                      onClick={() => toggleFavorite(product.id)}
+                    >
+                      {product.isFavorite ? (
+                        <CiHeart className="h-[24px] w-[24px] text-red-500 transition-all duration-300" />
+                      ) : (
+                        <CiHeart className="h-[24px] w-[24px] text-gray-500 transition-all duration-300" />
                       )}
-                      {[...Array(5)].map((_, index) => (
-                        <CiStar
-                          key={index}
-                          className={`h-[24px] w-[24px] cursor-pointer transition-all duration-300 ${
-                            index < product.rating
-                              ? 'text-yellow-400'
-                              : 'text-gray-300'
-                          }`}
-                          onClick={() => handleStarClick(product.id, index + 1)}
-                        />
-                      ))}
                     </div>
+
+                    <h4 className="text-[16px] font-semibold sm:text-[20px]">
+                      {product.name}
+                    </h4>
                   </div>
 
-                  <img
-                    src={`http://localhost:3000/${product.image_url}`}
-                    alt=""
-                    className="h-[158px] w-[169px] rounded-md object-cover transition-transform duration-300 hover:scale-105"
-                  />
+                  <div className="mt-5 flex items-center justify-between">
+                    <p className="text-[14px] text-[#353535] sm:text-[18px]">
+                      <span>{product.price} </span>
+                      <span>تومان</span>
+                    </p>
+                    <p className="text-[12px] text-[#353535] sm:text-[14px]">
+                      {product.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-2 flex w-fit border bg-green-200">
+                    {product.qty}
+                  </div>
+
+                  <div className="mt-5 mb-6 flex items-center justify-center gap-1">
+                    <button
+                      onClick={() => {
+                        dispatch(addProduct(product))
+                        toast.success(
+                          '✅ محصول با موفقیت به سبد خرید اضافه شد!',
+                          {
+                            position: 'top-right',
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'colored',
+                          },
+                        )
+                      }}
+                      className="flex h-[40px] w-[100%] cursor-pointer items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500 sm:w-[244px]"
+                    >
+                      افزودن به سبد خرید
+                    </button>
+
+                    {isProductInCart(product.id) && (
+                      <button
+                        onClick={() => dispatch(removeProduct(product))}
+                        className="mt-2 rounded-2xl border-1 border-stone-400 p-2 sm:mt-0"
+                      >
+                        <CiTrash />
+                      </button>
+                    )}
+
+                    {[...Array(5)].map((_, index) => (
+                      <CiStar
+                        key={index}
+                        className={`h-[20px] w-[20px] cursor-pointer transition-all duration-300 sm:h-[24px] sm:w-[24px] ${
+                          index < product.rating
+                            ? 'text-yellow-400'
+                            : 'text-gray-300'
+                        }`}
+                        onClick={() => handleStarClick(product.id, index + 1)}
+                      />
+                    ))}
+                  </div>
                 </div>
+
+                <img
+                  src={`http://localhost:3000/${product.image_url}`}
+                  alt=""
+                  className="hidden h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 md:block"
+                />
               </div>
             ))}
           </div>
