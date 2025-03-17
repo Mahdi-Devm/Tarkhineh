@@ -5,6 +5,9 @@ import SimpleSlider from '../components/SLider/SliderNext'
 import { CiShoppingCart } from 'react-icons/ci'
 import { CiHeart } from 'react-icons/ci'
 import { CiStar } from 'react-icons/ci'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
+import { addProduct, removeProduct } from '../redux/shopCard/shopCardSlice'
 
 interface Category {
   id: number
@@ -16,7 +19,7 @@ interface SubCategory {
   title: string
 }
 
-interface Product {
+export interface Product {
   id: number
   name: string
   price: number
@@ -24,6 +27,7 @@ interface Product {
   description: string
   rating: number
   isFavorite: boolean
+  qty: number | 0
 }
 
 const fetchCategories = async (): Promise<Category[]> => {
@@ -63,6 +67,14 @@ const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
 }
 
 const MenuPage = () => {
+  // add redux
+  const cardItems = useSelector(
+    (state: RootState) => state.cardReducer.products,
+  )
+  console.log(cardItems)
+  const dispatch = useDispatch()
+  
+  
   const [selectedCategory, setSelectedCategory] = useState<number>(5)
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
 
@@ -138,7 +150,6 @@ const MenuPage = () => {
     )
     console.log(updatedProducts)
   }
-
   return (
     <>
       <SimpleSlider />
@@ -195,6 +206,7 @@ const MenuPage = () => {
         <div className="mt-6">
           <h3 className="text-2xl font-semibold">محصولات</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+            {/* product item generation */}
             {products?.map((product) => (
               <div
                 key={product.id}
@@ -228,9 +240,24 @@ const MenuPage = () => {
                         {product.description}
                       </p>
                     </div>
+                    { (
+                      <div className="flex border w-fit bg-green-200">
+                        {product.qty}
+                      </div>
+                    )}
                     <div className="mt-8 flex items-center justify-center gap-1">
-                      <button className="flex h-[40px] w-[244px] items-center justify-center rounded-md bg-[#417F56] font-semibold text-white">
+                      <button
+                        
+                        onClick={()=>dispatch(addProduct(product))}
+                        className="flex h-[40px] w-[244px] items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500"
+                      >
                         افزودن به سبد خرید
+                      </button>
+                      <button
+                        onClick={() => dispatch(removeProduct(product))}
+                        className="border p-2"
+                      >
+                        💥
                       </button>
                       {[...Array(5)].map((_, index) => (
                         <CiStar

@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
+<<<<<<< HEAD
+import { CiUser, CiShoppingCart, CiSearch, CiLogin } from 'react-icons/ci'
+import { Link, useNavigate } from 'react-router-dom'
+=======
 import { CiUser, CiShoppingCart, CiLogin } from 'react-icons/ci'
 import { useNavigate } from 'react-router-dom'
+>>>>>>> d875850895477aa71975b9251a3f2ba5fa43d003
 import Modal from '../Login/ModalLogin'
 import Cookies from 'js-cookie'
 
@@ -50,8 +55,14 @@ const IconHeader = () => {
             <CiLogin className="h-[24px] w-[24px]" />
           )}
         </div>
-        <div className="h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px]">
+        <Link to={'/cart'} className="h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px]">
           <CiShoppingCart className="h-[24px] w-[24px]" />
+<<<<<<< HEAD
+        </Link>
+        <div className="hidden h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px] md:flex">
+          <CiSearch className="h-[24px] w-[24px]" />
+=======
+>>>>>>> d875850895477aa71975b9251a3f2ba5fa43d003
         </div>
       </div>
 

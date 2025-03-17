@@ -9,8 +9,11 @@ import Interests from './components/Profile/Interests'
 import { NumberProvider } from './Context/NumberUserForProfile'
 import Addresses from './components/Profile/Addresses'
 
+import {Provider} from 'react-redux'
+import { store } from './redux/store'
 const Loader = () => (
   <div className="flex h-screen items-center justify-center">
+    <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
     <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
   </div>
 )
@@ -36,49 +39,57 @@ const queryClient = new QueryClient()
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <NumberProvider>
-        <AuthProvider>
-          <Router>
-            <Suspense fallback={<Loader />}>
-              <Routes>
-                <Route element={<PageLayoute />}>
-                  <Route path="/" element={<MainPage />} />
-                  <Route path="/about" element={<AboutPage />} />
-                  <Route
-                    path="/awarding-agent"
-                    element={<AwardingAgentPage />}
-                  />
-                  <Route path="/branch" element={<BranchPage />} />
-                  <Route
-                    path="/cart/completion-info"
-                    element={<CompletionInformation />}
-                  />
-                  <Route path="/contact" element={<ContactPage />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/menu" element={<MenuPage />} />
-                  <Route path="/menu:category" element={<MenuPage />} />
-                  <Route
-                    path="/cart/completion-info/payment"
-                    element={<PaymentPage />}
-                  />
-                  <Route path="/privacy" element={<PrivacyPage />} />
-                  <Route path="/profile" element={<ProfileLayoutPage />}>
-                    <Route index element={<Profilelayoute />} />
-                    <Route path="Profilelayoute" element={<Profilelayoute />} />
-                    <Route path="Trackingorders" element={<Trackingorders />} />
-                    <Route path="Interests" element={<Interests />} />
-                    <Route path="Addresses" element={<Addresses />} />
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <NumberProvider>
+          <AuthProvider>
+            <Router>
+              <Suspense fallback={<Loader/>}>
+                <Routes>
+                  <Route element={<PageLayoute />}>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route
+                      path="/awarding-agent"
+                      element={<AwardingAgentPage />}
+                    />
+                    <Route path="/branch" element={<BranchPage />} />
+                    <Route
+                      path="/cart/completion-info"
+                      element={<CompletionInformation />}
+                    />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/menu" element={<MenuPage />} />
+                    <Route path="/menu:category" element={<MenuPage />} />
+                    <Route
+                      path="/cart/completion-info/payment"
+                      element={<PaymentPage />}
+                    />
+                    <Route path="/privacy" element={<PrivacyPage />} />
+                    <Route path="/profile" element={<ProfileLayoutPage />}>
+                      <Route index element={<Profilelayoute />} />
+                      <Route
+                        path="Profilelayoute"
+                        element={<Profilelayoute />}
+                      />
+                      <Route
+                        path="Trackingorders"
+                        element={<Trackingorders />}
+                      />
+                      <Route path="Interests" element={<Interests />} />
+                      <Route path="Addresses" element={<Addresses />} />
+                    </Route>
+                    <Route path="/rules" element={<RulesPage />} />
+                    <Route path="/cart" element={<ShopingCartPage />} />
                   </Route>
-                  <Route path="/rules" element={<RulesPage />} />
-                  <Route path="/cart" element={<ShopingCartPage />} />
-                </Route>
-              </Routes>
-            </Suspense>
-          </Router>
-        </AuthProvider>
-      </NumberProvider>
-    </QueryClientProvider>
+                </Routes>
+              </Suspense>
+            </Router>
+          </AuthProvider>
+        </NumberProvider>
+      </QueryClientProvider>
+    </Provider>
   )
 }
 
