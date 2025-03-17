@@ -3,6 +3,12 @@ import axios from 'axios'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { useState } from 'react'
 import { Dispatch, SetStateAction } from 'react'
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../../redux/shopCard/shopCardSlice'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Cookies from 'js-cookie'
+
 interface Product {
   id: number
   name: string
@@ -11,9 +17,17 @@ interface Product {
   image_url: string
 }
 const fetchProducts = async () => {
+  const token = Cookies.get('accessToken')
   try {
     const res = await axios.get(
       'http://localhost:3000/api/v1/admin/products/subCategory/28?page=1',
+      {
+        method: 'GET',
+        headers: {
+          Accept: '*/*',
+          Authorization: `Bearer ${token}`,
+        },
+      },
     )
     return res.data.products
   } catch (err) {
@@ -23,6 +37,7 @@ const fetchProducts = async () => {
 }
 
 function BodyBranchpage() {
+  const dispatch = useDispatch()
   const { data, isLoading } = useQuery({
     queryKey: ['fetchProducts'],
     queryFn: fetchProducts,
@@ -104,10 +119,23 @@ function BodyBranchpage() {
                       </button>
                     </div>
                     <button
+                      onClick={() => {
+                        dispatch(addProduct(product))
+                        toast.success(
+                          '✅ محصول با موفقیت به سبد خرید اضافه شد!',
+                          {
+                            position: 'top-right',
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'colored',
+                          },
+                        )
+                      }}
                       className="mt-3 w-[210px] rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
-                      onClick={() =>
-                        console.log('افزودن به سبد خرید:', product.id)
-                      }
                     >
                       افزودن به سبد
                     </button>
@@ -177,10 +205,23 @@ function BodyBranchpage() {
                         </button>
                       </div>
                       <button
+                        onClick={() => {
+                          dispatch(addProduct(product))
+                          toast.success(
+                            '✅ محصول با موفقیت به سبد خرید اضافه شد!',
+                            {
+                              position: 'top-right',
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: 'colored',
+                            },
+                          )
+                        }}
                         className="mt-3 w-[210px] rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
-                        onClick={() =>
-                          console.log('افزودن به سبد خرید:', product.id)
-                        }
                       >
                         افزودن به سبد
                       </button>
@@ -248,10 +289,23 @@ function BodyBranchpage() {
                       </button>
                     </div>
                     <button
+                      onClick={() => {
+                        dispatch(addProduct(product))
+                        toast.success(
+                          '✅ محصول با موفقیت به سبد خرید اضافه شد!',
+                          {
+                            position: 'top-right',
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'colored',
+                          },
+                        )
+                      }}
                       className="mt-3 w-[210px] rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
-                      onClick={() =>
-                        console.log('افزودن به سبد خرید:', product.id)
-                      }
                     >
                       افزودن به سبد
                     </button>
