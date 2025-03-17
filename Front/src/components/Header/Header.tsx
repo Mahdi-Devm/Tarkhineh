@@ -4,7 +4,6 @@ import IconHeader from './IconHeader'
 import ListHeader from './ListHeader'
 import { FaBars } from 'react-icons/fa'
 import { IoClose } from 'react-icons/io5'
-import { motion } from 'framer-motion'
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,24 +31,18 @@ function Header() {
           <FaBars />
         </button>
       </div>
+
       {isOpen && (
-        <motion.div
+        <div
           className="bg-opacity-50 fixed inset-0 z-20 backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
         />
       )}
-      <motion.div
-        className={`fixed top-0 right-0 z-30 h-full w-[70%] transform bg-white shadow-xl transition-all duration-500 ease-in-out ${
-          isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+
+      <div
+        className={`fixed top-0 right-0 z-30 h-full w-[70%] bg-white shadow-xl transition-all duration-300 ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
-        initial={{ opacity: 0, x: '100%' }}
-        animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : '100%' }}
-        exit={{ opacity: 0, x: '100%' }}
-        transition={{ type: 'spring', stiffness: 300 }}
       >
         <div className="flex justify-end p-4">
           <button
@@ -62,7 +55,7 @@ function Header() {
         <div className="p-6">
           <ListHeader />
         </div>
-      </motion.div>
+      </div>
     </header>
   )
 }

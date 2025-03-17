@@ -69,7 +69,7 @@ const MenuItem = ({
           onClick={onClick}
         />
       ) : (
-        <span className="rounded-md px-3 py-1 text-xl transition-all duration-300 hover:scale-105 sm:px-5 sm:py-2 sm:text-[20px]">
+        <span className="rounded-md px-3 py-1 text-xl sm:px-5 sm:py-2 sm:text-[20px]">
           {label}
         </span>
       )}
