@@ -57,13 +57,6 @@ const IconHeader = () => {
         >
           <CiShoppingCart className="h-[24px] w-[24px]" />
         </Link>
-        <div className="hidden h-[40px] w-[40px] cursor-pointer rounded-md bg-[#E5F2E9] p-[8px] md:flex">
-
-
-        </div>
-=======
-        </Link>
->>>>>>> c0f185892b42d00e43b0a523a7eb6ac45c9df8b8
       </div>
 
       <Modal
