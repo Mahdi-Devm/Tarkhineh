@@ -16,19 +16,19 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
   return (
     <main className="mx-auto text-[#353535] my-6 flex max-w-[1224px] flex-col gap-3 rounded-md border-zinc-400 items-center lg:flex-row-reverse  ">
       <div className="max-h-[400px] self-start w-full space-y-3 overflow-y-auto rounded-xl border border-zinc-400 p-3 ">
-        {items.map(item=>(<div className="border border-zinc-300 rounded-xl overflow-hidden flex flex-row-reverse " key={item.id}>
+        {items.map(item=>(<div className="border h-[150px] border-zinc-300 rounded-xl overflow-hidden flex flex-row-reverse " key={item.id}>
           <div className="max-md:hidden w-[150px] bg-green-200 aspect-square ">
             <img className="w-full object-cover" src={`http://localhost:3000/${item.image_url}`} alt={item.name} />
           </div>
 
           <div className="p-3 flex flex-col justify-between  w-full">
-            <div className="flex  justify-between">
+            <div className="flex justify-between">
               <span>trash</span>
               <h2>{item.name}</h2>
             </div>
             <div className="flex max-md:hidden justify-between">
               <p>تخفیف</p>
-              <p className="text-[14px] text-nowrap overflow-hidden">{item.description}</p>
+              <p className="text-[14px] text-right bg-amber-100 max-w-[282px] overflow-hidden">{item.description}</p>
 
             </div>
             <div className="flex flex-row-reverse justify-between">
@@ -68,7 +68,7 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
         <div className="flex w-full flex-wrap justify-between py-3">
           <span>تومان {total}</span>
           <span>مبلغ قابل پرداخت</span>
-          {!isAuthenticated?<Link to={'/cart/completion-info'} className="mt-2 w-full rounded-lg bg-green-700 text-white hover:bg-green-700/80 ease-in transition-all text-center p-2">تکمیل اطلاعات </Link>:<button  className="mt-2 w-full bg-amber-200 rounded-lg p-2">ورود</button>}
+          {isAuthenticated?<Link to={'/cart/completion-info'} className="mt-2 w-full rounded-lg bg-green-700 text-white hover:bg-green-700/80 ease-in transition-all text-center p-2">تکمیل اطلاعات </Link>:<button  className="mt-2 w-full bg-amber-200 rounded-lg p-2">ورود</button>}
         </div>
       </div>
     </main>

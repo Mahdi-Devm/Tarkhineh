@@ -9,8 +9,9 @@ function PaymentPage() {
   return (
     <div>
       <PaymentBreadcrumb pathName={pathname} />
-      <Successfulpayment />
-      <Unsuccessfulpayment />
+      
+      {/* <Successfulpayment /> */}
+      {/* <Unsuccessfulpayment /> */}
     </div>
   )
 }
