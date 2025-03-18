@@ -9,11 +9,14 @@ import Interests from './components/Profile/Interests'
 import { NumberProvider } from './Context/NumberUserForProfile'
 import Addresses from './components/Profile/Addresses'
 
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 import { store } from './redux/store'
+import Modal from './components/Login/ModalLogin'
+import PrivateRoute from './PrivateRoute'
+import PanelAdmin from './admin/PanelAdmin'
+import AdminLayout from './admin/AdminLayout'
 const Loader = () => (
   <div className="flex h-screen items-center justify-center">
-    <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
     <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
   </div>
 )
@@ -44,11 +47,12 @@ const App = () => {
         <NumberProvider>
           <AuthProvider>
             <Router>
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <Routes>
                   <Route element={<PageLayoute />}>
                     <Route path="/" element={<MainPage />} />
                     <Route path="/about" element={<AboutPage />} />
+                    <Route path="/login" element={<Modal />} />
                     <Route
                       path="/awarding-agent"
                       element={<AwardingAgentPage />}
@@ -83,6 +87,16 @@ const App = () => {
                     <Route path="/rules" element={<RulesPage />} />
                     <Route path="/cart" element={<ShopingCartPage />} />
                   </Route>
+                  <Route
+                    path="/paneladmin"
+                    element={
+                      <PrivateRoute>
+                        <AdminLayout>
+                          <PanelAdmin />
+                        </AdminLayout>
+                      </PrivateRoute>
+                    }
+                  />
                 </Routes>
               </Suspense>
             </Router>
