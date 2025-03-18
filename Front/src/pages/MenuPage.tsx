@@ -159,7 +159,7 @@ const MenuPage = () => {
       refetchProducts()
     }
   }, [selectedSubCategory, refetchProducts])
-  const productsInCart = useSelector((state: any) => state.cardReducer.products)
+  const productsInCart = useSelector((state: RootState) => state.cardReducer.products)
   const isProductInCart = (productId: number) => {
     return productsInCart.some((product: Product) => product.id === productId)
   }
@@ -279,7 +279,7 @@ const MenuPage = () => {
 
                   <div className="mt-5 flex items-center justify-between">
                     <p className="text-[14px] text-[#353535] sm:text-[18px]">
-                      <span>{product.price} </span>
+                  <span>{product.coupon?  (product.price * product.coupon.percent) - product.price :product.price } </span>
                       <span>تومان</span>
                     </p>
                     <p className="text-[12px] text-[#353535] sm:text-[14px]">
@@ -287,9 +287,9 @@ const MenuPage = () => {
                     </p>
                   </div>
 
-                  <div className="mt-2 flex w-fit  text-red-800 ">
-                    {product.coupon.percent}%
-                  </div>
+                  {product.coupon&&<div className="mt-2 flex w-fit  text-red-800 ">
+                    {product.coupon?.percent}%
+                  </div>}
 
                   <div className="mt-5 mb-6 flex items-center justify-center gap-1">
                     <button
