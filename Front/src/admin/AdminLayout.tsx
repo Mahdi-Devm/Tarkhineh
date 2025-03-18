@@ -8,7 +8,7 @@ interface AdminLayoutProps {
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
-    <div className="grid grid-cols-12 gap-6">
+    <div className="grid grid-cols-12">
       <div className="sidebar-wrapper hidden lg:col-span-2 lg:block">
         <Sidebars />
       </div>

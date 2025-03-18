@@ -21,7 +21,7 @@ export default function Sidebars() {
               className={({ isActive }) =>
                 `mx-6 flex items-center gap-2 rounded-lg px-4 py-3 transition-all duration-300 ${
                   isActive
-                    ? 'bg-primary-light sidebar-active-link relative text-white shadow-md'
+                    ? 'scale-105 bg-[#47875C] text-white shadow-lg'
                     : 'text-light-black bg-white hover:bg-gray-100 hover:ps-6'
                 }`
               }

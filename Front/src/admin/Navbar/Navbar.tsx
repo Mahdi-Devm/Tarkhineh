@@ -3,12 +3,14 @@ import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import IconButton from '@mui/material/IconButton'
 import Badge from '@mui/material/Badge'
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications'
+import { CiBellOn } from 'react-icons/ci'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import SearchIcon from '@mui/icons-material/Search'
 
+import Avatar from '@mui/material/Avatar'
+import AvatarImage from '../assets/images/avatar.png'
 import EnIcon from '../assets/icons/england.avif'
 import IrIcon from '../assets/icons/iran.png'
 
@@ -58,7 +60,7 @@ export default function Navbar() {
   )
 
   return (
-    <nav className="flex w-full items-center justify-between bg-white px-4 py-3">
+    <nav className="flex w-full items-center justify-between border-b-1 border-stone-300 bg-white px-4 py-3">
       <Paper
         component="form"
         sx={{
@@ -83,11 +85,36 @@ export default function Navbar() {
       </Paper>
 
       <div className="right-section flex items-center justify-center gap-x-4">
-        <Badge color="secondary" variant="dot" overlap="circular">
-          <CircleNotificationsIcon
-            className="text-primary-light hover:text-primary-light/80"
-            fontSize="large"
-          />
+        <Badge
+          color="secondary"
+          variant="dot"
+          overlap="circular"
+          sx={{
+            '& .MuiBadge-dot': {
+              backgroundColor: '#47875C',
+            },
+          }}
+        >
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #47875C, #2E5944)',
+              padding: '5px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+              width: '35px',
+              height: '35px',
+              transition: 'transform 0.3s ease',
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.transform = 'scale(1.1)')
+            }
+            onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+          >
+            <CiBellOn style={{ fontSize: '28px', color: '#fff' }} />
+          </div>
         </Badge>
 
         <div className="hidden md:block">
@@ -127,6 +154,7 @@ export default function Navbar() {
 
         <div className="avatar-wrapper flex items-center gap-1">
           <div className="admin-details hidden flex-col items-center justify-center md:flex">
+            <Avatar alt="Remy Sharp" src={AvatarImage} />
             <span className="text-sm font-light">Moni Rou</span>
             <span className="text-sm font-light text-gray-400">Admin</span>
           </div>
