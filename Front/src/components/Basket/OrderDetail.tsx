@@ -54,7 +54,7 @@ const OrderDetail = () => {
           <div className="flex w-full flex-wrap justify-between py-3">
             <span>تومان{total}</span>
             <span>مبلغ قابل پرداخت</span>
-            <Link to={'/cart/completion-info/payment'} className="mt-2 w-full bg-green-900 text-white p-2">ثبت اطلاعات</Link>
+            <Link to={'/cart/completion-info/payment'} className="mt-2 rounded-lg text-center w-full bg-green-900 text-white p-2">ثبت اطلاعات</Link>
           </div>
         </div>
   )

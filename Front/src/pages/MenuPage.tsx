@@ -21,7 +21,10 @@ interface SubCategory {
   id: number
   title: string
 }
-
+interface Coupon {
+  id:number
+  percent:number
+}
 export interface Product {
   id: number
   name: string
@@ -31,6 +34,7 @@ export interface Product {
   rating: number
   isFavorite: boolean
   qty: number | 0
+  coupon: Coupon
 }
 
 const fetchCategories = async (): Promise<Category[]> => {
@@ -283,8 +287,8 @@ const MenuPage = () => {
                     </p>
                   </div>
 
-                  <div className="mt-2 flex w-fit border bg-green-200">
-                    {product.qty}
+                  <div className="mt-2 flex w-fit  text-red-800 ">
+                    {product.coupon.percent}%
                   </div>
 
                   <div className="mt-5 mb-6 flex items-center justify-center gap-1">

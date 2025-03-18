@@ -4,6 +4,8 @@ import { RootState } from "../../redux/store"
 import { addProduct, removeProduct } from "../../redux/shopCard/shopCardSlice"
 import { useAuth } from "../../Context/AuthContext"
 import { Link } from "react-router-dom"
+import Modal from "../Login/ModalLogin"
+import { useEffect, useState } from "react"
 
 interface Props{
   items:Product[]
@@ -11,6 +13,18 @@ interface Props{
 
 const BasketItems = ({items}:Props) => {
 const total =useSelector((state:RootState)=>state.cardReducer.amount)
+const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768)
+   useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768)
+      }
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
+    }, [])
+const toggleModal = () => {
+  setIsModalOpen((prev) => !prev)
+}
 const dispatch=useDispatch()
 const {isAuthenticated,setIsAuthenticated}=useAuth()
   return (
@@ -66,9 +80,14 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
           </span>
         </div>
         <div className="flex w-full flex-wrap justify-between py-3">
-          <span>تومان {total}</span>
+          <span>تومان {total.toLocaleString()}</span>
           <span>مبلغ قابل پرداخت</span>
-          {isAuthenticated?<Link to={'/cart/completion-info'} className="mt-2 w-full rounded-lg bg-green-700 text-white hover:bg-green-700/80 ease-in transition-all text-center p-2">تکمیل اطلاعات </Link>:<button  className="mt-2 w-full bg-amber-200 rounded-lg p-2">ورود</button>}
+          {!isAuthenticated?<Link to={'/cart/completion-info'} className="mt-2 w-full rounded-lg bg-green-700 text-white hover:bg-green-700/80 ease-in transition-all text-center p-2">تکمیل اطلاعات </Link>:<Modal
+        isMobile={isMobile}
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+      />
+            }
         </div>
       </div>
     </main>
