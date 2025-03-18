@@ -88,7 +88,7 @@ const App = () => {
                     <Route path="/cart" element={<ShopingCartPage />} />
                   </Route>
                   <Route
-                    path="/paneladmin"
+                    path="/paneladmin/*"
                     element={
                       <PrivateRoute>
                         <AdminLayout>

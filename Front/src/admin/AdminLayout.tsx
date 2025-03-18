@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import Navbar from './Navbar/Navbar'
-import Sidebar from './Sidebar/Sidebar'
+import Sidebars from './Sidebar/Sidebar'
 
 interface AdminLayoutProps {
   children: ReactNode
@@ -8,9 +8,9 @@ interface AdminLayoutProps {
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 gap-6">
       <div className="sidebar-wrapper hidden lg:col-span-2 lg:block">
-        <Sidebar />
+        <Sidebars />
       </div>
 
       <div className="route-wrapper col-span-12 lg:col-span-10">

@@ -1,26 +1,35 @@
-import SearchIcon from '@mui/icons-material/Search'
+import { useState, useMemo, useCallback } from 'react'
 import Paper from '@mui/material/Paper'
 import InputBase from '@mui/material/InputBase'
 import IconButton from '@mui/material/IconButton'
 import Badge from '@mui/material/Badge'
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications'
-import Avatar from '@mui/material/Avatar'
-import { useState, useMemo, useCallback } from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import SearchIcon from '@mui/icons-material/Search'
+
 import EnIcon from '../assets/icons/england.avif'
 import IrIcon from '../assets/icons/iran.png'
-const languages = [
+
+interface Language {
+  code: string
+  name: string
+  icon: string
+}
+
+const languages: Language[] = [
   { code: 'en', name: 'English', icon: EnIcon },
   { code: 'fa', name: 'Persian', icon: IrIcon },
 ]
 
 export default function Navbar() {
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0])
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(
+    languages[0],
+  )
 
-  const handleClick = useCallback((event) => {
+  const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }, [])
 
@@ -29,7 +38,7 @@ export default function Navbar() {
   }, [])
 
   const handleLanguageChange = useCallback(
-    (language) => {
+    (language: Language) => {
       setSelectedLanguage(language)
       handleClose()
     },
@@ -59,8 +68,7 @@ export default function Navbar() {
           width: 250,
           background: '#f5f6fa',
           borderRadius: 30,
-          border: ' 1px solid ',
-          borderColor: '#e5e7eb',
+          border: '1px solid #e5e7eb',
           boxShadow: 0,
         }}
       >
