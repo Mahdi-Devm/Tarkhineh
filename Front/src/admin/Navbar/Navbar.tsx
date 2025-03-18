@@ -5,14 +5,12 @@ import IconButton from '@mui/material/IconButton'
 import Badge from '@mui/material/Badge'
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications'
 import Avatar from '@mui/material/Avatar'
-import AvatarImage from '../../assets/images/avatar.png'
 import { useState, useMemo, useCallback } from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import EnIcon from '../../assets/icons/england.avif'
-import IrIcon from '../../assets/icons/iran.png'
-
+import EnIcon from '../assets/icons/england.avif'
+import IrIcon from '../assets/icons/iran.png'
 const languages = [
   { code: 'en', name: 'English', icon: EnIcon },
   { code: 'fa', name: 'Persian', icon: IrIcon },
@@ -120,7 +118,6 @@ export default function Navbar() {
         </div>
 
         <div className="avatar-wrapper flex items-center gap-1">
-          <Avatar alt="Remy Sharp" src={AvatarImage} />
           <div className="admin-details hidden flex-col items-center justify-center md:flex">
             <span className="text-sm font-light">Moni Rou</span>
             <span className="text-sm font-light text-gray-400">Admin</span>

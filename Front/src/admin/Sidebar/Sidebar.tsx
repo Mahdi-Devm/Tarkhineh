@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-import Logo from '../../../public/icons/Logo.svg'
+import Logo from '../../assets/Logo/Logo.png'
 import { sidebarLinks } from '../../constants/sidebarLinks'
 
 export default function Sidebar() {
