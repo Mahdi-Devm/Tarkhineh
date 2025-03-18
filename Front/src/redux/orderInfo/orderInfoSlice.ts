@@ -31,6 +31,6 @@ const OrderInfoSlice = createSlice({
     },
   },
 })
-export const { getAddress,getPaymentOption, getOrderOption, getDescription } =
+export const { getAddress,getPayLink,getPaymentOption, getOrderOption, getDescription } =
   OrderInfoSlice.actions
 export default OrderInfoSlice.reducer

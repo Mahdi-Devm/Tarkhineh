@@ -4,15 +4,21 @@ import Successfulpayment from '../components/Successfulpayment'
 import Unsuccessfulpayment from '../components/Unsuccessfulpayment'
 import OrderDetail from '../components/Basket/OrderDetail'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPaymentOption } from '../redux/orderInfo/orderInfoSlice'
-import { RootState } from '../redux/store'
+import { getPayLink, getPaymentOption } from '../redux/orderInfo/orderInfoSlice'
+import { RootState, store } from '../redux/store'
 
 function PaymentPage() {
   const { pathname } = useLocation()
   const dispatch = useDispatch()
-  const { paymentOption } = useSelector((state: RootState) => state.orderInfo)
+  const {orderInfo}=store.getState()
+  console.log(orderInfo)
+  const { paymentOption,payLink } = useSelector((state: RootState) => state.orderInfo)
   const isPayOptionSet = (option: string) => {
     if (paymentOption === option) return true
+    return false
+  }
+  const isPayLinkSet = (option: string) => {
+    if (payLink === option) return true
     return false
   }
 
@@ -89,17 +95,17 @@ function PaymentPage() {
             <div className="flex gap-2 w-full  justify-center text-right">
               <div
                 className={
-                  isPayOptionSet('inPlace')
-                    ? 'rounded-xl border border-green-300 bg-green-100 p-2'
+                  isPayLinkSet('mellat')
+                    ? 'rounded-xl border border-green-3 00 bg-green-100 p-2'
                     : 'p-2 border rounded-md size-[80px] '
                 }
               >
                 <label htmlFor="inPlace">
                 
                 <input
-                  onChange={(e) => dispatch(getPaymentOption(e.target.value))}
-                  name="payOption"
-                  value="inPlace"
+                  onChange={(e) => dispatch(getPayLink(e.target.value))}
+                  name="payOption" //static,dont change
+                  value="mellat"
                   type="radio"
                   id="inPlace"
                   />
