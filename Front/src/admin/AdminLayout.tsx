@@ -1,7 +1,12 @@
+import React, { ReactNode } from 'react'
 import Navbar from './Navbar/Navbar'
 import Sidebar from './Sidebar/Sidebar'
 
-const AdminLayout = ({ children }) => {
+interface AdminLayoutProps {
+  children: ReactNode
+}
+
+const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
     <div className="grid grid-cols-12">
       <div className="sidebar-wrapper hidden lg:col-span-2 lg:block">

@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { Suspense } from 'react'
 import routes from './routes'
 
-function PanelAdmin() {
+const PanelAdmin: React.FC = () => {
   return (
     <main className="overflow-x-hidden">
       <Suspense fallback={<div>Loading...</div>}>

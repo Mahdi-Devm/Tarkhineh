@@ -1,4 +1,5 @@
 import { lazy } from 'react'
+import { RouteObject } from 'react-router-dom'
 
 const Dashboard = lazy(() => import('./PanelAdmin'))
 const Products = lazy(() => import('./page/Products'))
@@ -7,7 +8,7 @@ const OrderLists = lazy(() => import('./page/OrderLists'))
 const ProductStock = lazy(() => import('./page/ProductStock'))
 const Contact = lazy(() => import('./page/Contact'))
 
-let routes = [
+const routes: RouteObject[] = [
   { path: '/', element: <Dashboard /> },
   { path: '/products', element: <Products /> },
   { path: '/favorites', element: <Favorites /> },
