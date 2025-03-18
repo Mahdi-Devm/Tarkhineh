@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { CiUser, CiShoppingCart, CiLogin } from 'react-icons/ci'
+
 import { Link, useNavigate } from 'react-router-dom'
 import Modal from '../Login/ModalLogin'
 import Cookies from 'js-cookie'
