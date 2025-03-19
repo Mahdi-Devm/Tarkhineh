@@ -18,11 +18,7 @@ interface Category {
   title: string
 }
 
-interface RootStates {
-  cardReducer: {
-    products: Product[]
-  }
-}
+
 interface SubCategory {
   id: number
   title: string
@@ -34,7 +30,7 @@ interface Coupon {
 export interface Product {
   id: number
   name: string
-  price: number
+  price: string
   image_url: string
   description: string
   rating: number
@@ -149,7 +145,6 @@ const MenuPage = () => {
     queryFn: () => fetchProduct(selectedSubCategory),
     enabled: !!selectedSubCategory,
   })
-
   useEffect(() => {
     if (subCategories && subCategories.length > 0 && !selectedSubCategory) {
       setSelectedSubCategory(subCategories[0].id.toString())
@@ -287,7 +282,7 @@ const MenuPage = () => {
 
                   <div className="mt-5 flex items-center justify-between">
                     <p className="text-[14px] text-[#353535] sm:text-[18px]">
-                  <span>{product.coupon?  (product.price * product.coupon.percent) - product.price :product.price } </span>
+                  <span>{(product.price -(product.price* (product.coupon?.percent/100)))} </span>
                       <span>تومان</span>
                     </p>
                     <p className="text-[12px] text-[#353535] sm:text-[14px]">
