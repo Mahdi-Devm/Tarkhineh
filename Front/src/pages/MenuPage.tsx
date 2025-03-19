@@ -17,6 +17,11 @@ interface Category {
   title: string
 }
 
+interface RootStates {
+  cardReducer: {
+    products: Product[]
+  }
+}
 interface SubCategory {
   id: number
   title: string
@@ -32,7 +37,11 @@ export interface Product {
   isFavorite: boolean
   qty: number | 0
 }
-
+interface SubCategory {
+  id: number
+  name: string
+  image_url?: string
+}
 const fetchCategories = async (): Promise<Category[]> => {
   const token = Cookies.get('accessToken')
   const response = await fetch(
@@ -51,11 +60,9 @@ const fetchCategories = async (): Promise<Category[]> => {
   const data = await response.json()
   return data.categories
 }
-
 const fetchSubCategories = async (
-  page: number,
   categoryId: number,
-): Promise<any> => {
+): Promise<SubCategory[]> => {
   const token = Cookies.get('accessToken')
   if (!token) {
     throw new Error('توکن یافت نشد. لطفاً وارد شوید.')
@@ -124,7 +131,7 @@ const MenuPage = () => {
     Error
   >({
     queryKey: ['subcategory', selectedCategory],
-    queryFn: () => fetchSubCategories(1, selectedCategory),
+    queryFn: () => fetchSubCategories(selectedCategory),
     enabled: !!selectedCategory,
   })
 
@@ -155,7 +162,9 @@ const MenuPage = () => {
       refetchProducts()
     }
   }, [selectedSubCategory, refetchProducts])
-  const productsInCart = useSelector((state: any) => state.cardReducer.products)
+  const productsInCart = useSelector(
+    (state: RootStates) => state.cardReducer.products,
+  )
   const isProductInCart = (productId: number) => {
     return productsInCart.some((product: Product) => product.id === productId)
   }

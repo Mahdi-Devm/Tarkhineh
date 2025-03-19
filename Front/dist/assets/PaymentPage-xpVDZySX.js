@@ -1,1 +1,0 @@
-import{j as n,u as s}from"./index-CdV-T1hA.js";import{P as t}from"./PaymentBreadcrumb-ClhfQVlI.js";function r(){return n.jsx("div",{children:"پرداخت موفق بود!"})}function a(){return n.jsx("div",{children:"پرداخت ناموفق بود!"})}function i(){const{pathname:e}=s();return n.jsxs("div",{children:[n.jsx(t,{pathName:e}),n.jsx(r,{}),n.jsx(a,{})]})}export{i as default};
