@@ -82,7 +82,7 @@ const BasketItems = ({ items }: Props) => {
           </span>
         </div>
         <div className="flex w-full flex-wrap justify-between py-3">
-          <span>تومان {total}</span>
+          <span>تومان {total.toLocaleString()}</span>
           <span>مبلغ قابل پرداخت</span>
           {!isAuthenticated ? (
             <Link

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { addProduct, removeProduct } from '../../redux/shopCard/shopCardSlice'
+import { Link } from 'react-router-dom'
 
 
 const OrderDetail = () => {
@@ -53,7 +54,7 @@ const OrderDetail = () => {
           <div className="flex w-full flex-wrap justify-between py-3">
             <span>تومان{total}</span>
             <span>مبلغ قابل پرداخت</span>
-            <button className="mt-2 w-full bg-green-900 text-white p-2">ثبت اطلاعات</button>
+            <Link to={'/cart/completion-info/payment'} className="mt-2 rounded-lg text-center w-full bg-green-900 text-white p-2">ثبت اطلاعات</Link>
           </div>
         </div>
   )
