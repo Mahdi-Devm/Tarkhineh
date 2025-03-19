@@ -9,7 +9,7 @@ function ShopingCartPage() {
 const cardItems=useSelector((state:RootState)=>state.cardReducer.products)
   const { pathname } = useLocation()
   
-console.log(cardItems)
+console.log('in shoping',cardItems)
   return (
     <>
       <PaymentBreadcrumb pathName={pathname} />

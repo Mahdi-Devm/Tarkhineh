@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CiTrash } from 'react-icons/ci'
 import Cookies from 'js-cookie'
+import { Link } from 'react-router-dom'
 interface Category {
   id: number
   title: string
@@ -240,7 +241,7 @@ const MenuPage = () => {
         </div>
         <div className="mt-10 flex items-center justify-between">
           <button className="flex h-10 w-44 cursor-pointer items-center justify-center gap-3 rounded-2xl border border-[#417F56] bg-white p-2 text-[#417F56] shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#417F56] hover:text-white">
-            <p className="text-base font-medium">تکمیل خرید</p>
+            <Link to={'/cart'} className="text-base font-medium">{cardItems.length}تکمیل خرید</Link>
             <CiShoppingCart className="h-6 w-6" />
           </button>
         </div>
