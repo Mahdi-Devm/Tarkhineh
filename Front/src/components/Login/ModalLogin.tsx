@@ -14,21 +14,21 @@ interface OtpResponse {
   otp: string
   expiresIn: number
 }
-interface ModalProps {
-  isMobile: boolean
-  isModalOpen: boolean
-  toggleModal: () => void
-}
 
 interface FormData {
   mobile: string
   otpCode: string
 }
+type ModalProps = {
+  isMobile?: boolean
+  isModalOpen?: boolean
+  toggleModal?: () => void
+}
 
 const Modal: React.FC<ModalProps> = ({
-  isMobile,
-  isModalOpen,
-  toggleModal,
+  isMobile = false,
+  isModalOpen = false,
+  toggleModal = () => {},
 }) => {
   const {
     register,

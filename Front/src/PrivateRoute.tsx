@@ -1,11 +1,16 @@
+import { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-const PrivateRoute = ({ children }) => {
+interface PrivateRouteProps {
+  children: ReactNode
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const accessToken = Cookies.get('accessToken')
 
   if (!accessToken) {
-    return <Navigate to="/login" />
+    return <Navigate to="/login" replace />
   }
 
   return children

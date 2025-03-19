@@ -18,6 +18,11 @@ interface Category {
   title: string
 }
 
+interface RootStates {
+  cardReducer: {
+    products: Product[]
+  }
+}
 interface SubCategory {
   id: number
   title: string
@@ -37,7 +42,11 @@ export interface Product {
   qty: number | 0
   coupon: Coupon
 }
-
+interface SubCategory {
+  id: number
+  name: string
+  image_url?: string
+}
 const fetchCategories = async (): Promise<Category[]> => {
   const token = Cookies.get('accessToken')
   const response = await fetch(
@@ -56,11 +65,9 @@ const fetchCategories = async (): Promise<Category[]> => {
   const data = await response.json()
   return data.categories
 }
-
 const fetchSubCategories = async (
-  page: number,
   categoryId: number,
-): Promise<any> => {
+): Promise<SubCategory[]> => {
   const token = Cookies.get('accessToken')
   if (!token) {
     throw new Error('توکن یافت نشد. لطفاً وارد شوید.')
@@ -129,7 +136,7 @@ const MenuPage = () => {
     Error
   >({
     queryKey: ['subcategory', selectedCategory],
-    queryFn: () => fetchSubCategories(1, selectedCategory),
+    queryFn: () => fetchSubCategories(selectedCategory),
     enabled: !!selectedCategory,
   })
 

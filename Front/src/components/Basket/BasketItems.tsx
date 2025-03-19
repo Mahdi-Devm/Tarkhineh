@@ -7,8 +7,8 @@ import { Link } from "react-router-dom"
 import Modal from "../Login/ModalLogin"
 import { useEffect, useState } from "react"
 
-interface Props{
-  items:Product[]
+interface Props {
+  items: Product[]
 }
 
 const BasketItems = ({items}:Props) => {
@@ -64,7 +64,7 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
         </div>
       ))}
       </div>
-      <div className="divide lg:self-start  h-fit min-h-[330px] w-full lg:max-w-[500px] divide-y-2 divide-zinc-300 rounded-xl border px-4 py-3 max-sm:border-t sm:border-zinc-400 sm:py-5  md:text-[16px]">
+      <div className="divide h-fit min-h-[330px] w-full divide-y-2 divide-zinc-300 rounded-xl border px-4 py-3 max-sm:border-t sm:border-zinc-400 sm:py-5 md:text-[16px] lg:max-w-[500px] lg:self-start">
         <div className="flex w-full justify-between py-3">
           <span>trash </span>
           <span>سبد خرید ({items.length})</span>
