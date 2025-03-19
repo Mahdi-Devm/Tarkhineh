@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useAuth } from '../../Context/AuthContext'
 import { useNumber } from '../../Context/NumberUserForProfile'
+import { useNavigate } from 'react-router-dom'
 interface OtpResponse {
   otp: string
   expiresIn: number
@@ -36,6 +37,7 @@ const Modal: React.FC<ModalProps> = ({
     setValue,
   } = useForm<FormData>()
 
+  const nav = useNavigate()
   const queryClient = useQueryClient()
   const { setIsAuthenticated } = useAuth()
   const { setMobile } = useNumber()
@@ -96,7 +98,8 @@ const Modal: React.FC<ModalProps> = ({
         toast.success('ورود موفقیت‌آمیز بود.')
         queryClient.invalidateQueries({ queryKey: ['getOtp'] })
         toggleModal()
-
+        nav('/')
+        window.location.reload()
         if (setIsAuthenticated) {
           setIsAuthenticated(true)
         } else {

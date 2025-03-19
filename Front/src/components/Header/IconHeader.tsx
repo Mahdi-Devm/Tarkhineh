@@ -33,6 +33,7 @@ const IconHeader = () => {
     if (isAuthenticated) {
       navigate('/profile')
     } else {
+      navigate('/login')
       toggleModal()
     }
   }
