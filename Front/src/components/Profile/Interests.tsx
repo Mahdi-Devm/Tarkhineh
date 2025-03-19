@@ -1,4 +1,6 @@
 import HeaderListProfile from './HeaderListProfile'
+import Cookies from 'js-cookie'
+import { useQuery } from '@tanstack/react-query'
 
 const dataInterests = [
   { name: 'همه' },
@@ -8,25 +10,29 @@ const dataInterests = [
   { name: 'نوشیدنی' },
 ]
 
-const fakeItems = [
-  {
-    name: 'پاستا سبزیجات',
-    price: '150,000',
-    img: 'https://www.figma.com/file/a1A9NqKpy0fC9pQpVBkTaa/image/117ab033c18324ae6672db4300937e223eb47955',
-  },
-  {
-    name: 'سالاد سزار',
-    price: '120,000',
-    img: 'https://www.figma.com/file/a1A9NqKpy0fC9pQpVBkTaa/image/117ab033c18324ae6672db4300937e223eb47955',
-  },
-  {
-    name: 'استیک گوشت',
-    price: '450,000',
-    img: 'https://www.figma.com/file/a1A9NqKpy0fC9pQpVBkTaa/image/117ab033c18324ae6672db4300937e223eb47955',
-  },
-]
+const token = Cookies.get('accessToken')
+
+const fetchData = async () => {
+  let response = await fetch('http://localhost:3000/api/v1/client/likes', {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+
+  return response.json()
+}
+
 
 function Interests() {
+
+  const data = useQuery({
+    queryKey: ["client"],
+    queryFn: fetchData
+  })
+
+  console.log(data.data[0].product.image_url)
+
   return (
     <div className="p-4">
       <HeaderListProfile tilte="علاقمندی‌ها" />
@@ -50,23 +56,23 @@ function Interests() {
       </div>
 
       <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {fakeItems.map((item, index) => (
+        {data.data ? data.data.map((item, index) => (
           <div
             key={index}
             className="flex flex-col items-center gap-2 rounded-2xl bg-white p-4 shadow-md transition hover:scale-105 hover:shadow-lg"
           >
             <img
-              src={item.img}
-              alt={item.name}
+              src={`http://localhost:3000/${item.product.image_url}`}
+              alt={item.product.name}
               className="h-[180px] w-full max-w-xs rounded-lg object-cover"
             />
-            <h2 className="text-lg font-semibold">{item.name}</h2>
-            <p className="text-[#717171]">تومان {item.price}</p>
+            <h2 className="text-lg font-semibold">{item.product.name}</h2>
+            <p className="text-[#717171]">تومان {item.product.price}</p>
             <button className="h-[40px] w-[80%] rounded-md bg-[#417F56] text-white hover:bg-[#315A3D]">
               افزودن به سبد خرید
             </button>
-          </div>
-        ))}
+          </div> 
+        )) : ''}
       </div>
     </div>
   )
