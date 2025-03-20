@@ -4,8 +4,6 @@ import { RootState } from "../../redux/store"
 import { addProduct, removeProduct } from "../../redux/shopCard/shopCardSlice"
 import { useAuth } from "../../Context/AuthContext"
 import { Link } from "react-router-dom"
-import Modal from "../Login/ModalLogin"
-import { useEffect, useState } from "react"
 
 interface Props {
   items: Product[]
@@ -17,18 +15,7 @@ const BasketItems = ({items}:Props) => {
 const {amount} =useSelector((state:RootState)=>state.cardReducer)
 const {discount} =useSelector((state:RootState)=>state.cardReducer)
 console.log(discount)
-const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768)
-   useEffect(() => {
-      const handleResize = () => {
-        setIsMobile(window.innerWidth <= 768)
-      }
-      window.addEventListener('resize', handleResize)
-      return () => window.removeEventListener('resize', handleResize)
-    }, [])
-const toggleModal = () => {
-  setIsModalOpen((prev) => !prev)
-}
+
 const dispatch=useDispatch()
 const {isAuthenticated,setIsAuthenticated}=useAuth()
   return (
@@ -86,12 +73,20 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
         <div className="flex w-full flex-wrap justify-between py-3">
           <span>تومان {(amount - discount).toLocaleString()}</span>
           <span>مبلغ قابل پرداخت</span>
-          {!isAuthenticated?<Link to={'/cart/completion-info'} className="mt-2 w-full rounded-lg bg-green-700 text-white hover:bg-green-700/80 ease-in transition-all text-center p-2">تکمیل اطلاعات </Link>:<Modal
-        isMobile={isMobile}
-        isModalOpen={isModalOpen}
-        toggleModal={toggleModal}
-      />
-            }
+
+          {!isAuthenticated ? (
+            <Link
+              to={'/cart/completion-info'}
+              className="mt-2 w-full rounded-lg bg-green-700 p-2 text-center text-white transition-all ease-in hover:bg-green-700/80"
+            >
+              تکمیل اطلاعات{' '}
+            </Link>
+          ) : (
+            <button className="mt-2 w-full rounded-lg bg-amber-200 p-2">
+              ورود
+            </button>
+          )}
+
         </div>
       </div>
     </main>

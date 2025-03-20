@@ -162,7 +162,11 @@ const MenuPage = () => {
       refetchProducts()
     }
   }, [selectedSubCategory, refetchProducts])
-  const productsInCart = useSelector((state: RootState) => state.cardReducer.products)
+
+  const productsInCart = useSelector(
+    (state: RootStates) => state.cardReducer.products,
+  )
+
   const isProductInCart = (productId: number) => {
     return productsInCart.some((product: Product) => product.id === productId)
   }
