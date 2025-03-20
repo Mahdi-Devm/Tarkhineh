@@ -15,6 +15,8 @@ const BasketItems = ({items}:Props) => {
   
   
 const {amount} =useSelector((state:RootState)=>state.cardReducer)
+const {discount} =useSelector((state:RootState)=>state.cardReducer)
+console.log(discount)
 const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768)
    useEffect(() => {
@@ -70,7 +72,7 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
           <span>سبد خرید ({items.length})</span>
         </div>
         <div className="flex w-full justify-between py-3">
-          <span>{22}تومان</span>
+          <span>{discount}تومان</span>
           <span>تخفیف محصولات</span>
         </div>
         <div className="flex w-full flex-wrap justify-between py-3">
@@ -82,7 +84,7 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
           </span>
         </div>
         <div className="flex w-full flex-wrap justify-between py-3">
-          <span>تومان {amount.toLocaleString()}</span>
+          <span>تومان {(amount - discount).toLocaleString()}</span>
           <span>مبلغ قابل پرداخت</span>
           {!isAuthenticated?<Link to={'/cart/completion-info'} className="mt-2 w-full rounded-lg bg-green-700 text-white hover:bg-green-700/80 ease-in transition-all text-center p-2">تکمیل اطلاعات </Link>:<Modal
         isMobile={isMobile}

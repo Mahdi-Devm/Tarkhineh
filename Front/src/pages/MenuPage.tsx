@@ -282,7 +282,7 @@ const MenuPage = () => {
 
                   <div className="mt-5 flex items-center justify-between">
                     <p className="text-[14px] text-[#353535] sm:text-[18px]">
-                  <span>{(product.price -(product.price* (product.coupon?.percent/100)))} </span>
+                  <span>{ product.coupon?(+(product.price) -(+product.price* (product.coupon?.percent/100))):product.price} </span>
                       <span>تومان</span>
                     </p>
                     <p className="text-[12px] text-[#353535] sm:text-[14px]">
