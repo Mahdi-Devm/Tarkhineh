@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 const OrderDetail = () => {
-   
+const {discount}=useSelector((state:RootState)=>state.cardReducer)   
     const items = useSelector((state: RootState) => state.cardReducer.products)
   const total = useSelector((state: RootState) => state.cardReducer.amount)
   const dispatch = useDispatch()
@@ -40,7 +40,7 @@ const OrderDetail = () => {
             ))}
           </div>
           <div className="flex w-full justify-between py-3">
-            <span>{22}تومان</span>
+            <span>{discount.toLocaleString()}تومان</span>
             <span>تخفیف محصولات</span>
           </div>
           <div className="flex w-full flex-wrap justify-between py-3">
@@ -52,7 +52,7 @@ const OrderDetail = () => {
             </span>
           </div>
           <div className="flex w-full flex-wrap justify-between py-3">
-            <span>تومان{total}</span>
+            <span>تومان{total.toLocaleString()}</span>
             <span>مبلغ قابل پرداخت</span>
             <Link to={'/cart/completion-info/payment'} className="mt-2 rounded-lg text-center w-full bg-green-900 text-white p-2">ثبت اطلاعات</Link>
           </div>
