@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useAuth } from '../../Context/AuthContext'
 import { useNumber } from '../../Context/NumberUserForProfile'
 import { useNavigate } from 'react-router-dom'
+import { BASEURL } from '../../api'
 interface OtpResponse {
   otp: string
   expiresIn: number
@@ -57,17 +58,14 @@ const Modal: React.FC<ModalProps> = ({
     mutationFn: async (data: { mobile: string }): Promise<OtpResponse> => {
       const payload = JSON.stringify({ mobile: data.mobile })
 
-      const res = await fetch(
-        'http://localhost:3000/api/v1/client/auth/getOtp',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: payload,
+      const res = await fetch(`${BASEURL}/client/auth/getOtp`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      )
+        body: payload,
+      })
 
       if (!res.ok) {
         throw new Error('مشکلی پیش آمد 1')
@@ -86,7 +84,7 @@ const Modal: React.FC<ModalProps> = ({
   const otpVerificationMutation = useMutation({
     mutationFn: async (data: { mobile: string; otpCode: string }) => {
       const res = await axios.post(
-        'http://localhost:3000/api/v1/client/auth/SignIn',
+        `${BASEURL}/client/auth/SignIn`,
         { mobile: data.mobile, otpCode: data.otpCode },
         { headers: { 'Content-Type': 'application/json' } },
       )

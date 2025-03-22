@@ -1,18 +1,21 @@
 import { FiChevronDown } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import SimpleSlider from '../components/SLider/SliderNext'
 import { CiShoppingCart } from 'react-icons/ci'
 import { CiHeart } from 'react-icons/ci'
 import { CiStar } from 'react-icons/ci'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
 import { addProduct, removeProduct } from '../redux/shopCard/shopCardSlice'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CiTrash } from 'react-icons/ci'
 import Cookies from 'js-cookie'
+<<<<<<< HEAD
+import { BASEURL } from '../api'
+=======
 import { Link } from 'react-router-dom'
+>>>>>>> abccd747d579e383f21932791ef90284a09fb65a
 interface Category {
   id: number
   title: string
@@ -24,8 +27,8 @@ interface SubCategory {
   title: string
 }
 interface Coupon {
-  id:number
-  percent:number
+  id: number
+  percent: number
 }
 export interface Product {
   id: number
@@ -38,39 +41,27 @@ export interface Product {
   qty: number | 0
   coupon: Coupon
 }
-interface SubCategory {
-  id: number
-  name: string
-  image_url?: string
-}
+
 const fetchCategories = async (): Promise<Category[]> => {
   const token = Cookies.get('accessToken')
-  const response = await fetch(
-    'http://localhost:3000/api/v1/admin/category?page=1',
-    {
-      method: 'GET',
-      headers: {
-        Accept: '*/*',
-        Authorization: `Bearer ${token}`,
-      },
+  const response = await fetch(`${BASEURL}/admin/category?page=1`, {
+    method: 'GET',
+    headers: {
+      Accept: '*/*',
+      Authorization: `Bearer ${token}`,
     },
-  )
-  if (!response.ok) {
-    throw new Error('خطا در دریافت داده‌ها')
-  }
+  })
+  if (!response.ok) throw new Error('خطا در دریافت داده‌ها')
   const data = await response.json()
   return data.categories
 }
+
 const fetchSubCategories = async (
   categoryId: number,
 ): Promise<SubCategory[]> => {
   const token = Cookies.get('accessToken')
-  if (!token) {
-    throw new Error('توکن یافت نشد. لطفاً وارد شوید.')
-  }
-
   const response = await fetch(
-    `http://localhost:3000/api/v1/client/subCategories/category/${categoryId}`,
+    `${BASEURL}/client/subCategories/category/${categoryId}`,
     {
       method: 'GET',
       headers: {
@@ -79,11 +70,7 @@ const fetchSubCategories = async (
       },
     },
   )
-
-  if (!response.ok) {
-    throw new Error('خطا در دریافت زیرشاخه‌ها')
-  }
-
+  if (!response.ok) throw new Error('خطا در دریافت زیرشاخه‌ها')
   const data = await response.json()
   return data.subCategories || []
 }
@@ -91,7 +78,7 @@ const fetchSubCategories = async (
 const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
   const token = Cookies.get('accessToken')
   const response = await fetch(
-    `http://localhost:3000/api/v1/client/products/${subCategoryId}?page=1`,
+    `${BASEURL}/client/products/${subCategoryId}?page=1`,
     {
       method: 'GET',
       headers: {
@@ -100,85 +87,78 @@ const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
       },
     },
   )
-  if (!response.ok) {
-    throw new Error('خطا در دریافت محصولات')
-  }
+  if (!response.ok) throw new Error('خطا در دریافت محصولات')
   const data = await response.json()
   return data.products
 }
-
 const MenuPage = () => {
-  // add redux
-  const cardItems = useSelector(
-    (state: RootState) => state.cardReducer.products,
-  )
-  console.log(cardItems)
+  const queryClient = useQueryClient()
   const dispatch = useDispatch()
 
-  const [selectedCategory, setSelectedCategory] = useState<number>(5)
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
+  const [selectedCategory, setSelectedCategory] = useState<number>(4)
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
+    null,
+  )
 
-  const {
-    data: categories,
-    isLoading,
-    error,
-  } = useQuery<Category[], Error>({
+  const { data: categories, isLoading } = useQuery<Category[]>({
     queryKey: ['main category'],
     queryFn: fetchCategories,
   })
 
-  const { data: subCategories, refetch: refetchSubCategories } = useQuery<
-    SubCategory[],
-    Error
-  >({
+  const { data: subCategories } = useQuery<SubCategory[]>({
     queryKey: ['subcategory', selectedCategory],
     queryFn: () => fetchSubCategories(selectedCategory),
     enabled: !!selectedCategory,
   })
 
-  const {
-    data: products,
-    isLoading: productsLoading,
-    refetch: refetchProducts,
-  } = useQuery<Product[], Error>({
+  const { data: products, isLoading: productsLoading } = useQuery<Product[]>({
     queryKey: ['products', selectedSubCategory],
     queryFn: () => fetchProduct(selectedSubCategory),
     enabled: !!selectedSubCategory,
   })
   useEffect(() => {
-    if (subCategories && subCategories.length > 0 && !selectedSubCategory) {
-      setSelectedSubCategory(subCategories[0].id.toString())
+    if (selectedCategory) {
+      setSelectedSubCategory('')
+      queryClient.invalidateQueries(['subcategory', selectedCategory])
+    }
+  }, [selectedCategory, queryClient])
+
+  useEffect(() => {
+    if (subCategories && subCategories.length > 0) {
+      setSelectedSubCategory(subCategories[0]?.id.toString())
     }
   }, [subCategories])
 
   useEffect(() => {
-    if (selectedCategory) {
-      refetchSubCategories()
-    }
-  }, [selectedCategory, refetchSubCategories])
-
-  useEffect(() => {
     if (selectedSubCategory) {
-      refetchProducts()
+      queryClient.invalidateQueries(['products', selectedSubCategory])
     }
+<<<<<<< HEAD
+  }, [selectedSubCategory, queryClient])
+=======
   }, [selectedSubCategory, refetchProducts])
+>>>>>>> abccd747d579e383f21932791ef90284a09fb65a
 
   const productsInCart = useSelector(
     (state: RootStates) => state.cardReducer.products,
   )
+<<<<<<< HEAD
+=======
 
+>>>>>>> abccd747d579e383f21932791ef90284a09fb65a
   const isProductInCart = (productId: number) => {
-    return productsInCart.some((product: Product) => product.id === productId)
+    return (
+      productsInCart?.some((product: Product) => product.id === productId) ??
+      false
+    )
   }
-  console.log(subCategories)
+
   if (isLoading || productsLoading)
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-b-4 border-[#417F56]"></div>
       </div>
     )
-
-  if (error) return <p>خطا در دریافت داده‌ها</p>
 
   const filteredCategories = categories?.slice(0, 4)
 
@@ -286,7 +266,16 @@ const MenuPage = () => {
 
                   <div className="mt-5 flex items-center justify-between">
                     <p className="text-[14px] text-[#353535] sm:text-[18px]">
+<<<<<<< HEAD
+                      <span>
+                        {product.coupon
+                          ? product.price * product.coupon.percent -
+                            product.price
+                          : product.price}{' '}
+                      </span>
+=======
                   <span>{ product.coupon?(+(product.price) -(+product.price* (product.coupon?.percent/100))):product.price} </span>
+>>>>>>> abccd747d579e383f21932791ef90284a09fb65a
                       <span>تومان</span>
                     </p>
                     <p className="text-[12px] text-[#353535] sm:text-[14px]">
@@ -294,9 +283,11 @@ const MenuPage = () => {
                     </p>
                   </div>
 
-                  {product.coupon&&<div className="mt-2 flex w-fit  text-red-800 ">
-                    {product.coupon?.percent}%
-                  </div>}
+                  {product.coupon && (
+                    <div className="mt-2 flex w-fit text-red-800">
+                      {product.coupon?.percent}%
+                    </div>
+                  )}
 
                   <div className="mt-5 mb-6 flex items-center justify-center gap-1">
                     <button
