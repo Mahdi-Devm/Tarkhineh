@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 import Populardishes from './Populardishes'
 import Iraniancuisine from './Iraniancuisine'
 import Preferences from './Preferences'
+import { BASEURL } from '../../api'
 
 interface Product {
   id: number
@@ -18,7 +19,7 @@ const fetchProducts = async (): Promise<Product[]> => {
   const token = Cookies.get('accessToken')
   try {
     const res = await axios.get(
-      'http://localhost:3000/api/v1/admin/products/subCategory/28?page=1',
+      `${BASEURL}/admin/products/subCategory/28?page=1`,
       {
         method: 'GET',
         headers: {

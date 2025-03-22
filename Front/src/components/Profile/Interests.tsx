@@ -1,6 +1,7 @@
 import HeaderListProfile from './HeaderListProfile'
 import Cookies from 'js-cookie'
 import { useQuery } from '@tanstack/react-query'
+import { BASEURL } from '../../api'
 
 interface Interest {
   name: string
@@ -27,7 +28,7 @@ const dataInterests: Interest[] = [
 const token = Cookies.get('accessToken') || ''
 
 const fetchData = async (): Promise<Like[]> => {
-  const response = await fetch('http://localhost:3000/api/v1/client/likes', {
+  const response = await fetch(`${BASEURL}/client/likes`, {
     method: 'GET',
     headers: {
       authorization: `Bearer ${token}`,

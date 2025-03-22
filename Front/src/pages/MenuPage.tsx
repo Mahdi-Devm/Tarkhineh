@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CiTrash } from 'react-icons/ci'
 import Cookies from 'js-cookie'
+import { BASEURL } from '../api'
 interface Category {
   id: number
   title: string
@@ -43,16 +44,13 @@ export interface Product {
 
 const fetchCategories = async (): Promise<Category[]> => {
   const token = Cookies.get('accessToken')
-  const response = await fetch(
-    'http://localhost:3000/api/v1/admin/category?page=1',
-    {
-      method: 'GET',
-      headers: {
-        Accept: '*/*',
-        Authorization: `Bearer ${token}`,
-      },
+  const response = await fetch(`${BASEURL}/admin/category?page=1`, {
+    method: 'GET',
+    headers: {
+      Accept: '*/*',
+      Authorization: `Bearer ${token}`,
     },
-  )
+  })
   if (!response.ok) throw new Error('خطا در دریافت داده‌ها')
   const data = await response.json()
   return data.categories
@@ -63,7 +61,7 @@ const fetchSubCategories = async (
 ): Promise<SubCategory[]> => {
   const token = Cookies.get('accessToken')
   const response = await fetch(
-    `http://localhost:3000/api/v1/client/subCategories/category/${categoryId}`,
+    `${BASEURL}/client/subCategories/category/${categoryId}`,
     {
       method: 'GET',
       headers: {
@@ -80,7 +78,7 @@ const fetchSubCategories = async (
 const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
   const token = Cookies.get('accessToken')
   const response = await fetch(
-    `http://localhost:3000/api/v1/client/products/${subCategoryId}?page=1`,
+    `${BASEURL}/client/products/${subCategoryId}?page=1`,
     {
       method: 'GET',
       headers: {
