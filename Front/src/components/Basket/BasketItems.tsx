@@ -1,76 +1,66 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Product } from '../../pages/MenuPage'
-import { RootState } from '../../redux/store'
-import { addProduct, removeProduct } from '../../redux/shopCard/shopCardSlice'
-import { useAuth } from '../../Context/AuthContext'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux"
+import { Product } from "../../pages/MenuPage"
+import { RootState } from "../../redux/store"
+import { addProduct, clearBasket, removeProduct } from "../../redux/shopCard/shopCardSlice"
+import { useAuth } from "../../Context/AuthContext"
+import { Link } from "react-router-dom"
 
 interface Props {
   items: Product[]
 }
 
-const BasketItems = ({ items }: Props) => {
-  const total = useSelector((state: RootState) => state.cardReducer.amount)
-  const dispatch = useDispatch()
-  const { isAuthenticated } = useAuth()
-  return (
-    <main className="mx-auto my-6 flex max-w-[1224px] flex-col items-center gap-3 rounded-md border-zinc-400 text-[#353535] lg:flex-row-reverse">
-      <div className="max-h-[400px] w-full space-y-3 self-start overflow-y-auto rounded-xl border border-zinc-400 p-3">
-        {items.map((item) => (
-          <div
-            className="flex flex-row-reverse overflow-hidden rounded-xl border border-zinc-300"
-            key={item.id}
-          >
-            <div className="aspect-square w-[150px] bg-green-200 max-md:hidden">
-              <img
-                className="w-full object-cover"
-                src={`http://localhost:3000/${item.image_url}`}
-                alt={item.name}
-              />
-            </div>
+const BasketItems = ({items}:Props) => {
+  
+  
+const {total} =useSelector((state:RootState)=>state.cardReducer)
+const {discount} =useSelector((state:RootState)=>state.cardReducer)
+console.log(discount)
 
-            <div className="flex w-full flex-col justify-between p-3">
-              <div className="flex justify-between">
-                <span>trash</span>
-                <h2>{item.name}</h2>
-              </div>
-              <div className="flex justify-between max-md:hidden">
-                <p>تخفیف</p>
-                <p className="overflow-hidden text-[14px] text-nowrap">
-                  {item.description}
-                </p>
-              </div>
-              <div className="flex flex-row-reverse justify-between">
-                <div className="flex w-full items-center justify-between text-[16px]">
-                  <span className="flex flex-row-reverse gap-0.5">
-                    {' '}
-                    {item.price} <span>تومان</span>{' '}
-                  </span>
-                  <div className="flex gap-2">
-                    <div className="space-x-1 rounded-md border px-2 max-md:mt-2">
-                      <button onClick={() => dispatch(addProduct(item))}>
-                        +
-                      </button>
-                      <span>{item.qty}</span>
-                      <button onClick={() => dispatch(removeProduct(item))}>
-                        -
-                      </button>
-                    </div>
-                    <p className="max-md:hidden">starplace</p>
+const dispatch=useDispatch()
+const {isAuthenticated,setIsAuthenticated}=useAuth()
+  return (
+    <main className="mx-auto text-[#353535] my-6 flex max-w-[1224px] flex-col gap-3 rounded-md border-zinc-400 items-center lg:flex-row-reverse  ">
+      <div className="max-h-[400px] self-start w-full space-y-3 overflow-y-auto rounded-xl border border-zinc-400 p-3 ">
+        {items.map(item=>(<div className="border h-[150px] border-zinc-300 rounded-xl overflow-hidden flex flex-row-reverse " key={item.id}>
+          <div className="max-md:hidden w-[150px] bg-green-200 aspect-square ">
+            <img className="w-full object-cover" src={`http://localhost:3000/${item.image_url}`} alt={item.name} />
+          </div>
+
+          <div className="p-3 flex flex-col justify-between  w-full">
+            <div className="flex justify-between">
+              <span>trash</span>
+              <h2>{item.name}</h2>
+            </div>
+            <div className="flex max-md:hidden justify-between">
+              <p>تخفیف</p>
+              <p className="text-[14px] text-right bg-amber-100 max-w-[282px] overflow-hidden">{item.description}</p>
+
+            </div>
+            <div className="flex flex-row-reverse justify-between">
+              <div className="text-[16px] items-center flex justify-between w-full"> 
+                <span className="flex gap-0.5 flex-row-reverse"> {item.price} <span>تومان</span> </span>
+                <div className=" flex gap-2 ">
+                  <div className="border max-md:mt-2 space-x-1 px-2 rounded-md">
+                    <button onClick={()=>dispatch(addProduct(item))}>+</button>
+                    <span>{item.qty}</span>
+                    <button onClick={()=>dispatch(removeProduct(item))} >-</button>
                   </div>
+                  <p className="max-md:hidden">starplace</p>
                 </div>
               </div>
             </div>
           </div>
-        ))}
+        </div>
+      ))}
       </div>
       <div className="divide h-fit min-h-[330px] w-full divide-y-2 divide-zinc-300 rounded-xl border px-4 py-3 max-sm:border-t sm:border-zinc-400 sm:py-5 md:text-[16px] lg:max-w-[500px] lg:self-start">
         <div className="flex w-full justify-between py-3">
-          <span>trash </span>
+                     <button onClick={()=>dispatch(clearBasket())}>trash </button>
+         
           <span>سبد خرید ({items.length})</span>
         </div>
         <div className="flex w-full justify-between py-3">
-          <span>{22}تومان</span>
+          <span>{discount.toLocaleString()}تومان</span>
           <span>تخفیف محصولات</span>
         </div>
         <div className="flex w-full flex-wrap justify-between py-3">
@@ -84,6 +74,7 @@ const BasketItems = ({ items }: Props) => {
         <div className="flex w-full flex-wrap justify-between py-3">
           <span>تومان {total.toLocaleString()}</span>
           <span>مبلغ قابل پرداخت</span>
+
           {!isAuthenticated ? (
             <Link
               to={'/cart/completion-info'}
@@ -96,6 +87,7 @@ const BasketItems = ({ items }: Props) => {
               ورود
             </button>
           )}
+
         </div>
       </div>
     </main>
