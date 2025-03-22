@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
-import { addProduct, removeProduct } from '../../redux/shopCard/shopCardSlice'
+import { addProduct, clearBasket, removeProduct } from '../../redux/shopCard/shopCardSlice'
 import { Link } from 'react-router-dom'
 
 
 const OrderDetail = () => {
 const {discount}=useSelector((state:RootState)=>state.cardReducer)   
     const items = useSelector((state: RootState) => state.cardReducer.products)
-  const total = useSelector((state: RootState) => state.cardReducer.amount)
+  const {total} = useSelector((state: RootState) => state.cardReducer)
   const dispatch = useDispatch()
 
   return (
     <div className="divide z-20 divide-y-2 divide-zinc-300  rounded-xl border px-4 py-3  max-sm:border-t sm:border-zinc-400 sm:py-5 md:max-w-[470px] md:text-[16px]">
           <div className="flex w-full justify-between py-3">
-            <span>trash </span>
+            <button onClick={()=>dispatch(clearBasket())}>trash </button>
             <span>سبد خرید ({items.length})</span>
           </div>
           <div className="h-[200px] space-y-1 overflow-y-auto p-2">

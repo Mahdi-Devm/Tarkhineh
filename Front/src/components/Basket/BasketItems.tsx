@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Product } from "../../pages/MenuPage"
 import { RootState } from "../../redux/store"
-import { addProduct, removeProduct } from "../../redux/shopCard/shopCardSlice"
+import { addProduct, clearBasket, removeProduct } from "../../redux/shopCard/shopCardSlice"
 import { useAuth } from "../../Context/AuthContext"
 import { Link } from "react-router-dom"
 
@@ -12,7 +12,7 @@ interface Props {
 const BasketItems = ({items}:Props) => {
   
   
-const {amount} =useSelector((state:RootState)=>state.cardReducer)
+const {total} =useSelector((state:RootState)=>state.cardReducer)
 const {discount} =useSelector((state:RootState)=>state.cardReducer)
 console.log(discount)
 
@@ -55,11 +55,12 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
       </div>
       <div className="divide h-fit min-h-[330px] w-full divide-y-2 divide-zinc-300 rounded-xl border px-4 py-3 max-sm:border-t sm:border-zinc-400 sm:py-5 md:text-[16px] lg:max-w-[500px] lg:self-start">
         <div className="flex w-full justify-between py-3">
-          <span>trash </span>
+                     <button onClick={()=>dispatch(clearBasket())}>trash </button>
+         
           <span>سبد خرید ({items.length})</span>
         </div>
         <div className="flex w-full justify-between py-3">
-          <span>{discount}تومان</span>
+          <span>{discount.toLocaleString()}تومان</span>
           <span>تخفیف محصولات</span>
         </div>
         <div className="flex w-full flex-wrap justify-between py-3">
@@ -71,7 +72,7 @@ const {isAuthenticated,setIsAuthenticated}=useAuth()
           </span>
         </div>
         <div className="flex w-full flex-wrap justify-between py-3">
-          <span>تومان {(amount - discount).toLocaleString()}</span>
+          <span>تومان {total.toLocaleString()}</span>
           <span>مبلغ قابل پرداخت</span>
 
           {!isAuthenticated ? (

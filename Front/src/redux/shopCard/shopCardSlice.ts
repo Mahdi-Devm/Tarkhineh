@@ -118,8 +118,9 @@ const shopCardSlice = createSlice({
       state.discount=0
       state.products=[]
       state.total=0
+      localStorage.removeItem('cardItems')
     }
   },
 })
-export const { addProduct, removeProduct } = shopCardSlice.actions
+export const { addProduct, removeProduct,clearBasket } = shopCardSlice.actions
 export default shopCardSlice.reducer
