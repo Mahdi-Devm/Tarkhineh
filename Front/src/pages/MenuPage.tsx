@@ -11,17 +11,17 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CiTrash } from 'react-icons/ci'
 import Cookies from 'js-cookie'
+<<<<<<< HEAD
 import { BASEURL } from '../api'
+=======
+import { Link } from 'react-router-dom'
+>>>>>>> abccd747d579e383f21932791ef90284a09fb65a
 interface Category {
   id: number
   title: string
 }
 
-interface RootStates {
-  cardReducer: {
-    products: Product[]
-  }
-}
+
 interface SubCategory {
   id: number
   title: string
@@ -33,7 +33,7 @@ interface Coupon {
 export interface Product {
   id: number
   name: string
-  price: number
+  price: string
   image_url: string
   description: string
   rating: number
@@ -116,7 +116,6 @@ const MenuPage = () => {
     queryFn: () => fetchProduct(selectedSubCategory),
     enabled: !!selectedSubCategory,
   })
-
   useEffect(() => {
     if (selectedCategory) {
       setSelectedSubCategory('')
@@ -134,11 +133,19 @@ const MenuPage = () => {
     if (selectedSubCategory) {
       queryClient.invalidateQueries(['products', selectedSubCategory])
     }
+<<<<<<< HEAD
   }, [selectedSubCategory, queryClient])
+=======
+  }, [selectedSubCategory, refetchProducts])
+>>>>>>> abccd747d579e383f21932791ef90284a09fb65a
 
   const productsInCart = useSelector(
     (state: RootStates) => state.cardReducer.products,
   )
+<<<<<<< HEAD
+=======
+
+>>>>>>> abccd747d579e383f21932791ef90284a09fb65a
   const isProductInCart = (productId: number) => {
     return (
       productsInCart?.some((product: Product) => product.id === productId) ??
@@ -220,7 +227,7 @@ const MenuPage = () => {
         </div>
         <div className="mt-10 flex items-center justify-between">
           <button className="flex h-10 w-44 cursor-pointer items-center justify-center gap-3 rounded-2xl border border-[#417F56] bg-white p-2 text-[#417F56] shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#417F56] hover:text-white">
-            <p className="text-base font-medium">تکمیل خرید</p>
+            <Link to={'/cart'} className="text-base font-medium">{cardItems.length}تکمیل خرید</Link>
             <CiShoppingCart className="h-6 w-6" />
           </button>
         </div>
@@ -259,12 +266,16 @@ const MenuPage = () => {
 
                   <div className="mt-5 flex items-center justify-between">
                     <p className="text-[14px] text-[#353535] sm:text-[18px]">
+<<<<<<< HEAD
                       <span>
                         {product.coupon
                           ? product.price * product.coupon.percent -
                             product.price
                           : product.price}{' '}
                       </span>
+=======
+                  <span>{ product.coupon?(+(product.price) -(+product.price* (product.coupon?.percent/100))):product.price} </span>
+>>>>>>> abccd747d579e383f21932791ef90284a09fb65a
                       <span>تومان</span>
                     </p>
                     <p className="text-[12px] text-[#353535] sm:text-[14px]">

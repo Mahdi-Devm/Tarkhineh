@@ -117,7 +117,7 @@ function PaymentPage() {
             </div>
           ) : (
             <div className="flex flex-row-reverse items-center justify-between rounded-md border border-zinc-400 p-4 max-md:flex-wrap">
-              <p className="mb-1 text-xl">! قابل توجه </p>
+              <p className="mb-1 text-xl text-nowrap ml-2">! قابل توجه </p>
               <p className="text-center text-[16px]">
                 هزینه سفارش شما در حین تحویل کالا دریافت خواهد شد. لطفا قبل از
                 تحویل کالا کارت بانکی یا پول نقد همراه خود داشته باشید و از
