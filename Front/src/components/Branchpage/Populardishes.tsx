@@ -45,38 +45,23 @@ const Populardishes: React.FC<PopulardishesProps> = ({
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-  const showNext = (
-    sliderId: string,
-    index: number,
-    setIndex: React.Dispatch<React.SetStateAction<number>>,
-  ) => {
-    if (index < data.length - productsPerPage) {
-      setIndex(index + 1)
-      const slider = document.getElementById(sliderId)
-      if (slider) {
-        slider.style.transform = `translateX(-${(index + 1) * (100 / productsPerPage)}%)`
-      }
+
+  const showNext = () => {
+    if (currentIndex < data.length - productsPerPage) {
+      setCurrentIndex((prevIndex) => prevIndex + 1)
     }
   }
 
-  const showPrev = (
-    sliderId: string,
-    index: number,
-    setIndex: React.Dispatch<React.SetStateAction<number>>,
-  ) => {
-    if (index > 0) {
-      setIndex(index - 1)
-      const slider = document.getElementById(sliderId)
-      if (slider) {
-        slider.style.transform = `translateX(-${(index - 1) * (100 / productsPerPage)}%)`
-      }
+  const showPrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prevIndex) => prevIndex - 1)
     }
   }
 
   return (
-    <div className="h-[455px] w-93 max-w-[1400px] rounded-2xl bg-[#315F41] sm:w-[90%] md:w-[80%] lg:w-[100%]">
+    <div className="h-[455px] w-92 max-w-[1400px] rounded-2xl bg-[#315F41] sm:w-[90%] md:w-[80%] lg:w-[100%]">
       <h1 className="mt-5 mr-8 text-right text-2xl font-semibold text-white">
-        غذاهای محبوب
+        غذای ویژه
       </h1>
 
       <div className="relative mx-auto w-full max-w-full p-5">
@@ -84,7 +69,10 @@ const Populardishes: React.FC<PopulardishesProps> = ({
           <div
             id="product-slider-2"
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ width: `${data.length * (100 / productsPerPage)}%` }}
+            style={{
+              transform: `translateX(-${(currentIndex * 100) / productsPerPage}%)`,
+              width: `${data.length * (100 / productsPerPage)}%`,
+            }}
           >
             {data.map((product) => (
               <div
@@ -143,19 +131,15 @@ const Populardishes: React.FC<PopulardishesProps> = ({
         </div>
 
         <button
-          onClick={() =>
-            showPrev('product-slider-2', currentIndex, setCurrentIndex)
-          }
-          className="absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-gray-700 p-2 text-white shadow-lg hover:bg-gray-600"
+          onClick={showPrev}
+          className="absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 text-black/40 shadow-lg backdrop-blur-sm"
         >
           <FaChevronLeft className="text-xl" />
         </button>
 
         <button
-          onClick={() =>
-            showNext('product-slider-2', currentIndex, setCurrentIndex)
-          }
-          className="absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-gray-700 p-2 text-white shadow-lg hover:bg-gray-600"
+          onClick={showNext}
+          className="absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 text-black/40 shadow-lg backdrop-blur-sm"
         >
           <FaChevronRight className="text-xl" />
         </button>

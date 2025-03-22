@@ -48,18 +48,18 @@ const TestimonialsSlider = () => {
 
         <button
           onClick={prevSlide}
-          className="hover:[#1d3926] absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 hover:scale-125 sm:p-1 md:p-2"
+          className="hover:[#1d3926] absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 sm:p-1 md:p-2"
         >
           ❮
         </button>
         <button
           onClick={nextSlide}
-          className="hover:[#326141] absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 hover:scale-125 sm:p-1 md:p-2"
+          className="hover:[#326141] absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 sm:p-1 md:p-2"
         >
           ❯
         </button>
 
-        <div className="mt-10 flex justify-center space-x-1 sm:mt-4 md:mt-10">
+        <div className="mt-5 flex justify-center space-x-1 sm:mt-4 md:mt-10">
           {testimonials.map((_, index) => (
             <span
               key={index}

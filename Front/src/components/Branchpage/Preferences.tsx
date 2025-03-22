@@ -10,6 +10,7 @@ interface Product {
   rating: number
   image_url: string
 }
+
 interface PreferencesProps {
   FaChevronRight: React.ComponentType
   FaChevronLeft: React.ComponentType
@@ -22,8 +23,8 @@ const Preferences: React.FC<PreferencesProps> = ({
   data,
 }) => {
   const dispatch = useDispatch()
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [productsPerPage, setProductsPerPage] = useState(
+  const [currentIndex] = useState<number>(0)
+  const [productsPerPage, setProductsPerPage] = useState<number>(
     window.innerWidth >= 1300 ? 5 : 4,
   )
 
@@ -47,50 +48,44 @@ const Preferences: React.FC<PreferencesProps> = ({
   }, [])
 
   const showNext = (
-    sliderId: string,
     index: number,
     setIndex: React.Dispatch<React.SetStateAction<number>>,
   ) => {
-    if (index < (data?.length ?? 0) - productsPerPage) {
+    if (index < data.length - productsPerPage) {
       setIndex(index + 1)
-      const slider = document.getElementById(sliderId)
-      if (slider) {
-        slider.style.transform = `translateX(-${(index + 1) * (100 / productsPerPage)}%)`
-      }
     }
   }
 
   const showPrev = (
-    sliderId: string,
     index: number,
     setIndex: React.Dispatch<React.SetStateAction<number>>,
   ) => {
     if (index > 0) {
       setIndex(index - 1)
-      const slider = document.getElementById(sliderId)
-      if (slider) {
-        slider.style.transform = `translateX(-${(index - 1) * (100 / productsPerPage)}%)`
-      }
     }
   }
+
   return (
-    <>
-      <h1 className="mt-5 mr-8 text-right text-2xl font-semibold">
-        پیشنهاد ویژه
+    <div className="h-[455px] w-93 max-w-[1400px] rounded-2xl sm:w-[90%] md:w-[80%] lg:w-[90%]">
+      <h1 className="mt-5 mr-8 text-right text-2xl font-semibold text-black">
+        غذاهای محبوب
       </h1>
-      <div className="relative mx-auto h-[455px] w-93 max-w-[1400px] rounded-2xl p-5 sm:w-[90%] md:w-[80%] lg:w-[90%]">
+
+      <div className="relative mx-auto w-full max-w-full p-5">
         <div className="overflow-hidden">
           <div
-            id="product-slider-1"
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ width: `${data.length * (100 / productsPerPage)}%` }}
+            style={{
+              transform: `translateX(-${currentIndex * (100 / productsPerPage)}%)`,
+              width: `${data.length * (100 / productsPerPage)}%`,
+            }}
           >
-            {data.map((product: Product) => (
+            {data.map((product) => (
               <div
                 key={product.id}
-                className={`w-1/${productsPerPage} box-border flex-shrink-0 p-2`}
+                className={`w-65 sm:w-1/${productsPerPage} box-border flex-shrink-0 p-2`}
               >
-                <div className="overflow-hidden rounded-lg border border-gray-200 shadow-lg transition-transform hover:scale-105">
+                <div className="overflow-hidden rounded-lg border border-gray-200 bg-[#e5e5e5] shadow-lg transition-transform hover:scale-105">
                   <img
                     className="h-48 w-full object-cover"
                     src={`http://localhost:3000/${product.image_url}`}
@@ -130,7 +125,7 @@ const Preferences: React.FC<PreferencesProps> = ({
                           },
                         )
                       }}
-                      className="mt-3 w-[210px] rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141]"
+                      className="mt-3 w-full rounded bg-[#417F56] py-1 text-white transition-all duration-300 hover:bg-[#326141] sm:w-[210px]"
                     >
                       افزودن به سبد
                     </button>
@@ -140,24 +135,22 @@ const Preferences: React.FC<PreferencesProps> = ({
             ))}
           </div>
         </div>
+
         <button
-          onClick={() =>
-            showPrev('product-slider-1', currentIndex, setCurrentIndex)
-          }
-          className="absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-gray-700 p-2 text-white shadow-lg hover:bg-gray-600"
+          onClick={showPrev}
+          className="absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 text-black/40 shadow-lg backdrop-blur-sm"
         >
           <FaChevronLeft className="text-xl" />
         </button>
+
         <button
-          onClick={() =>
-            showNext('product-slider-1', currentIndex, setCurrentIndex)
-          }
-          className="absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-gray-700 p-2 text-white shadow-lg hover:bg-gray-600"
+          onClick={showNext}
+          className="absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 text-black/40 shadow-lg backdrop-blur-sm"
         >
           <FaChevronRight className="text-xl" />
         </button>
       </div>
-    </>
+    </div>
   )
 }
 

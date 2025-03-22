@@ -48,7 +48,7 @@ const BodyBranchpage: React.FC<BodyBranchpageProps> = () => {
   if (isLoading) return <p>Loading...</p>
 
   return (
-    <>
+    <section className="flex flex-col items-center justify-center">
       <Preferences
         FaChevronRight={FaChevronRight}
         FaChevronLeft={FaChevronLeft}
@@ -64,7 +64,7 @@ const BodyBranchpage: React.FC<BodyBranchpageProps> = () => {
         FaChevronLeft={FaChevronLeft}
         data={data ?? []}
       />
-    </>
+    </section>
   )
 }
 
