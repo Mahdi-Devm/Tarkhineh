@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { addProduct, clearBasket, removeProduct } from '../../redux/shopCard/shopCardSlice'
 import { Link } from 'react-router-dom'
+import { FaTrash } from 'react-icons/fa'
 
 
 const OrderDetail = () => {
@@ -11,21 +12,23 @@ const {discount}=useSelector((state:RootState)=>state.cardReducer)
   const dispatch = useDispatch()
 
   return (
-    <div className="divide z-20 divide-y-2 divide-zinc-300  rounded-xl border px-4 py-3  max-sm:border-t sm:border-zinc-400 sm:py-5 md:max-w-[470px] md:text-[16px]">
+    <div className="divide z-20 divide-y-2 divide-zinc-300  rounded-xl border px-4 py-3  max-sm:border-t border-zinc-400 sm:py-5 md:max-w-[470px] md:text-[16px]">
           <div className="flex w-full justify-between py-3">
-            <button onClick={()=>dispatch(clearBasket())}>trash </button>
+            <button className='text-zinc-500 hover:text-green-700' onClick={()=>dispatch(clearBasket())}>
+            <FaTrash />
+               </button>
             <span>سبد خرید ({items.length})</span>
           </div>
-          <div className="h-[200px] space-y-1 overflow-y-auto p-2">
+          <div className="h-[200px] parentZibra space-y-1 overflow-y-auto p-1">
             {items.map((item) => (
               <div
-                className="flex w-full items-center justify-between bg-yellow-50"
+                className="flex childZebra w-full items-center justify-between p-1 "
                 key={item.id}
               >
-                <div className="space-x-1   rounded-md border px-2 max-md:mt-2">
-                  <button onClick={() => dispatch(addProduct(item))}>+</button>
+                <div className="space-x-2 bg-green-100 rounded-md  max-md:mt-2">
+                  <button className='p-1 hover:bg-green-300' onClick={() => dispatch(addProduct(item))}>+</button>
                   <span>{item.qty}</span>
-                  <button onClick={() => dispatch(removeProduct(item))}>
+                  <button className='p-1 hover:bg-green-300' onClick={() => dispatch(removeProduct(item))}>
                     -
                   </button>
                 </div>

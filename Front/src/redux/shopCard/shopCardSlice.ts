@@ -119,8 +119,22 @@ const shopCardSlice = createSlice({
       state.products=[]
       state.total=0
       localStorage.removeItem('cardItems')
+    },
+    clearProduct:(state,action)=>{
+      state.products = state.products.filter(
+        (p) => p.id !== action.payload.id,
+      )
+      state.amount -= parseFloat(action.payload.price) * action.payload.qty
+      if (action.payload.coupon) {
+        state.discount -=
+          ((+action.payload.price * action.payload.coupon.percent) / 100) *action.payload.qty
+        state.total -=
+          (parseFloat(action.payload.price) -
+          (+action.payload.price * action.payload.coupon.percent) / 100)*action.payload.qty
+      } else state.total -= parseFloat(action.payload.price) * action.payload.qty
+      localStorage.setItem('cardItems', JSON.stringify(state))
     }
   },
 })
-export const { addProduct, removeProduct,clearBasket } = shopCardSlice.actions
+export const { addProduct,clearProduct ,removeProduct,clearBasket } = shopCardSlice.actions
 export default shopCardSlice.reducer
