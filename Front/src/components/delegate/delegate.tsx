@@ -3,7 +3,7 @@ import ImageHeaderForIformatian from '../ImageHeaderForIformatian'
 import DelegateGrid from './DelegateGrid'
 import DelegateBenefits from './DelegateBenefits'
 import ConsultationForm from './ConsultationForm'
-
+import iamgeat from '../../assets/optimized/at.jpg'
 function Delegate() {
   const [startDate, setStartDate] = useState<Date | null>(null)
 
@@ -12,7 +12,7 @@ function Delegate() {
       <ImageHeaderForIformatian
         height="336px"
         title="همین الان به خانواده بزرگ ترخینه بپیوندید!"
-        image="https://www.figma.com/file/a1A9NqKpy0fC9pQpVBkTaa/image/943bda1b1c396fb1fd8e64992f82dd5ce96917b4"
+        image={iamgeat}
       />
 
       <DelegateGrid />

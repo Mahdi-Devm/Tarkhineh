@@ -18,9 +18,7 @@ const Dropdown = ({
   return (
     <div className="flex items-center justify-center space-x-2">
       <div
-        className={`ml-2 transition-all ${
-          activeDropdown === index ? 'rotate-180' : ''
-        }`}
+        className="ml-2 cursor-pointer"
         onClick={(e) => {
           e.stopPropagation()
           onClick(index)
@@ -28,9 +26,7 @@ const Dropdown = ({
       >
         {icon}
       </div>
-      <span className="text-xl transition-all duration-300 hover:scale-105 hover:text-[#417F56]">
-        {label}
-      </span>
+      <span className="text-xl hover:text-[#417F56]">{label}</span>
 
       {activeDropdown === index && dropdownItems && (
         <div className="absolute top-full left-0 mt-2 w-48 rounded-md border border-gray-200 bg-white py-2 shadow-lg">

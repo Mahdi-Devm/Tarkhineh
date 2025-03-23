@@ -34,19 +34,32 @@ const MenuItem = ({
 
   const isActive = location.pathname === path
 
+  const isItemHeader = (label: string | ItemHeader): label is ItemHeader => {
+    return (
+      typeof label === 'object' &&
+      label !== null &&
+      'dropdownItems' in label &&
+      Array.isArray(label.dropdownItems)
+    )
+  }
+
   const hasDropdown =
-    typeof label === 'object' && label.dropdownItems?.length > 0
+    typeof label === 'object' &&
+    label !== null &&
+    'dropdownItems' in label &&
+    Array.isArray(label.dropdownItems) &&
+    label.dropdownItems.length > 0
 
   return (
     <div
       className={`relative flex cursor-pointer flex-col pb-2 sm:flex-row sm:items-center ${
         isActive
-          ? 'border-b-1 border-[#417F56] text-[20px] font-semibold text-[#417F56]'
-          : 'text-[#717171]'
+          ? 'border-b-1 border-[#417F56] text-[24px] font-semibold text-[#417F56]'
+          : 'text-[18px] text-[#717171]'
       } text-right hover:text-[#417F56] sm:text-left`}
       onClick={() => handleClick(index)}
     >
-      {typeof label === 'object' ? (
+      {isItemHeader(label) ? (
         <Dropdown
           label={label.label}
           icon={label.icon}
@@ -56,7 +69,7 @@ const MenuItem = ({
           onClick={onClick}
         />
       ) : (
-        <span className="rounded-md px-3 py-1 text-lg transition-all duration-300 hover:scale-105 sm:px-4 sm:py-2 sm:text-base">
+        <span className="rounded-md px-3 py-1 text-xl sm:px-5 sm:py-2 sm:text-[20px]">
           {label}
         </span>
       )}
@@ -70,4 +83,5 @@ const MenuItem = ({
     </div>
   )
 }
+
 export default MenuItem

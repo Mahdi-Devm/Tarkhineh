@@ -9,22 +9,27 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useAuth } from '../../Context/AuthContext'
 import { useNumber } from '../../Context/NumberUserForProfile'
-
-interface ModalProps {
-  isMobile: boolean
-  isModalOpen: boolean
-  toggleModal: () => void
+import { useNavigate } from 'react-router-dom'
+import { BASEURL } from '../../api'
+interface OtpResponse {
+  otp: string
+  expiresIn: number
 }
 
 interface FormData {
   mobile: string
   otpCode: string
 }
+type ModalProps = {
+  isMobile?: boolean
+  isModalOpen?: boolean
+  toggleModal?: () => void
+}
 
 const Modal: React.FC<ModalProps> = ({
-  isMobile,
-  isModalOpen,
-  toggleModal,
+  isMobile = false,
+  isModalOpen = false,
+  toggleModal = () => {},
 }) => {
   const {
     register,
@@ -33,38 +38,34 @@ const Modal: React.FC<ModalProps> = ({
     setValue,
   } = useForm<FormData>()
 
+  const nav = useNavigate()
   const queryClient = useQueryClient()
   const { setIsAuthenticated } = useAuth()
   const { setMobile } = useNumber()
   const [timer, setTimer] = React.useState<number>(120)
 
   React.useEffect(() => {
-    let interval: NodeJS.Timeout
     if (timer > 0) {
-      interval = setInterval(() => {
+      const interval = setInterval(() => {
         setTimer((prev) => prev - 1)
       }, 1000)
-    } else {
-      clearInterval(interval)
+
+      return () => clearInterval(interval)
     }
-    return () => clearInterval(interval)
   }, [timer])
 
   const loginMutation = useMutation({
-    mutationFn: async (data: { mobile: string }): Promise<any> => {
+    mutationFn: async (data: { mobile: string }): Promise<OtpResponse> => {
       const payload = JSON.stringify({ mobile: data.mobile })
 
-      const res = await fetch(
-        'http://localhost:3000/api/v1/client/auth/getOtp',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: payload,
+      const res = await fetch(`${BASEURL}/client/auth/getOtp`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-      )
+        body: payload,
+      })
 
       if (!res.ok) {
         throw new Error('مشکلی پیش آمد 1')
@@ -75,7 +76,7 @@ const Modal: React.FC<ModalProps> = ({
     },
     onSuccess: (data) => {
       toast.success(`OTP ارسال شد: ${data}`)
-      queryClient.invalidateQueries(['getOtp'])
+      queryClient.invalidateQueries({ queryKey: ['getOtp'] })
       setTimer(120)
     },
   })
@@ -83,7 +84,7 @@ const Modal: React.FC<ModalProps> = ({
   const otpVerificationMutation = useMutation({
     mutationFn: async (data: { mobile: string; otpCode: string }) => {
       const res = await axios.post(
-        'http://localhost:3000/api/v1/client/auth/SignIn',
+        `${BASEURL}/client/auth/SignIn`,
         { mobile: data.mobile, otpCode: data.otpCode },
         { headers: { 'Content-Type': 'application/json' } },
       )
@@ -93,9 +94,10 @@ const Modal: React.FC<ModalProps> = ({
       if (data?.access_token) {
         Cookies.set('accessToken', data.access_token, { expires: 30 })
         toast.success('ورود موفقیت‌آمیز بود.')
-        queryClient.invalidateQueries(['getOtp'])
+        queryClient.invalidateQueries({ queryKey: ['getOtp'] })
         toggleModal()
-
+        nav('/')
+        window.location.reload()
         if (setIsAuthenticated) {
           setIsAuthenticated(true)
         } else {
@@ -106,7 +108,7 @@ const Modal: React.FC<ModalProps> = ({
     onError: (error: AxiosError) => {
       console.error('Error Object:', error)
       if (error.response) {
-        toast.error(`خطا: ${error.response.data?.message || 'مشکلی پیش آمد'}`)
+        toast.error('مشکلی پیش آمد')
       } else if (error.request) {
         toast.error(
           'مشکلی در اتصال به سرور وجود دارد. لطفاً اینترنت را بررسی کنید.',

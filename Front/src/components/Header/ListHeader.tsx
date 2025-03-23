@@ -14,7 +14,7 @@ function ListHeader() {
       {Object.entries(itemHeader).map(([key, item], index) => (
         <MenuItem
           key={key}
-          label={item}
+          label={item.label}
           index={index}
           path={item.path}
           activeDropdown={activeDropdown}

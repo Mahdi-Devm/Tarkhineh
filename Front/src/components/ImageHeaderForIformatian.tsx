@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 interface Images {
   image: string
@@ -20,20 +21,28 @@ function ImageHeaderForIformatian({ image, title, height }: Images) {
           : 'linear-gradient(0deg, #ddd 50%, #605e5e 55%)',
       }}
     >
-      <img
+      <motion.img
         src={image}
         alt={title}
         className="hidden"
         onLoad={() => setLoaded(true)}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: loaded ? 1 : 0 }}
+        transition={{ duration: 1 }}
       />
 
-      <h1 className="text-xl font-bold z-30 text-white sm:text-2xl md:text-3xl">
+      <h1 className="z-30 text-xl font-bold text-white sm:text-2xl md:text-3xl">
         {title}
       </h1>
 
       {!loaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-white border-t-transparent"></div>
+          <motion.div
+            className="h-14 w-14 animate-spin rounded-full border-4 border-white border-t-transparent"
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 1 }}
+          />
         </div>
       )}
     </div>
