@@ -113,28 +113,40 @@ const shopCardSlice = createSlice({
       }
       localStorage.setItem('cardItems', JSON.stringify(state))
     },
-    clearBasket:(state)=>{
-      state.amount=0
-      state.discount=0
-      state.products=[]
-      state.total=0
+    clearBasket: (state) => {
+      state.amount = 0
+      state.discount = 0
+      state.products = []
+      state.total = 0
       localStorage.removeItem('cardItems')
     },
-    clearProduct:(state,action)=>{
-      state.products = state.products.filter(
-        (p) => p.id !== action.payload.id,
-      )
+    clearProduct: (state, action) => {
+      state.products = state.products.filter((p) => p.id !== action.payload.id)
       state.amount -= parseFloat(action.payload.price) * action.payload.qty
       if (action.payload.coupon) {
         state.discount -=
-          ((+action.payload.price * action.payload.coupon.percent) / 100) *action.payload.qty
+          ((+action.payload.price * action.payload.coupon.percent) / 100) *
+          action.payload.qty
         state.total -=
           (parseFloat(action.payload.price) -
-          (+action.payload.price * action.payload.coupon.percent) / 100)*action.payload.qty
-      } else state.total -= parseFloat(action.payload.price) * action.payload.qty
+            (+action.payload.price * action.payload.coupon.percent) / 100) *
+          action.payload.qty
+      } else
+        state.total -= parseFloat(action.payload.price) * action.payload.qty
       localStorage.setItem('cardItems', JSON.stringify(state))
-    }
+    },
+    useCoupon: (state, action) => {
+      const { disCount } = action.payload
+      state.discount = disCount
+      state.total = state.amount - disCount
+    },
   },
 })
-export const { addProduct,clearProduct ,removeProduct,clearBasket } = shopCardSlice.actions
+export const {
+  useCoupon,
+  addProduct,
+  clearProduct,
+  removeProduct,
+  clearBasket,
+} = shopCardSlice.actions
 export default shopCardSlice.reducer
