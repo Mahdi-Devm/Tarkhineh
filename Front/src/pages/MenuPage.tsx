@@ -11,9 +11,7 @@ import { toast } from 'react-toastify'
 import { CiTrash } from 'react-icons/ci'
 import 'react-toastify/dist/ReactToastify.css'
 import SimpleSlider from '../components/SLider/SliderNext'
-
 import { BASEURL } from '../api'
-
 import { Link } from 'react-router-dom'
 import { RootState } from '../redux/store'
 
