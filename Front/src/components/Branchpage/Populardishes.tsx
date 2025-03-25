@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux'
 import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 interface Product {
   id: number
@@ -12,16 +13,10 @@ interface Product {
 }
 
 interface PopulardishesProps {
-  FaChevronRight: React.ComponentType
-  FaChevronLeft: React.ComponentType
   data: Product[]
 }
 
-const Populardishes: React.FC<PopulardishesProps> = ({
-  FaChevronRight,
-  FaChevronLeft,
-  data,
-}) => {
+const Populardishes: React.FC<PopulardishesProps> = ({ data }) => {
   const dispatch = useDispatch()
   const [productsPerPage, setProductsPerPage] = useState(
     window.innerWidth >= 1300 ? 5 : 4,
