@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
+import { handleCouponDiscount} from '../../redux/shopCard/shopCardSlice'
 
 const UserCoupon = () => {
     const dispatch = useDispatch()
@@ -36,7 +37,7 @@ const UserCoupon = () => {
       else  toast.success('تخفیف اعمال شد ')
     const {coupon}=data    
     
-        dispatch(useCoupon(coupon))
+        dispatch(handleCouponDiscount(coupon))
       }
   return (
       <>

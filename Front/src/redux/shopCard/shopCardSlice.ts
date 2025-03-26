@@ -89,14 +89,14 @@ const shopCardSlice = createSlice({
 
       if (existingItem && existingItem.qty > 1) {
         existingItem.qty--
-        state.amount -= parseFloat(existingItem.price)
+        state.amount -= +(existingItem.price)
         if (action.payload.coupon) {
           state.discount -=
-            (+existingItem.price * existingItem.coupon.percent) / 100
+            (+existingItem.price * existingItem.coupon!.percent) / 100
           state.total -=
-            parseFloat(existingItem.price) -
+            +(existingItem.price) -
             (+existingItem.price * existingItem.coupon.percent) / 100
-        } else state.total -= parseFloat(existingItem.price)
+        } else state.total -= +(existingItem.price)
       } else {
         //if there is only one
         state.products = state.products.filter(
@@ -122,20 +122,20 @@ const shopCardSlice = createSlice({
     },
     clearProduct: (state, action) => {
       state.products = state.products.filter((p) => p.id !== action.payload.id)
-      state.amount -= parseFloat(action.payload.price) * action.payload.qty
+      state.amount -= +(action.payload.price) * action.payload.qty
       if (action.payload.coupon) {
         state.discount -=
-          ((+action.payload.price * action.payload.coupon.percent) / 100) *
+          ((+action.payload.price * action.payload.coupon!.percent) / 100) *
           action.payload.qty
         state.total -=
-          (parseFloat(action.payload.price) -
-            (+action.payload.price * action.payload.coupon.percent) / 100) *
+          (+(action.payload.price) -
+            (+action.payload.price * action.payload.coupon!.percent) / 100) *
           action.payload.qty
       } else
-        state.total -= parseFloat(action.payload.price) * action.payload.qty
+        state.total -= +(action.payload.price) * action.payload.qty
       localStorage.setItem('cardItems', JSON.stringify(state))
     },
-    useCoupon: (state, action) => {
+    handleCouponDiscount: (state, action) => {
       const { disCount } = action.payload
       state.discount = disCount
       state.total = state.amount - disCount
@@ -143,7 +143,7 @@ const shopCardSlice = createSlice({
   },
 })
 export const {
-  useCoupon,
+  handleCouponDiscount,
   addProduct,
   clearProduct,
   removeProduct,
