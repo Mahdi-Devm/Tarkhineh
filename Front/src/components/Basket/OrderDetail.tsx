@@ -15,7 +15,25 @@ const OrderDetail = () => {
   const { total } = useSelector((state: RootState) => state.cardReducer)
   const dispatch = useDispatch()
 
-  
+  const sendReq = async () => {
+    const token = Cookies.get('accessToken')
+
+    const res = await fetch('http://localhost:3000/api/v1/client/payment/request', {
+      method: 'POST',
+      body: JSON.stringify({
+        amount: 5000,
+        callBackUrl: 'https://google.com',
+        description: 'paytest',
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token }`,
+      },
+    })
+    console.log(res)
+    const data=await res.json()
+    console.log(data)
+  }
 
   return (
     <div className="divide z-20 divide-y-2 divide-zinc-300 rounded-xl border border-zinc-400 px-4 py-3 max-sm:border-t sm:py-5 md:max-w-[470px] md:text-[16px]">
@@ -79,7 +97,7 @@ const OrderDetail = () => {
         >
           ثبت اطلاعات
         </Link>
-        <button >pay link</button>
+        <button onClick={() => sendReq()}>pay link</button>
       </div>
     </div>
   )
