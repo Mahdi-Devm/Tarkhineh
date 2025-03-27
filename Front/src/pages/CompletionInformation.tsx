@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import PaymentBreadcrumb from '../components/Basket/PaymentBreadcrumb'
 
 import BasketAddresses from '../components/Basket/BasketAddresses'
@@ -57,7 +57,18 @@ function CompletionInformation() {
             <input onChange={(e)=>dispatch(getDescription(e.target.value))} type="text" id='desc' className=' w-full h-[70%] border border-black/0 outline-0 text-right' />
           </div>
         </div>
-        <OrderDetail />
+        <OrderDetail>
+        <button disabled className='w-full disabled:opacity-55'>
+        <Link
+        
+          to={'/cart/completion-info/payment'}
+          className="mt-2 w-full block rounded-md bg-green-900 py-2 text-center text-white"
+        >
+          ثبت اطلاعات
+        </Link>
+        </button>
+        
+        </OrderDetail>
         
       </main>
     </>

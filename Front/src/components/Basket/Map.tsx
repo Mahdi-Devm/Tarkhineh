@@ -1,71 +1,99 @@
-import {  MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet'
-
-
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-
-// ایمپورت تصاویر به صورت مستقیم
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMapEvents,
+} from 'react-leaflet'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 import { useState } from 'react'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 
-// رفع مشکل آیکون‌ها
+interface Props {
+  setCoordinates: (coords: { latitude: string; longitude: string }) => void
+}
+
 const DefaultIcon = L.icon({
-    iconUrl: markerIcon,
-    iconRetinaUrl: markerIcon2x,
-    shadowUrl: markerShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    tooltipAnchor: [16, -28],
-    shadowSize: [41, 41]
-  });
-  
-  L.Marker.prototype.options.icon = DefaultIcon;
-  
-const Map = () => {
-    const [position, setPosition] = useState<L.LatLng>(L.latLng(35.6892, 51.3890)); // تهران
-  const [coordinates, setCoordinates] = useState<string>('');
-  const handleGetCoordinates = (latlng: L.LatLng) => {
-    setPosition(latlng);
-    setCoordinates(`عرض جغرافیایی: ${latlng.lat.toFixed(6)}, طول جغرافیایی: ${latlng.lng.toFixed(6)}`);
-  };
-  
+  iconUrl: markerIcon,
+  iconRetinaUrl: markerIcon2x,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41],
+})
 
+L.Marker.prototype.options.icon = DefaultIcon
 
-    const CenterMarker = ({ getCoordinates }: { getCoordinates: (latlng: L.LatLng) => void }) => {
-        const map = useMapEvents({
-          move() {
-            const center = map.getCenter();
-            getCoordinates(center);
-          },
-          load() {
-            const center = map.getCenter();
-            getCoordinates(center);
-          }
-        });
-      
-        return (
-          <Marker position={map.getCenter()}>
-            <Popup>موقعیت فعلی مرکز نقشه</Popup>
-          </Marker>
-        );
+const LocationMarker = ({
+  setMarkerPosition,
+}: {
+  setMarkerPosition: (latlng: L.LatLng) => void
+}) => {
+  const [position, setPosition] = useState<L.LatLng | null>(null)
+  
+  const map = useMapEvents({
+    click(e) {
+      setPosition(e.latlng)
+      setMarkerPosition(e.latlng)
+    },
+  })
+
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>موقعیت انتخاب شده</Popup>
+    </Marker>
+  )
+}
+
+const Map = ({ setCoordinates }: Props) => {
+  const initialCenter = L.latLng(35.6892, 51.389) // تهران
+  const [markerPosition, setMarkerPosition] = useState<L.LatLng | null>(null)
+
+  const handleLogCoordinates = () => {
+    if (markerPosition) {
+      const coords = {
+        latitude: markerPosition.lat.toFixed(6),
+        longitude: markerPosition.lng.toFixed(6)
       }
+      
+      // ذخیره در state والد
+      setCoordinates(coords)
+      
+      console.log('مختصات ذخیره شد:', coords)
+      alert(`مختصات ذخیره شد:\nعرض جغرافیایی: ${coords.latitude}\nطول جغرافیایی: ${coords.longitude}`)
+    } else {
+      alert('لطفاً ابتدا یک نقطه روی نقشه انتخاب کنید')
+    }
+  }
 
-    
   return (
-    <MapContainer 
-      center={position} 
-      zoom={13} 
-      style={{ height: '400px', width: '100%' }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <CenterMarker getCoordinates={handleGetCoordinates}/>
-    </MapContainer>
+    <div className='relative'>
+      <MapContainer
+        center={initialCenter}
+        zoom={13}
+        style={{ height: '350px', width: '100%', zIndex: '2' }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <LocationMarker 
+          setMarkerPosition={setMarkerPosition} 
+        />
+      </MapContainer>
+      
+      <button 
+        onClick={handleLogCoordinates}
+        className="absolute bottom-2 z-50 rounded-lg bg-blue-900 px-4 py-2 text-white"
+      >
+        ثبت مختصات
+      </button>
+    </div>
   )
 }
 

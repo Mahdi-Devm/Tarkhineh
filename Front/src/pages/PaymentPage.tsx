@@ -1,17 +1,41 @@
-import { useLocation } from 'react-router-dom'
+import {  useLocation } from 'react-router-dom'
 import PaymentBreadcrumb from '../components/Basket/PaymentBreadcrumb'
 import { bankOptions } from '../constants/BasketData'
 import OrderDetail from '../components/Basket/OrderDetail'
+import Cookies from 'js-cookie'  
 import { useDispatch, useSelector } from 'react-redux'
 import { getPayLink, getPaymentOption } from '../redux/orderInfo/orderInfoSlice'
 import { RootState } from '../redux/store'
 import UserCoupon from '../components/Basket/UserCoupon'
 import Map from '../components/Basket/Map'
+import Successfulpayment from '../components/Successfulpayment'
+import Unsuccessfulpayment from '../components/Unsuccessfulpayment'
 
 function PaymentPage() {
-  
+  const{products}=useSelector((state:RootState)=>state.cardReducer)
   const dispatch = useDispatch()
-  
+const sendReq = async () => {  
+    const token = Cookies.get('accessToken')  
+
+    const res = await fetch('http://localhost:3000/api/v1/client/payment/request', {  
+      method: 'POST',  
+      body: JSON.stringify({  
+        amount: 5000,  
+        callBackUrl: 'http://localhost:3000/api/v1/client/payment/verify',  
+        description: 'paytest',  
+      }),  
+      headers: {  
+        'Content-type': 'application/json',  
+        Authorization: `Bearer ${token}`,  
+      },  
+    })  
+    console.log(res)  
+    const data = await res.json()  
+    console.log(data)  
+    if (res.status === 200) {  
+      window.location = data.url  
+    }  
+  }   
 
   const { pathname } = useLocation()
 
@@ -129,9 +153,14 @@ function PaymentPage() {
             </div>
           )}
         </div>
-        <OrderDetail />
+        <OrderDetail>
+        <button disabled={products.length==0} onClick={() => sendReq()} className="mt-2 w-full rounded-lg bg-green-900 p-2 text-center disabled:bg-zinc-300 text-white">  
+          انتقال به صفحه پرداخت 
+        </button>
+        
+        </OrderDetail>
       </main>
-      <Map/>
+      
       {/* <Successfulpayment /> */}
       {/* <Unsuccessfulpayment /> */}
     </div>

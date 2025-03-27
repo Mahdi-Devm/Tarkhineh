@@ -1,148 +1,204 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Cookies from 'js-cookie'
-import { RootState } from '../../redux/store'
 import { getAddress } from '../../redux/orderInfo/orderInfoSlice'
+import Map from './Map'
+
 export interface AddressData {
-  title: string
-  receiveBySelf: boolean
-  phone: string
+  latitude: string
+  longitude: string
   address: string
+  id: number
 }
 
 const BasketAddresses = () => {
-  const selectedAddress = useSelector(
-    (state: RootState) => state.orderInfo.address,
-  )
-  console.log('address saved in state', selectedAddress)
   const dispatch = useDispatch()
   const [addressOpen, setAddressOpen] = useState(false)
   const [addresses, setAddresses] = useState<AddressData[]>([])
+  const [coordinates, setCoordinates] = useState({
+    latitude: '',
+    longitude: ''
+  })
+  
+  const { handleSubmit, register, reset, formState: { errors } } = useForm<AddressData>()
 
-  const { handleSubmit, register, reset } = useForm<AddressData>()
+  const fetchAddresses = async () => {
+    try {
+      const token = Cookies.get('accessToken')
+      const res = await fetch('http://localhost:3000/api/v1/client/address', {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      const data = await res.json()
+      setAddresses(data)
+    } catch (error) {
+      console.error('خطا در دریافت آدرس‌ها:', error)
+    }
+  }
 
-  const submitHandler = (data: AddressData) => {
-    console.log(data)
-    setAddresses([...addresses, data])
-    reset()
-    setAddressOpen(false)
+  useEffect(() => {
+    fetchAddresses()
+  }, [])
+
+  const submitHandler = async (data: AddressData) => {
+    try {
+      const addressData = {
+        ...data,
+        latitude: coordinates.latitude,
+        longitude: coordinates.longitude
+      }
+
+      if (!coordinates.latitude || !coordinates.longitude) {
+        alert('لطفاً روی نقشه یک مکان را انتخاب کنید')
+        return
+      }
+
+      const token = Cookies.get('accessToken')
+      const res = await fetch('http://localhost:3000/api/v1/client/address', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(addressData),
+      })
+
+      if (!res.ok) {
+        throw new Error('خطا در ارسال آدرس')
+      }
+
+      // دریافت مجدد لیست آدرس‌ها از سرور
+      await fetchAddresses()
+      
+      reset()
+      setAddressOpen(false)
+      
+    } catch (error) {
+      console.error('خطا در ارسال آدرس:', error)
+      alert('خطا در ارسال آدرس')
+    }
   }
-  const postAddress = async () => {
-    const token = Cookies.get('accessToken')
-    const res = await fetch('http://localhost:3000/api/v1/client/address', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        latitude: '23.586464',
-        longitude: '56.900213',
-        address: 'dasjdhjkasdh',
-      }),
-    })
-    console.log(res)
-    const data = await res.json()
-    console.log(data)
+
+  const deleteAddress = async (id: number) => {
+    try {
+      const token = Cookies.get('accessToken')
+      const res = await fetch(`http://localhost:3000/api/v1/client/address/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (!res.ok) {
+        throw new Error('خطا در حذف آدرس')
+      }
+
+      // دریافت مجدد لیست آدرس‌ها از سرور
+      await fetchAddresses()
+      
+    } catch (error) {
+      console.error('خطا در حذف آدرس:', error)
+      alert('خطا در حذف آدرس')
+    }
   }
+
   return (
     <>
       <div className="divide space-y-3 divide-y divide-zinc-300 rounded-md border border-zinc-400 p-4">
-        <button onClick={() => postAddress()}>test address</button>
         <div className="mb-4 flex justify-between pb-2">
           <button
             className="text-green-900"
             onClick={() => setAddressOpen(!addressOpen)}
           >
-            افزودن ادرس
+            افزودن آدرس
           </button>
-          <p>ادرس ها</p>
+          <p>آدرس‌ها</p>
         </div>
+        
         {addresses?.length > 0 ? (
           addresses?.map((address) => (
             <label
               onClick={() => dispatch(getAddress(address))}
-              htmlFor={address.address}
-              key={address.title}
+              htmlFor={`address-${address.id}`}
+              key={address.id}
               className="flex justify-between gap-3 bg-amber-100"
             >
               <input
                 type="radio"
-                name="ali"
+                name="address"
                 className="bg-red-200"
-                id={address.address}
+                id={`address-${address.id}`}
               />
               <div className="flex w-full justify-between p-3">
                 <div>
-                  <button>✏</button>
-                  <button>💥</button>
+                  <button 
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      deleteAddress(address.id)
+                    }}
+                    className="ml-2"
+                  >
+                    🗑
+                  </button>
                 </div>
-                <h2>{address.address}</h2>
+                <p>{address.address}</p>
               </div>
             </label>
           ))
         ) : (
           <div className="flex items-center justify-center">
-            ادرسی وجود ندارد
+            آدرسی وجود ندارد
           </div>
         )}
       </div>
-      <span
-        className={
-          addressOpen
-            ? `fixed top-0 left-0 z-30 flex h-screen w-screen items-center justify-center bg-black/65`
-            : 'hidden'
-        }
-      >
-        <div className="flex h-[70%] max-h-[500px] w-[90%] flex-col overflow-hidden rounded-lg bg-white sm:max-w-[500px]">
-          <h1 className="relative bg-zinc-200 py-4 text-center font-semibold">
-            ثبت آدرس{' '}
-            <button
-              className="absolute right-4"
-              onClick={() => setAddressOpen(!addressOpen)}
-            >
-              X
-            </button>
-          </h1>
-          <form
-            onSubmit={handleSubmit((data) => submitHandler(data))}
-            className="flex h-full w-full flex-col gap-3 p-2 text-right"
-          >
-            <input
-              {...register('title')}
-              className="w-full rounded-md border border-zinc-300 p-1 text-right placeholder:text-right"
-              type="text"
-              placeholder="عنوان آدرس"
-            />
-            <div className="space-x-3">
-              <label htmlFor="receiveBySelf">تحویل گیرنده خودم هستم</label>
-              <input
-                {...register('receiveBySelf')}
-                type="checkbox"
-                name="receiveBySelf"
-                id="receiveBySelf"
-              />
-            </div>
-            <input
-              {...register('phone')}
-              className="w-full rounded-md border border-zinc-300 p-1 text-right placeholder:text-right"
-              type="text"
-              placeholder="شماره همراه"
-            />
-            <input
-              {...register('address')}
-              className="h-full w-full rounded-md border border-zinc-300 p-1 text-right placeholder:text-right"
-              type="text"
-              placeholder="ادرس دقیق شما"
-            />
 
-            <button className="mt-auto mb-2 bg-green-800 p-2 text-white hover:bg-green-900/85">
-              ثبت
-            </button>
-          </form>
+      {addressOpen && (
+        <div className="fixed top-0 left-0 z-30 flex h-screen w-screen items-center justify-center bg-black/65">
+          <div className="flex h-[70%] max-h-[600px] w-[90%] flex-col overflow-hidden overflow-y-auto rounded-lg bg-white sm:max-w-[500px]">
+            <h1 className="relative bg-zinc-200 py-4 text-center font-semibold">
+              ثبت آدرس
+              <button
+                className="absolute right-4"
+                onClick={() => setAddressOpen(false)}
+              >
+                ×
+              </button>
+            </h1>
+            
+            <div className="h-64">
+              <Map setCoordinates={setCoordinates} />
+            </div>
+            
+            <form
+              onSubmit={handleSubmit(submitHandler)}
+              className="flex h-full w-full flex-col gap-3 mt-5 p-4 text-right"
+            >
+              <div>
+                <input
+                  {...register('address', { required: 'آدرس الزامی است' })}
+                  id="address"
+                  className="w-full rounded-md border text-right border-zinc-300 p-2"
+                  placeholder="آدرس دقیق شما"
+                />
+                {errors.address && (
+                  <p className="text-red-500">{errors.address.message}</p>
+                )}
+              </div>
+              <button 
+                type="submit"
+                className="mt-auto bg-green-900 p-2 text-white hover:bg-green-700"
+              >
+                ثبت آدرس
+              </button>
+            </form>
+          </div>
         </div>
-      </span>
+      )}
     </>
   )
 }
