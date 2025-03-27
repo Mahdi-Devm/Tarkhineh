@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPayLink, getPaymentOption } from '../redux/orderInfo/orderInfoSlice'
 import { RootState } from '../redux/store'
 import UserCoupon from '../components/Basket/UserCoupon'
+import Map from '../components/Basket/Map'
 
 function PaymentPage() {
   
@@ -25,6 +26,7 @@ function PaymentPage() {
     if (payLink === option) return true
     return false
   }
+  
 
   return (
     <div>
@@ -129,6 +131,7 @@ function PaymentPage() {
         </div>
         <OrderDetail />
       </main>
+      <Map/>
       {/* <Successfulpayment /> */}
       {/* <Unsuccessfulpayment /> */}
     </div>

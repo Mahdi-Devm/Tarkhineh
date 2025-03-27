@@ -46,7 +46,7 @@ const UserCoupon = () => {
             <p className="mb-2 text-right text-[20px] font-semibold">
               ثبت کد تخفیف
             </p>
-            <div  className="flex gap-3">
+            <div className="flex gap-3">
               <button onClick={()=>setIsOpen(true)} className="h-full rounded-lg bg-green-800 px-6 py-2 text-nowrap text-white">
                 ثبت کد
               </button>
