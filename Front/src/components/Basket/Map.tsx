@@ -11,7 +11,8 @@ import { useState } from 'react'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 interface Props {
   setCoordinates: (coords: { latitude: string; longitude: string }) => void
 }
@@ -35,8 +36,8 @@ const LocationMarker = ({
   setMarkerPosition: (latlng: L.LatLng) => void
 }) => {
   const [position, setPosition] = useState<L.LatLng | null>(null)
-  
-  const map = useMapEvents({
+
+  useMapEvents({
     click(e) {
       setPosition(e.latlng)
       setMarkerPosition(e.latlng)
@@ -58,21 +59,22 @@ const Map = ({ setCoordinates }: Props) => {
     if (markerPosition) {
       const coords = {
         latitude: markerPosition.lat.toFixed(6),
-        longitude: markerPosition.lng.toFixed(6)
+        longitude: markerPosition.lng.toFixed(6),
       }
-      
-      // ذخیره در state والد
+
       setCoordinates(coords)
-      
-      console.log('مختصات ذخیره شد:', coords)
-      alert(`مختصات ذخیره شد:\nعرض جغرافیایی: ${coords.latitude}\nطول جغرافیایی: ${coords.longitude}`)
+
+      toast.success(
+        `مختصات ذخیره شد:\nعرض جغرافیایی: ${coords.latitude}\nطول جغرافیایی: ${coords.longitude}`,
+      )
     } else {
-      alert('لطفاً ابتدا یک نقطه روی نقشه انتخاب کنید')
+      // تغییر alert به toast
+      toast.error('لطفاً ابتدا یک نقطه روی نقشه انتخاب کنید')
     }
   }
 
   return (
-    <div className='relative'>
+    <div className="relative">
       <MapContainer
         center={initialCenter}
         zoom={13}
@@ -82,12 +84,10 @@ const Map = ({ setCoordinates }: Props) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LocationMarker 
-          setMarkerPosition={setMarkerPosition} 
-        />
+        <LocationMarker setMarkerPosition={setMarkerPosition} />
       </MapContainer>
-      
-      <button 
+
+      <button
         onClick={handleLogCoordinates}
         className="absolute bottom-2 z-50 rounded-lg bg-blue-900 px-4 py-2 text-white"
       >
