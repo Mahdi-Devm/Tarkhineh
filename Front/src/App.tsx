@@ -65,7 +65,7 @@ const App = () => {
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/menu" element={<MenuPage />} />
-                    <Route path="/menu:category" element={<MenuPage />} />
+                    <Route path="/menu/:category" element={<MenuPage />} />
                     <Route
                       path="/cart/completion-info/payment"
                       element={<PaymentPage />}
