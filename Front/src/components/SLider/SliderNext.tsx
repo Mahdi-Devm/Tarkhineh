@@ -28,7 +28,7 @@ const SimpleSlider: React.FC = () => {
   }, [currentIndex])
 
   return (
-    <div className="relative mx-auto flex w-full max-w-[1400px] flex-col items-center justify-center">
+    <div className="relative mx-auto flex w-full max-w-[1400px] flex-col items-center justify-center z-0">
       <div className="relative flex h-[300px] w-full items-center justify-center overflow-hidden rounded-lg shadow-lg sm:h-[400px] md:h-[500px] lg:h-[336px]">
         <SliderArrow direction="left" onClick={goToPrevious} />
         <div className="relative h-full w-full">
