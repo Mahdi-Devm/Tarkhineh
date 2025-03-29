@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
 import Populardishes from './Populardishes'
@@ -15,6 +14,7 @@ interface Product {
   rating: number
   image_url: string
 }
+
 const fetchProducts = async (): Promise<Product[]> => {
   const token = Cookies.get('accessToken')
   try {
@@ -35,12 +35,7 @@ const fetchProducts = async (): Promise<Product[]> => {
   }
 }
 
-interface BodyBranchpageProps {
-  FaChevronLeft: React.ComponentType
-  FaChevronRight: React.ComponentType
-}
-
-const BodyBranchpage: React.FC<BodyBranchpageProps> = () => {
+const BodyBranchpage: React.FC = () => {
   const { data, isLoading } = useQuery<Product[]>({
     queryKey: ['fetchProducts'],
     queryFn: fetchProducts,
@@ -50,21 +45,9 @@ const BodyBranchpage: React.FC<BodyBranchpageProps> = () => {
 
   return (
     <section className="flex flex-col items-center justify-center">
-      <Preferences
-        FaChevronRight={FaChevronRight}
-        FaChevronLeft={FaChevronLeft}
-        data={data ?? []}
-      />
-      <Populardishes
-        FaChevronRight={FaChevronRight}
-        FaChevronLeft={FaChevronLeft}
-        data={data ?? []}
-      />
-      <Iraniancuisine
-        FaChevronRight={FaChevronRight}
-        FaChevronLeft={FaChevronLeft}
-        data={data ?? []}
-      />
+      <Preferences data={data ?? []} />
+      <Populardishes data={data ?? []} />
+      <Iraniancuisine data={data ?? []} />
     </section>
   )
 }

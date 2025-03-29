@@ -12,24 +12,19 @@ import { CiTrash } from 'react-icons/ci'
 import 'react-toastify/dist/ReactToastify.css'
 import SimpleSlider from '../components/SLider/SliderNext'
 import { useParams } from 'react-router-dom'
-
-
 import { BASEURL } from '../api'
-
 import { Link } from 'react-router-dom'
-
+import { RootState } from '../redux/store'
 
 interface Category {
   id: number
   title: string
 }
 
-
 interface SubCategory {
   id: number
   title: string
 }
-
 
 interface Coupon {
   id: number
@@ -37,7 +32,6 @@ interface Coupon {
 }
 
 export interface Product {
-
   id: number
   name: string
   price: string
@@ -47,6 +41,7 @@ export interface Product {
   isFavorite: boolean
   qty: number | 0
   coupon: Coupon
+  TotalStars: number
 }
 
 
@@ -100,19 +95,18 @@ const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
   return data.products
 }
 
-
-const getLikedProduct = async (Token: any) => {
-  let respons = await fetch('http://localhost:3000/api/v1/client/likes', {
+const getLikedProduct = async () => {
+  const token = Cookies.get('accessToken')
+  const respons = await fetch(`${BASEURL}/client/likes`, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${Token}`,
+      Authorization: `Bearer ${token}`,
     },
-    method: "GET"
+    method: 'GET',
   })
 
   return respons.json()
 }
-
 
 const MenuPage = () => {
 
@@ -125,7 +119,6 @@ const MenuPage = () => {
 
   const queryClient = useQueryClient()
   const dispatch = useDispatch()
-
 
   const { data: categories, isLoading } = useQuery<Category[]>({
     queryKey: ['main category'],
@@ -146,7 +139,13 @@ const MenuPage = () => {
   useEffect(() => {
     if (selectedCategory) {
       setSelectedSubCategory('')
+
       queryClient.invalidateQueries({ queryKey: ['subcategory', selectedCategory] })
+
+      queryClient.invalidateQueries({
+        queryKey: ['subcategory', selectedCategory],
+      })
+
     }
   }, [selectedCategory, queryClient])
 
@@ -158,22 +157,29 @@ const MenuPage = () => {
 
   useEffect(() => {
     if (selectedSubCategory) {
-      queryClient.invalidateQueries({ queryKey: ['products', selectedSubCategory] })
-    }
 
+      queryClient.invalidateQueries({ queryKey: ['products', selectedSubCategory] })
+
+      queryClient.invalidateQueries({
+        queryKey: ['products', selectedSubCategory],
+      })
+
+    }
   }, [selectedSubCategory, queryClient])
+
 
   useEffect(() => {
     setSelectedCategory(param)
   },[param])
 
 
+
+  
+  
+
   const productsInCart = useSelector(
-    (state: RootStates) => state.cardReducer.products,
+    (state: RootState) => state.cardReducer.products,
   )
-
-
-
   const isProductInCart = (productId: number) => {
     return (
       productsInCart?.some((product: Product) => product.id === productId) ??
@@ -183,10 +189,11 @@ const MenuPage = () => {
 
   const likes = useQuery({
     queryKey: ['likes'],
-    queryFn: () => getLikedProduct(Token)
+    queryFn: getLikedProduct,
   })
 
   const likeProduct = useMutation({
+
     mutationFn: (id: number) => fetch(`http://localhost:3000/api/v1/client/likes/${id}`, {
       headers: {
         'authorization': `Bearer ${Token}`,
@@ -197,6 +204,19 @@ const MenuPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['likes'] })
     }
+
+    mutationFn: (id: number) =>
+      fetch(`http://localhost:3000/api/v1/client/likes/${id}`, {
+        headers: {
+          authorization: `Bearer ${Token}`,
+        },
+        method: 'POST',
+      }).then((res) => res.json()),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['likes'] })
+    },
+
   })
 
   const setRate = useMutation<void, Error, [number, number]>({
@@ -204,19 +224,25 @@ const MenuPage = () => {
       return fetch('http://localhost:3000/api/v1/client/stars', {
         headers: {
           'content-Type': 'application/json',
-          'authorization': `Bearer ${Token}`
+          authorization: `Bearer ${Token}`,
         },
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({
           product_id: id,
-          star: rate
-        })
-      }).then(res => res.json()).then(data => console.log(data))
+          star: rate,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
     },
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] })
+
     }
+
+
+    },
 
   })
 
@@ -230,7 +256,7 @@ const MenuPage = () => {
   const filteredCategories = categories?.slice(0, 4)
 
   const toggleFavorite = (productId: number) => {
-    const updatedProducts = products?.map((product) =>
+    products?.map((product) =>
       product.id === productId
         ? { ...product, isFavorite: !product.isFavorite }
         : product,
@@ -245,10 +271,11 @@ const MenuPage = () => {
           {filteredCategories?.map((item) => (
             <div
               key={item.id}
-              className={`cursor-pointer text-lg font-medium text-[#5A5A5A] transition-all duration-300 ease-in-out hover:scale-110 hover:font-bold hover:text-[#417F56] ${item.id === selectedCategory
-                ? 'scale-110 border-b-2 border-[#417F56] font-bold text-[#417F56]'
-                : ''
-                }`}
+              className={`cursor-pointer text-lg font-medium text-[#5A5A5A] transition-all duration-300 ease-in-out hover:scale-110 hover:font-bold hover:text-[#417F56] ${
+                item.id === selectedCategory
+                  ? 'scale-110 border-b-2 border-[#417F56] font-bold text-[#417F56]'
+                  : ''
+              }`}
               onClick={() => setSelectedCategory(item.id)}
             >
               <h3>{item.title}</h3>
@@ -292,8 +319,8 @@ const MenuPage = () => {
           <h3 className="text-2xl font-semibold pb-5">محصولات</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
             {products?.map((product) => {
-
               return (
+
                 (
                   <div
                     key={product.id}
@@ -325,15 +352,67 @@ const MenuPage = () => {
                           <span>تومان</span>
                         </p>
                         <p className="text-[12px] text-[#353535] sm:text-[14px]">{product.description}</p>
+                <div
+                  key={product.id}
+                  className="flex flex-col items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:scale-105 sm:flex-row sm:gap-6"
+                  style={{ minHeight: '158px' }}
+                >
+                  <img
+                    src={`http://localhost:3000/${product.image_url}`}
+                    alt=""
+                    className="h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 sm:block md:hidden"
+                  />
+                  <div className="mt-4 flex w-full flex-col sm:mr-4 sm:w-2/3 sm:pl-4">
+                    <div className="flex items-center justify-between">
+                      <div
+                        className="cursor-pointer transition-transform duration-300 hover:scale-125"
+                        onClick={() => toggleFavorite(product.id)}
+                      >
+                        {likes.data.some(
+                          (item: { product: Product }) =>
+                            item.product.id == product.id,
+                        ) ? (
+                          <CiHeart
+                            onClick={() => likeProduct.mutate(product.id)}
+                            className="h-[24px] w-[24px] text-red-500 transition-all duration-300"
+                          />
+                        ) : (
+                          <CiHeart
+                            onClick={() => likeProduct.mutate(product.id)}
+                            className="h-[24px] w-[24px] text-gray-500 transition-all duration-300"
+                          />
+                        )}
                       </div>
-                      {product.coupon && (
-                        <div className="mt-2 flex w-fit text-red-800">{product.coupon?.percent}%</div>
-                      )}
-                      <div className="mt-5 mb-6 flex items-center justify-center gap-1">
-                        <button
-                          onClick={() => {
-                            dispatch(addProduct(product))
-                            toast.success('✅ محصول با موفقیت به سبد خرید اضافه شد!', {
+                      <h4 className="text-[16px] font-semibold sm:text-[20px]">
+                        {product.name}
+                      </h4>
+                    </div>
+                    <div className="mt-5 flex items-center justify-between">
+                      <p className="text-[14px] text-[#353535] sm:text-[18px]">
+                        <span>
+                          {product.coupon
+                            ? +product.price * product.coupon.percent -
+                              +product.price
+                            : product.price}{' '}
+                        </span>
+                        <span>تومان</span>
+                      </p>
+                      <p className="text-[12px] text-[#353535] sm:text-[14px]">
+                        {product.description}
+                      </p>
+                    </div>
+                    {product.coupon && (
+                      <div className="mt-2 flex w-fit text-red-800">
+                        {product.coupon?.percent}%
+                      </div>
+                    )}
+                    <div className="mt-5 mb-6 flex items-center justify-center gap-1">
+                      <button
+                        onClick={() => {
+                          dispatch(addProduct(product))
+                          toast.success(
+                            '✅ محصول با موفقیت به سبد خرید اضافه شد!',
+                            {
                               position: 'top-right',
                               autoClose: 2000,
                               hideProgressBar: false,
@@ -342,11 +421,19 @@ const MenuPage = () => {
                               draggable: true,
                               progress: undefined,
                               theme: 'colored',
-                            })
-                          }}
-                          className="flex h-[40px] w-[100%] cursor-pointer items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500 sm:w-[244px]"
+                            },
+                          )
+                        }}
+                        className="flex h-[40px] w-[100%] cursor-pointer items-center justify-center rounded-md bg-[#417F56] font-semibold text-white disabled:bg-white disabled:text-gray-500 sm:w-[244px]"
+                      >
+                        افزودن به سبد خرید
+                      </button>
+                      {isProductInCart(product.id) && (
+                        <button
+                          onClick={() => dispatch(removeProduct(product))}
+                          className="mt-2 rounded-2xl border-1 border-stone-400 p-2 sm:mt-0"
                         >
-                          افزودن به سبد خرید
+                          <CiTrash />
                         </button>
                         {isProductInCart(product.id) && (
                           <button
@@ -367,14 +454,25 @@ const MenuPage = () => {
                           />
                         ))}
                       </div>
+                      )}
+                      {[...Array(5)].map((_, index) => (
+                        <CiStar
+                          key={index}
+                          className={`h-[20px] w-[20px] cursor-pointer transition-all duration-300 sm:h-[24px] sm:w-[24px] ${index < product.TotalStars ? 'text-yellow-400' : 'text-gray-300'}`}
+                          onClick={() => {
+                            console.log(typeof product.id, typeof index)
+                            setRate.mutate([+product.id, +(index + 1)])
+                          }}
+                        />
+                      ))}
                     </div>
-                    <img
-                      src={`http://localhost:3000/${product.image_url}`}
-                      alt=""
-                      className="hidden h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 md:block"
-                    />
                   </div>
-                )
+                  <img
+                    src={`http://localhost:3000/${product.image_url}`}
+                    alt=""
+                    className="hidden h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 md:block"
+                  />
+                </div>
               )
             })}
           </div>

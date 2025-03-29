@@ -1,1 +1,10 @@
 @import 'tailwindcss';
+
+.parentZibra .childZebra:nth-child(odd) {
+    background-color:#e5e5e5;
+    
+}
+.parentZibra .childZebra:nth-child(even) {
+    
+    background-color:#F9F9F9;
+}
