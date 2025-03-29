@@ -1,1 +1,0 @@
-import{j as n,m as s}from"./index-C8NdgHJU.js";import{P as t}from"./PaymentBreadcrumb-D4Du69V9.js";function r(){return n.jsx("div",{children:"پرداخت موفق بود!"})}function a(){return n.jsx("div",{children:"پرداخت ناموفق بود!"})}function i(){const{pathname:e}=s();return n.jsxs("div",{children:[n.jsx(t,{pathName:e}),n.jsx(r,{}),n.jsx(a,{})]})}export{i as default};

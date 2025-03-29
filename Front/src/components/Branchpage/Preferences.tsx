@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux'
 import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { toast } from 'react-toastify'
 import { useState, useEffect } from 'react'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 interface Product {
   id: number
@@ -12,18 +13,12 @@ interface Product {
 }
 
 interface PreferencesProps {
-  FaChevronRight: React.ComponentType
-  FaChevronLeft: React.ComponentType
   data: Product[]
 }
 
-const Preferences: React.FC<PreferencesProps> = ({
-  FaChevronRight,
-  FaChevronLeft,
-  data,
-}) => {
+const Preferences: React.FC<PreferencesProps> = ({ data }) => {
   const dispatch = useDispatch()
-  const [currentIndex] = useState<number>(0)
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [productsPerPage, setProductsPerPage] = useState<number>(
     window.innerWidth >= 1300 ? 5 : 4,
   )
@@ -47,21 +42,15 @@ const Preferences: React.FC<PreferencesProps> = ({
     }
   }, [])
 
-  const showNext = (
-    index: number,
-    setIndex: React.Dispatch<React.SetStateAction<number>>,
-  ) => {
-    if (index < data.length - productsPerPage) {
-      setIndex(index + 1)
+  const showNext = () => {
+    if (currentIndex < data.length - productsPerPage) {
+      setCurrentIndex(currentIndex + 1)
     }
   }
 
-  const showPrev = (
-    index: number,
-    setIndex: React.Dispatch<React.SetStateAction<number>>,
-  ) => {
-    if (index > 0) {
-      setIndex(index - 1)
+  const showPrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1)
     }
   }
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { spiderweb } from "../../constants/BasketIcons"
+import { spiderweb } from "../../constants/BasketData"
 
 const EmptyCard = () => {
   return (
