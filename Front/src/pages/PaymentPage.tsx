@@ -1,41 +1,41 @@
-import {  useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import PaymentBreadcrumb from '../components/Basket/PaymentBreadcrumb'
 import { bankOptions } from '../constants/BasketData'
 import OrderDetail from '../components/Basket/OrderDetail'
-import Cookies from 'js-cookie'  
+import Cookies from 'js-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPayLink, getPaymentOption } from '../redux/orderInfo/orderInfoSlice'
 import { RootState } from '../redux/store'
 import UserCoupon from '../components/Basket/UserCoupon'
-import Map from '../components/Basket/Map'
-import Successfulpayment from '../components/Successfulpayment'
-import Unsuccessfulpayment from '../components/Unsuccessfulpayment'
 
 function PaymentPage() {
-  const{products}=useSelector((state:RootState)=>state.cardReducer)
+  const { products } = useSelector((state: RootState) => state.cardReducer)
   const dispatch = useDispatch()
-const sendReq = async () => {  
-    const token = Cookies.get('accessToken')  
+  const sendReq = async () => {
+    const token = Cookies.get('accessToken')
 
-    const res = await fetch('http://localhost:3000/api/v1/client/payment/request', {  
-      method: 'POST',  
-      body: JSON.stringify({  
-        amount: 5000,  
-        callBackUrl: 'http://localhost:3000/api/v1/client/payment/verify',  
-        description: 'paytest',  
-      }),  
-      headers: {  
-        'Content-type': 'application/json',  
-        Authorization: `Bearer ${token}`,  
-      },  
-    })  
-    console.log(res)  
-    const data = await res.json()  
-    console.log(data)  
-    if (res.status === 200) {  
-      window.location = data.url  
-    }  
-  }   
+    const res = await fetch(
+      'http://localhost:3000/api/v1/client/payment/request',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          amount: 5000,
+          callBackUrl: 'http://localhost:3000/api/v1/client/payment/verify',
+          description: 'paytest',
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    console.log(res)
+    const data = await res.json()
+    console.log(data)
+    if (res.status === 200) {
+      window.location = data.url
+    }
+  }
 
   const { pathname } = useLocation()
 
@@ -50,14 +50,13 @@ const sendReq = async () => {
     if (payLink === option) return true
     return false
   }
-  
 
   return (
     <div>
       <PaymentBreadcrumb pathName={pathname} />
       <main className="mx-auto my-6 flex max-w-[1224px] flex-col gap-3 rounded-md text-[#353535] md:h-[554px] md:flex-row-reverse">
         <div className="flex w-full flex-col space-y-3 rounded-xl text-[#353535] sm:h-full">
-          <UserCoupon/>
+          <UserCoupon />
           <div className="flex flex-row-reverse items-center justify-between rounded-md border border-zinc-400 p-4 max-md:flex-wrap">
             <p className="mb-2 border-zinc-300 py-2 text-right max-md:w-full max-md:border-b">
               روش پرداخت
@@ -154,13 +153,16 @@ const sendReq = async () => {
           )}
         </div>
         <OrderDetail>
-        <button disabled={products.length==0} onClick={() => sendReq()} className="mt-2 w-full rounded-lg bg-green-900 p-2 text-center disabled:bg-zinc-300 text-white">  
-          انتقال به صفحه پرداخت 
-        </button>
-        
+          <button
+            disabled={products.length == 0}
+            onClick={() => sendReq()}
+            className="mt-2 w-full rounded-lg bg-green-900 p-2 text-center text-white disabled:bg-zinc-300"
+          >
+            انتقال به صفحه پرداخت
+          </button>
         </OrderDetail>
       </main>
-      
+
       {/* <Successfulpayment /> */}
       {/* <Unsuccessfulpayment /> */}
     </div>

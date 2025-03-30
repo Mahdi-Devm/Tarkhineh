@@ -29,21 +29,6 @@ function ProfileLayout() {
               <div className="relative">
                 <input
                   type="text"
-                  id="job"
-                  className="peer w-full rounded-md border border-gray-300 p-2 text-xs focus:ring-2 focus:ring-[#2E5940] focus:outline-none sm:text-sm"
-                  placeholder=" "
-                />
-                <label
-                  htmlFor="job"
-                  className="absolute top-1/2 left-2 -translate-y-1/2 transform text-gray-200 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#BFD8BD] sm:left-3 sm:peer-placeholder-shown:text-base sm:peer-focus:text-sm"
-                >
-                  وظیفه
-                </label>
-              </div>
-
-              <div className="relative">
-                <input
-                  type="text"
                   id="mobile"
                   className="peer w-full cursor-not-allowed rounded-md border border-gray-300 bg-gray-200 p-2 text-xs sm:text-sm"
                   value={mobile}
@@ -82,15 +67,6 @@ function ProfileLayout() {
                 >
                   آدرس ایمیل
                 </label>
-              </div>
-
-              <div className="relative">
-                <input
-                  type="date"
-                  id="birthDate"
-                  className="peer w-full rounded-md border border-gray-300 p-2 text-xs focus:ring-2 focus:ring-[#2E5940] focus:outline-none sm:text-sm"
-                  placeholder=" "
-                />
               </div>
             </div>
           </div>

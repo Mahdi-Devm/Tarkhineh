@@ -1,12 +1,6 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import {
-  CiUser,
-  CiHeart,
-  CiLocationOn,
-  CiBoxList,
-  CiLogout,
-} from 'react-icons/ci'
+import { CiUser, CiHeart, CiLocationOn, CiLogout } from 'react-icons/ci'
 
 function UserAccessList() {
   const location = useLocation()
@@ -15,11 +9,6 @@ function UserAccessList() {
 
   const menuItems = [
     { title: 'پروفایل', icon: <CiUser />, path: '/profile' },
-    {
-      title: 'پیگیری سفارشات',
-      icon: <CiBoxList />,
-      path: '/profile/Trackingorders',
-    },
     { title: 'علاقمندی‌ها', icon: <CiHeart />, path: '/profile/Interests' },
     {
       title: 'آدرس‌های من',

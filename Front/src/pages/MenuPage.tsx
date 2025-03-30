@@ -11,7 +11,6 @@ import { toast } from 'react-toastify'
 import { CiTrash } from 'react-icons/ci'
 import 'react-toastify/dist/ReactToastify.css'
 import SimpleSlider from '../components/SLider/SliderNext'
-import { useParams } from 'react-router-dom'
 import { BASEURL } from '../api'
 import { Link } from 'react-router-dom'
 import { RootState } from '../redux/store'
@@ -43,7 +42,6 @@ export interface Product {
   coupon: Coupon
   TotalStars: number
 }
-
 
 const fetchCategories = async (): Promise<Category[]> => {
   const token = Cookies.get('accessToken')
@@ -109,12 +107,8 @@ const getLikedProduct = async () => {
 }
 
 const MenuPage = () => {
-
-
-  const param = useParams().category || '1'
-
   const Token = Cookies.get('accessToken')
-  const [selectedCategory, setSelectedCategory] = useState<number>(param)
+  const [selectedCategory, setSelectedCategory] = useState<number>(5)
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
 
   const queryClient = useQueryClient()
@@ -139,13 +133,9 @@ const MenuPage = () => {
   useEffect(() => {
     if (selectedCategory) {
       setSelectedSubCategory('')
-
-      queryClient.invalidateQueries({ queryKey: ['subcategory', selectedCategory] })
-
       queryClient.invalidateQueries({
         queryKey: ['subcategory', selectedCategory],
       })
-
     }
   }, [selectedCategory, queryClient])
 
@@ -157,25 +147,11 @@ const MenuPage = () => {
 
   useEffect(() => {
     if (selectedSubCategory) {
-
-      queryClient.invalidateQueries({ queryKey: ['products', selectedSubCategory] })
-
       queryClient.invalidateQueries({
         queryKey: ['products', selectedSubCategory],
       })
-
     }
   }, [selectedSubCategory, queryClient])
-
-
-  useEffect(() => {
-    setSelectedCategory(param)
-  },[param])
-
-
-
-  
-  
 
   const productsInCart = useSelector(
     (state: RootState) => state.cardReducer.products,
@@ -193,18 +169,6 @@ const MenuPage = () => {
   })
 
   const likeProduct = useMutation({
-
-    mutationFn: (id: number) => fetch(`http://localhost:3000/api/v1/client/likes/${id}`, {
-      headers: {
-        'authorization': `Bearer ${Token}`,
-      },
-      method: "POST",
-    }).then(res => res.json()).then(data => console.log(data)),
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['likes'] })
-    }
-
     mutationFn: (id: number) =>
       fetch(`http://localhost:3000/api/v1/client/likes/${id}`, {
         headers: {
@@ -216,7 +180,6 @@ const MenuPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['likes'] })
     },
-
   })
 
   const setRate = useMutation<void, Error, [number, number]>({
@@ -238,12 +201,7 @@ const MenuPage = () => {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] })
-
-    }
-
-
     },
-
   })
 
   if (isLoading || productsLoading)
@@ -316,42 +274,10 @@ const MenuPage = () => {
           </button>
         </div>
         <div className="mt-6">
-          <h3 className="text-2xl font-semibold pb-5">محصولات</h3>
+          <h3 className="text-2xl font-semibold">محصولات</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
             {products?.map((product) => {
               return (
-
-                (
-                  <div
-                    key={product.id}
-                    className="flex flex-col items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:scale-105 sm:flex-row sm:gap-6"
-                    style={{ minHeight: '158px' }}
-                  >
-                    <img
-                      src={`http://localhost:3000/${product.image_url}`}
-                      alt=""
-                      className="h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 sm:block md:hidden"
-                    />
-                    <div className="mt-4 flex w-full flex-col sm:mr-4 sm:w-2/3 sm:pl-4">
-                      <div className="flex items-center justify-between">
-                        <div
-                          className="cursor-pointer transition-transform duration-300 hover:scale-125"
-                          onClick={() => toggleFavorite(product.id)}
-                        >
-                          {likes.data.some((item: { product: Product }) => item.product.id == product.id) ? (
-                            <CiHeart onClick={() => likeProduct.mutate(product.id)} className="h-[24px] w-[24px] text-red-500 transition-all duration-300" />
-                          ) : (
-                            <CiHeart onClick={() => likeProduct.mutate(product.id)} className="h-[24px] w-[24px] text-gray-500 transition-all duration-300" />
-                          )}
-                        </div>
-                        <h4 className="text-[16px] font-semibold sm:text-[20px]">{product.name}</h4>
-                      </div>
-                      <div className="mt-5 flex items-center justify-between">
-                        <p className="text-[14px] text-[#353535] sm:text-[18px]">
-                          <span>{product.coupon ? (+product.price - (+product.price * (product.coupon.percent / 100))).toFixed(0) : product.price}{' '}</span>
-                          <span>تومان</span>
-                        </p>
-                        <p className="text-[12px] text-[#353535] sm:text-[14px]">{product.description}</p>
                 <div
                   key={product.id}
                   className="flex flex-col items-center justify-between rounded-lg bg-white p-4 shadow-md transition-all duration-300 hover:scale-105 sm:flex-row sm:gap-6"
@@ -435,25 +361,6 @@ const MenuPage = () => {
                         >
                           <CiTrash />
                         </button>
-                        {isProductInCart(product.id) && (
-                          <button
-                            onClick={() => dispatch(removeProduct(product))}
-                            className="mt-2 rounded-2xl border-1 border-stone-400 p-2 sm:mt-0"
-                          >
-                            <CiTrash />
-                          </button>
-                        )}
-                        {[...Array(5)].map((_, index) => (
-                          <CiStar
-                            key={index}
-                            className={`h-[20px] w-[20px] cursor-pointer transition-all duration-300 sm:h-[24px] sm:w-[24px] ${index < product.TotalStars ? 'text-yellow-400' : 'text-gray-300'}`}
-                            onClick={() => {
-                              console.log(typeof (product.id), typeof (index))
-                              setRate.mutate([+product.id, +(index + 1)])
-                            }}
-                          />
-                        ))}
-                      </div>
                       )}
                       {[...Array(5)].map((_, index) => (
                         <CiStar
