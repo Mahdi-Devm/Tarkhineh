@@ -1,7 +1,9 @@
 import HeaderListProfile from './HeaderListProfile'
 import Cookies from 'js-cookie'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery,useMutation } from '@tanstack/react-query'
 import { BASEURL } from '../../api'
+import { useDispatch, useSelector } from 'react-redux'
+import { addProduct } from '../../redux/shopCard/shopCardSlice'
 
 interface Interest {
   name: string
@@ -48,6 +50,8 @@ function Interests() {
     queryFn: fetchData,
   })
 
+  const dispatch = useDispatch()
+
   if (isLoading) return <p>در حال بارگذاری...</p>
   if (error) return <p>مشکلی پیش آمده است!</p>
 
@@ -86,7 +90,10 @@ function Interests() {
             />
             <h2 className="text-lg font-semibold">{item.product.name}</h2>
             <p className="text-[#717171]">تومان {item.product.price}</p>
-            <button className="h-[40px] w-[80%] rounded-md bg-[#417F56] text-white hover:bg-[#315A3D]">
+            <button onClick={() => {
+              dispatch(addProduct(item.product)
+            )}}
+              className="h-[40px] w-[80%] rounded-md bg-[#417F56] text-white hover:bg-[#315A3D]">
               افزودن به سبد خرید
             </button>
           </div>

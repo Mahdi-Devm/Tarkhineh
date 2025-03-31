@@ -45,7 +45,7 @@ export interface Product {
 
 const fetchCategories = async (): Promise<Category[]> => {
   const token = Cookies.get('accessToken')
-  const response = await fetch(`${BASEURL}/admin/category?page=1`, {
+  const response = await fetch(`${BASEURL}/client/category?page=1`, {
     method: 'GET',
     headers: {
       Accept: '*/*',
@@ -107,8 +107,6 @@ const getLikedProduct = async () => {
 
 const MenuPage = () => {
   const param = useParams().category || '1'
-
-  console.log(param)
 
   const Token = Cookies.get('accessToken')
   const [selectedCategory, setSelectedCategory] = useState<number>(param)
