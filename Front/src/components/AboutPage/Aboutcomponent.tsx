@@ -7,6 +7,7 @@ import iamge3 from '../../assets/optimized/03-1.png'
 import Partners1 from '../../assets/optimized/03-2.jpg'
 import Partners2 from '../../assets/optimized/04-2.jpg'
 import Partners3 from '../../assets/optimized/02-2.jpg'
+import ArticleSkeleton from '../HomePgae/ArticleSkeleton'
 
 function AboutComponent() {
   const services = [
@@ -98,6 +99,7 @@ function AboutComponent() {
           </div>
         ))}
       </div>
+      <ArticleSkeleton />
     </div>
   )
 }
