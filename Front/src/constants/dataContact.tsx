@@ -22,16 +22,4 @@ export const dataContact: ContactProps[] = [
     contactNumber: '۰۱۱-۳۴۵۶۷۸۹',
     image: Image2,
   },
-  {
-    title: 'شعبه ونک',
-    address: 'میدان ونک، خیابان X، ساختمان A',
-    contactNumber: '۰۲۱-۸۷۶۵۴۳۲۱',
-    image: Image3,
-  },
-  {
-    title: 'شعبه اقدسیه',
-    address: 'میدان ونک، خیابان فردوسی، نبش کوچه نیلوفر، پلاک ۲۶',
-    contactNumber: '۰۲۱-۹۸۷۶۵۴۳',
-    image: Image3,
-  },
 ]
