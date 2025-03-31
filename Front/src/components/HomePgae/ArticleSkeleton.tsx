@@ -53,7 +53,7 @@ function ArticleSkeleton() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={isVisible ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="sm:-top- absolute bottom-0 w-48 sm:relative sm:-left-16 sm:w-200"
+        className="absolute bottom-0 hidden w-48 sm:relative sm:-left-16 sm:block sm:w-200"
       >
         <img src={iamgedelivery} alt="Delivery Man" className="w-full" />
       </motion.div>

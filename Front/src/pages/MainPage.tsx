@@ -11,7 +11,6 @@ function MainPage() {
     <div className="flex flex-col">
       <SliderNext />
       <Restaurantmenu />
-
       <Supporters />
       <div className="relative flex h-auto w-full items-center justify-center rounded-xl py-8 text-center sm:h-[390px]">
         <ImageMainPageServices />

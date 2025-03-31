@@ -17,7 +17,7 @@ const imageSupporters = [
 function Supporters() {
   return (
     <div className="relative mx-auto flex h-50 w-70 flex-col rounded-2xl sm:w-200">
-      <p className="absolute top-2 left-1/2 z-10 mx-auto w-82 -translate-x-1/2 rounded-lg p-4 text-sm font-semibold text-black sm:w-90 sm:text-xl md:mb-4 md:w-120">
+      <p className="absolute top-2 left-1/2 mx-auto w-82 -translate-x-1/2 rounded-lg p-4 text-sm font-semibold text-black sm:w-90 sm:text-xl md:mb-4 md:w-120">
         سراسری 5+ هزار<span className="text-[#FFB936]"> حامیان مالی</span> با ما
         خوشحال هستند
       </p>
