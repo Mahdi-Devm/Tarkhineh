@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPayLink, getPaymentOption } from '../redux/orderInfo/orderInfoSlice'
 import { RootState } from '../redux/store'
 import UserCoupon from '../components/Basket/UserCoupon'
+import { BASEURL } from '../api'
 
 function PaymentPage() {
   const { products } = useSelector((state: RootState) => state.cardReducer)
@@ -14,21 +15,18 @@ function PaymentPage() {
   const sendReq = async () => {
     const token = Cookies.get('accessToken')
 
-    const res = await fetch(
-      'http://localhost:3000/api/v1/client/payment/request',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          amount: 5000,
-          callBackUrl: 'http://localhost:3000/api/v1/client/payment/verify',
-          description: 'paytest',
-        }),
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+    const res = await fetch(`${BASEURL}/client/payment/request`, {
+      method: 'POST',
+      body: JSON.stringify({
+        amount: 5000,
+        callBackUrl: `${BASEURL}/client/payment/verify`,
+        description: 'paytest',
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
-    )
+    })
     console.log(res)
     const data = await res.json()
     console.log(data)

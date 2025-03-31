@@ -170,7 +170,7 @@ const MenuPage = () => {
 
   const likeProduct = useMutation({
     mutationFn: (id: number) =>
-      fetch(`http://localhost:3000/api/v1/client/likes/${id}`, {
+      fetch(`${BASEURL}/client/likes/${id}`, {
         headers: {
           authorization: `Bearer ${Token}`,
         },
@@ -184,7 +184,7 @@ const MenuPage = () => {
 
   const setRate = useMutation<void, Error, [number, number]>({
     mutationFn: ([id, rate]) => {
-      return fetch('http://localhost:3000/api/v1/client/stars', {
+      return fetch(`${BASEURL}/client/star`, {
         headers: {
           'content-Type': 'application/json',
           authorization: `Bearer ${Token}`,

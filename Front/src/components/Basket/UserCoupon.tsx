@@ -4,6 +4,7 @@ import { RootState } from '../../redux/store'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import { handleCouponDiscount } from '../../redux/shopCard/shopCardSlice'
+import { BASEURL } from '../../api'
 
 const UserCoupon = () => {
   const dispatch = useDispatch()
@@ -14,21 +15,18 @@ const UserCoupon = () => {
   const validateCoupon = async () => {
     console.log(addedCoupon)
     const token = Cookies.get('accessToken')
-    const res = await fetch(
-      'http://localhost:3000/api/v1/client/userCoupon/use',
-      {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
+    const res = await fetch(`${BASEURL}/client/userCoupon/use`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
 
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          coupon_code: addedCoupon,
-          totalPrice: amount,
-        }),
+        Authorization: `Bearer ${token}`,
       },
-    )
+      body: JSON.stringify({
+        coupon_code: addedCoupon,
+        totalPrice: amount,
+      }),
+    })
 
     const data = await res.json()
     if (res.status !== 201) toast.error('کد نامعتبر است')
