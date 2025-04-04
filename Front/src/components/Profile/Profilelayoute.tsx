@@ -98,6 +98,7 @@ function ProfileLayout () {
                 {isEmpty.family && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
               </div>
 
+
               <div className="relative flex flex-col">
                 <div className="relative">
                   <input
@@ -116,8 +117,22 @@ function ProfileLayout () {
                   </label>
                 </div>
                 {isEmpty.userName && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
-              </div>
 
+              <div className="relative">
+                <input
+                  type="text"
+                  id="job"
+                  className="peer w-full rounded-md border border-gray-300 p-2 text-xs focus:ring-2 focus:ring-[#2E5940] focus:outline-none sm:text-sm"
+                  placeholder=" "
+                />
+                <label
+                  htmlFor="job"
+                  className="absolute top-1/2 left-2 -translate-y-1/2 transform text-gray-200 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#BFD8BD] sm:left-3 sm:peer-placeholder-shown:text-base sm:peer-focus:text-sm"
+                >
+                  وظیفه
+                </label>
+
+              </div>
               <div className="relative">
                 <input
                   type="text"
@@ -172,6 +187,7 @@ function ProfileLayout () {
                 {isEmpty.email && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
               </div>
 
+
               <div className="relative flex flex-col">
                 <div className="relative">
                   <input
@@ -184,6 +200,15 @@ function ProfileLayout () {
                   />
                 </div>
                 {isEmpty.birthDay && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
+
+              <div className="relative">
+                <input
+                  type="date"
+                  id="birthDate"
+                  className="peer w-full rounded-md border border-gray-300 p-2 text-xs focus:ring-2 focus:ring-[#2E5940] focus:outline-none sm:text-sm"
+                  placeholder=" "
+                />
+
               </div>
             </div>
           </div>

@@ -1,108 +1,106 @@
-import { CiUser, CiWifiOn, CiMemoPad } from 'react-icons/ci'
-import { TiChartAreaOutline } from 'react-icons/ti'
 import ImageHeaderForIformatian from '../ImageHeaderForIformatian'
-import { motion } from 'framer-motion'
 import imageab from '../../assets/optimized/ab.jpg'
+import iamge1 from '../../assets/optimized/01.png'
+import iamge2 from '../../assets/optimized/02.png'
+import iamge3 from '../../assets/optimized/03-1.png'
+
+import Partners1 from '../../assets/optimized/03-2.jpg'
+import Partners2 from '../../assets/optimized/04-2.jpg'
+import Partners3 from '../../assets/optimized/02-2.jpg'
+import ArticleSkeleton from '../HomePgae/ArticleSkeleton'
+
 function AboutComponent() {
+  const services = [
+    {
+      img: iamge1,
+      title: 'انتخاب غذا',
+      desc: 'تجربه‌ای عالی در انتخاب غذای سریع و متنوع',
+    },
+    {
+      img: iamge2,
+      title: 'تحویل سریع',
+      desc: 'ارسال سریع و مطمئن با بسته‌بندی حرفه‌ای',
+    },
+    {
+      img: iamge3,
+      title: 'پخت و پز با دقت',
+      desc: 'استفاده از مواد اولیه تازه و باکیفیت',
+    },
+  ]
+
+  const partners = [
+    { img: Partners1, name: 'دنیل جک', role: 'سرآشپز ارشد' },
+    { img: Partners2, name: 'متئو لوی', role: 'سرآشپز ارشد' },
+    { img: Partners3, name: 'هنری لوکاس', role: 'مدیر سالن' },
+  ]
+
   return (
-    <section>
+    <div className="container mx-auto px-4">
       <ImageHeaderForIformatian
         height="336px"
         title="!درباره ترخینه بیشتر بدانید"
         image={imageab}
       />
 
-      <section>
-        <div className="mt-8 px-4 sm:px-8 md:px-16 lg:px-32">
-          <h3 className="mb-6 text-center text-2xl font-semibold text-[#2b2b2b] sm:text-3xl">
-            درباره ما
-          </h3>
-
-          <div className="flex flex-col gap-6 md:flex-row">
-            <motion.div
-              className="h-[200px] w-full rounded-xl bg-cover bg-center shadow-lg sm:h-[300px] md:h-[400px] md:w-1/2"
-              style={{
-                backgroundImage:
-                  'url(https://www.figma.com/file/a1A9NqKpy0fC9pQpVBkTaa/image/d291baf96ea6f971b29ed1930912d8ecff3a24ed)',
-              }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1, ease: 'easeInOut' }}
-            ></motion.div>
-
-            <motion.div
-              className="w-full space-y-4 text-right text-base text-[#717171] sm:text-lg md:w-1/2"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1, ease: 'easeInOut' }}
-            >
-              <p>
-                رستوران‌های زنجیره‌ای ترخینه در سال ۱۳۶۸ با هدف ارائه تجربه‌ای
-                منحصر به فرد در زمینه غذاهای با کیفیت و سرویس‌های سریع افتتاح
-                شدند. طی سال‌ها، این رستوران‌ها همواره با بهره‌گیری از بهترین
-                مواد اولیه و ارائه خدماتی استثنائی در تلاش بوده‌اند تا رضایت
-                مشتریان را جلب کنند. ما همیشه متعهد به حفظ کیفیت بالا و ثابت نگه
-                داشتن قیمت‌ها در کنار نوسانات بازار بوده‌ایم.
-              </p>
-              <p>
-                شعبات ترخینه با طراحی مدرن و شیک آماده ارائه خدمات به شما عزیزان
-                هستند. سالن‌های پذیرایی ما با امکانات ویژه مانند آسانسور برای
-                افراد کم‌توان، امکان برگزاری جشن‌ها و مراسم‌های کوچک و بزرگ را
-                با کیفیتی بی‌نظیر فراهم می‌آورند.
-              </p>
-              <p>
-                چشم‌انداز ما، در آینده‌ای نزدیک، راه‌اندازی تالارهای پذیرایی
-                بزرگتر و آماده‌سازی فضاهای مناسب برای برگزاری جشن‌ها و مراسم‌های
-                مختلف است. امیدواریم که به زودی بتوانیم تجربه‌ای فراموش‌نشدنی را
-                برای شما فراهم آوریم.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <div className="mt-12 flex h-auto w-full max-w-[1400px] flex-wrap items-center justify-around gap-4 rounded-2xl bg-[#EDEDED] px-4 py-6 sm:mt-20 sm:h-[168px] sm:flex-nowrap sm:gap-0 sm:py-0">
-        <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
-          <CiUser
-            size={40}
-            className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
-          />
-          <p className="sm:text-md mt-2 text-sm text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
-            درباره ما
-          </p>
-        </div>
-
-        <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
-          <CiWifiOn
-            size={40}
-            className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
-          />
-          <p className="sm:text-md mt-2 text-sm text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
-            تماس با ما
-          </p>
-        </div>
-
-        <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
-          <CiMemoPad
-            size={40}
-            className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
-          />
-          <p className="sm:text-md mt-2 text-sm text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
-            داستان ما
-          </p>
-        </div>
-
-        <div className="group flex flex-col items-center transition-all duration-300 hover:scale-105">
-          <TiChartAreaOutline
-            size={40}
-            className="text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]"
-          />
-          <p className="sm:text-md mt-2 text-sm text-[#8b8b8b] transition-all duration-300 group-hover:text-[#417F56]">
-            ماموریت ما
-          </p>
-        </div>
+      <div className="mt-16 text-center">
+        <p className="text-xl font-semibold text-[#00813D]">
+          فرآوری مواد غذایی
+        </p>
+        <h1 className="mt-2 text-5xl font-bold text-gray-800">
+          با سرآشپزهای متخصص ما ملاقات کنید
+        </h1>
       </div>
-    </section>
+
+      <div className="mt-12 grid gap-10 md:grid-cols-3">
+        {partners.map((partner, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center rounded-2xl bg-white p-6 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          >
+            <img
+              src={partner.img}
+              alt={partner.name}
+              className="mb-5 h-88 w-78 rounded-2xl object-cover shadow-md"
+            />
+            <h2 className="text-xl font-bold text-[#00813D]">{partner.name}</h2>
+            <p className="mt-2 text-2xl font-semibold text-gray-600">
+              {partner.role}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-16 text-center">
+        <p className="text-xl font-semibold text-[#00813D]">
+          فرآوری مواد غذایی
+        </p>
+        <h1 className="mt-2 text-5xl font-bold text-gray-800">
+          چگونه به شما خدمات می‌دهیم؟
+        </h1>
+      </div>
+
+      <div className="mt-12 grid gap-10 md:grid-cols-3">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className="group flex flex-col items-center rounded-2xl bg-white p-8 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          >
+            <img
+              src={service.img}
+              alt={service.title}
+              className="mb-5 h-62 w-72 object-contain"
+            />
+            <h2 className="text-3xl font-bold text-gray-800">
+              {service.title}
+            </h2>
+            <p className="mt-3 text-center text-lg font-semibold text-gray-600">
+              {service.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+      <ArticleSkeleton />
+    </div>
   )
 }
 

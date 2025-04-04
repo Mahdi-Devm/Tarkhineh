@@ -1,1 +1,1 @@
-export const BASEURL = 'http://localhost:3000/api/v1'
+export const BASEURL = 'https://tarkhine-api.onrender.com/api/v1'

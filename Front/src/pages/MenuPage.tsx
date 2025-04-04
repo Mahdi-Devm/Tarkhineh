@@ -54,6 +54,8 @@ const fetchCategories = async (): Promise<Category[]> => {
   })
   if (!response.ok) throw new Error('خطا در دریافت داده‌ها')
   const data = await response.json()
+  console.log(data.categories)
+
   return data.categories
 }
 
@@ -106,10 +108,10 @@ const getLikedProduct = async () => {
 }
 
 const MenuPage = () => {
-  const param = useParams().category || '1'
 
+  const param = useParams().category || '1'
   const Token = Cookies.get('accessToken')
-  const [selectedCategory, setSelectedCategory] = useState<number>(param)
+  const [selectedCategory, setSelectedCategory] = useState<number>(1)
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
 
   const queryClient = useQueryClient()
@@ -136,6 +138,9 @@ const MenuPage = () => {
     if (selectedCategory) {
       setSelectedSubCategory('')
       queryClient.invalidateQueries({ queryKey: ['subcategory', selectedCategory] })
+      queryClient.invalidateQueries({
+        queryKey: ['subcategory', selectedCategory],
+      })
     }
   }, [selectedCategory, queryClient])
 
@@ -147,6 +152,7 @@ const MenuPage = () => {
 
   useEffect(() => {
     if (selectedSubCategory) {
+
       queryClient.invalidateQueries({ queryKey: ['products', selectedSubCategory] })
     }
   }, [selectedSubCategory, queryClient])
@@ -154,6 +160,11 @@ const MenuPage = () => {
   useEffect(() => {
     setSelectedCategory(param)
   }, [param])
+      queryClient.invalidateQueries({
+        queryKey: ['products', selectedSubCategory],
+      })
+    }
+  }, [selectedSubCategory, queryClient])
 
   const productsInCart = useSelector(
     (state: RootState) => state.cardReducer.products,
@@ -170,7 +181,7 @@ const MenuPage = () => {
 
   const likeProduct = useMutation({
     mutationFn: (id: number) =>
-      fetch(`http://localhost:3000/api/v1/client/likes/${id}`, {
+      fetch(`${BASEURL}/client/likes/${id}`, {
         headers: {
           authorization: `Bearer ${Token}`,
         },
@@ -185,7 +196,7 @@ const MenuPage = () => {
 
   const setRate = useMutation<void, Error, [number, number]>({
     mutationFn: ([id, rate]) => {
-      return fetch('http://localhost:3000/api/v1/client/stars', {
+      return fetch(`${BASEURL}/client/star`, {
         headers: {
           'content-Type': 'application/json',
           authorization: `Bearer ${Token}`,
@@ -211,8 +222,6 @@ const MenuPage = () => {
       </div>
     )
 
-  const filteredCategories = categories?.slice(0, 4)
-
   const toggleFavorite = (productId: number) => {
     products?.map((product) =>
       product.id === productId
@@ -225,13 +234,13 @@ const MenuPage = () => {
     <>
       <SimpleSlider />
       <div className="container mx-auto px-5">
-        <div className="mt-5 flex flex-wrap items-center justify-end gap-4 rounded-2xl bg-[#F8F8F8] p-7 shadow-md sm:flex-row sm:gap-8">
-          {filteredCategories?.map((item) => (
+        <div className="mt-5 flex flex-wrap items-center justify-end gap-3 rounded-2xl bg-[#F8F8F8] p-4 shadow-md sm:flex-row sm:gap-8 sm:p-7">
+          {categories?.map((item) => (
             <div
               key={item.id}
               className={`cursor-pointer text-lg font-medium text-[#5A5A5A] transition-all duration-300 ease-in-out hover:scale-110 hover:font-bold hover:text-[#417F56] ${
                 item.id === selectedCategory
-                  ? 'scale-110 border-b-2 border-[#417F56] font-bold text-[#417F56]'
+                  ? 'scale-110 border-b-2 border-[#417F56] font-semibold text-[#417F56]'
                   : ''
               }`}
               onClick={() => setSelectedCategory(item.id)}
@@ -274,7 +283,7 @@ const MenuPage = () => {
           </button>
         </div>
         <div className="mt-6">
-          <h3 className="text-2xl font-semibold pb-5">محصولات</h3>
+          <h3 className="mb-4 text-2xl font-semibold">محصولات</h3>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
             {products?.map((product) => {
               return (
@@ -284,7 +293,7 @@ const MenuPage = () => {
                   style={{ minHeight: '158px' }}
                 >
                   <img
-                    src={`http://localhost:3000/${product.image_url}`}
+                    src={`${BASEURL}/${product.image_url}`}
                     alt=""
                     className="h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 sm:block md:hidden"
                   />
@@ -349,6 +358,12 @@ const MenuPage = () => {
                       افزودن به سبد خرید
                     </button>
                     {isProductInCart(product.id) && (
+                    {product.coupon && (
+                      <div className="mt-2 flex w-fit text-red-800">
+                        {product.coupon?.percent}%
+                      </div>
+                    )}
+                    <div className="mt-8 mb-3 flex items-center justify-center gap-1">
                       <button
                         onClick={() => dispatch(removeProduct(product))}
                         className="mt-2 rounded-2xl border border-stone-400 p-2 sm:mt-0"
@@ -363,6 +378,18 @@ const MenuPage = () => {
                           className={`h-[20px] w-[20px] cursor-pointer transition-all duration-300 sm:h-[24px] sm:w-[24px] ${
                             index < product.TotalStars ? 'text-yellow-400' : 'text-gray-300'
                           }`}
+                      {isProductInCart(product.id) && (
+                        <button
+                          onClick={() => dispatch(removeProduct(product))}
+                          className="mt-2 rounded-2xl border-1 border-stone-400 p-2 sm:mt-0"
+                        >
+                          <CiTrash />
+                        </button>
+                      )}
+                      {[...Array(5)].map((_, index) => (
+                        <CiStar
+                          key={index}
+                          className={`w-[25px] cursor-pointer transition-all duration-300 sm:h-[24px] sm:w-[24px] ${index < product.TotalStars ? 'text-yellow-400' : 'text-gray-500'}`}
                           onClick={() => {
                             console.log(typeof product.id, typeof index)
                             setRate.mutate([+product.id, index + 1])
@@ -372,7 +399,7 @@ const MenuPage = () => {
                     </div>
                   </div>
                   <img
-                    src={`http://localhost:3000/${product.image_url}`}
+                    src={`${BASEURL}/${product.image_url}`}
                     alt=""
                     className="hidden h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 md:block"
                   />

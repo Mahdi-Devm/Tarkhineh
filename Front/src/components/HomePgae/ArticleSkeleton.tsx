@@ -1,76 +1,105 @@
-import { useEffect, useState } from 'react'
-import { branches } from '../../constants/ItemBlogMainPAge'
+import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
+import iamgebg from '../../assets/imagemenures/main-cta-bg-1.jpg'
+import iamgedelivery from '../../assets/imagemenures/delivery-man-1.png'
+import { CiDeliveryTruck } from 'react-icons/ci'
+import { useEffect, useRef, useState } from 'react'
 
 function ArticleSkeleton() {
-  const [inView, setInView] = useState(false)
+  const nav = useNavigate()
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      (entries) => {
+        const entry = entries[0]
         if (entry.isIntersecting) {
-          setInView(true)
+          setIsVisible(true)
         }
       },
       { threshold: 0.5 },
     )
 
-    const element = document.querySelector('#article-skeleton')
-    if (element) {
-      observer.observe(element)
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
     }
 
     return () => {
-      if (element) {
-        observer.unobserve(element)
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current)
       }
     }
   }, [])
 
+  function handelchangeur() {
+    nav('/menu')
+  }
+
   return (
-    <div className="p-4 font-sans sm:p-6">
-      <h1 className="mb-6 text-center text-2xl font-bold text-gray-800 sm:mb-8 sm:text-3xl">
-        ترخیبه گردی
-      </h1>
-
-      <div
-        id="article-skeleton"
-        className="mb-5 flex w-full flex-wrap justify-center gap-4 sm:gap-6"
+    <motion.div
+      ref={sectionRef}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      className="relative mx-auto mt-10 flex h-auto w-full max-w-7xl flex-col items-center justify-between rounded-2xl p-6 text-white sm:mt-15 sm:h-106 sm:flex-row sm:p-10"
+      style={{
+        backgroundImage: `url(${iamgebg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="absolute bottom-0 hidden w-48 sm:relative sm:-left-16 sm:block sm:w-200"
       >
-        {branches.map((branch) => (
-          <div
-            key={branch.id}
-            className={`relative flex w-full flex-col items-center overflow-hidden rounded-lg border border-transparent bg-white shadow-lg transition-all duration-300 hover:border-[#315F41]/50 sm:w-[calc(50%-1rem)] md:w-[320px] ${inView ? 'animate-fadeIn' : ''}`}
-          >
-            <img
-              src={branch.image}
-              alt={branch.name}
-              className="h-48 w-full object-cover"
-            />
+        <img src={iamgedelivery} alt="Delivery Man" className="w-full" />
+      </motion.div>
 
-            <span className="absolute top-2 right-2">
-              <span className="relative flex size-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#315F41] opacity-75"></span>
-                <span className="relative inline-flex size-3 rounded-full bg-[#317e4c]"></span>
-              </span>
-            </span>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="mt-6 flex w-full flex-col items-center justify-center text-center sm:mt-0 sm:ml-auto sm:w-2/3 sm:items-end sm:text-right"
+      >
+        <motion.p
+          initial={{ opacity: 0, x: -20 }}
+          animate={isVisible ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-xl font-semibold text-[#FFB936] sm:text-2xl"
+        >
+          ترد، هر لقمه‌ای
+        </motion.p>
 
-            <div className="p-4">
-              <h2 className="text-center text-lg font-semibold text-gray-700 sm:text-xl">
-                {branch.name}
-              </h2>
-              <p className="text-center text-sm font-medium text-gray-600 sm:text-base">
-                {branch.address}
-              </p>
-              <div className="mt-3 flex items-center justify-center">
-                <button className="h-[32px] w-[128px] rounded border border-stone-500 text-sm transition-colors duration-300 hover:cursor-pointer hover:border-[#315F41] hover:text-[#315F41] sm:text-base">
-                  صفحه شعبه
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+        <motion.h1
+          initial={{ opacity: 0, x: 20 }}
+          animate={isVisible ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="text-2xl font-bold sm:text-[60px]"
+        >
+          ۳۰ دقیقه سریع <br />
+          <span className="text-[#FFB936]">چالش</span> تحویل
+        </motion.h1>
+
+        <motion.button
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isVisible ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          onClick={handelchangeur}
+          className="group mt-6 flex h-14 w-52 items-center justify-center rounded-lg bg-white px-5 py-2 text-lg font-semibold text-black shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#FFB936] hover:shadow-xl sm:h-15 sm:w-60 sm:text-lg"
+        >
+          <span className="transition-all duration-300 group-hover:translate-x-1">
+            اکنون سفارش دهید
+          </span>
+          <CiDeliveryTruck
+            size={24}
+            className="ml-2 text-[#417F56] transition-all duration-300 group-hover:translate-x-1"
+          />
+        </motion.button>
+      </motion.div>
+    </motion.div>
   )
 }
 

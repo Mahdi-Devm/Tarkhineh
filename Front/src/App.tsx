@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { AuthProvider } from './Context/AuthContext'
 import Profilelayoute from './components/Profile/Profilelayoute'
 import Trackingorders from './components/Profile/Trackingorders'
@@ -41,6 +41,28 @@ const PageLayoute = lazy(() => import('./pages/PageLayoute'))
 const queryClient = new QueryClient()
 
 const App = () => {
+  const [showScrollButton, setShowScrollButton] = useState(false)
+
+  // Function to handle scroll-to-top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
+  const handleScroll = () => {
+    if (window.scrollY > 100) {
+      setShowScrollButton(true)
+    } else {
+      setShowScrollButton(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
@@ -100,6 +122,14 @@ const App = () => {
                 </Routes>
               </Suspense>
             </Router>
+            {showScrollButton && (
+              <button
+                onClick={scrollToTop}
+                className="fixed bottom-8 left-8 h-16 w-16 cursor-pointer rounded-full bg-[#f0f0f0ab] p-4 text-[#2c5a38] shadow-lg transition-all duration-300 ease-in-out hover:bg-[#82ac9299] hover:text-white hover:shadow-xl"
+              >
+                <span className="text-3xl font-semibold">&#8593;</span>
+              </button>
+            )}
           </AuthProvider>
         </NumberProvider>
       </QueryClientProvider>

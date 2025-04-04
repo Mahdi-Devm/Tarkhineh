@@ -11,7 +11,7 @@ import { useState } from 'react'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 interface Props {
   setCoordinates: (coords: { latitude: string; longitude: string }) => void
@@ -86,7 +86,6 @@ const Map = ({ setCoordinates }: Props) => {
         />
         <LocationMarker setMarkerPosition={setMarkerPosition} />
       </MapContainer>
-
       <button
         onClick={handleLogCoordinates}
         className="absolute bottom-2 z-50 rounded-lg bg-blue-900 px-4 py-2 text-white"

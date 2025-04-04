@@ -11,7 +11,7 @@ function Delegate() {
     <div className="font-sans">
       <ImageHeaderForIformatian
         height="336px"
-        title="همین الان به خانواده بزرگ ترخینه بپیوندید!"
+        title="!همین الان به خانواده بزرگ ترخینه بپیوندید"
         image={iamgeat}
       />
 
