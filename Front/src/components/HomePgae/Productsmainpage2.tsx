@@ -86,10 +86,10 @@ const Productsmainpage2: React.FC<PopulardishesProps> = ({
   const skeletonArray = Array.from({ length: productsPerPage })
 
   return (
-    <section className="mx-auto flex w-350 flex-col items-center justify-center">
-      <div className="mx-auto h-[455px] w-93 rounded-2xl sm:w-[30%] md:w-[40%] lg:w-[85%]">
+    <section className="mx-auto my-10 flex  w-full flex-col items-center justify-center">
+      <div className="mx-auto  rounded-2xl w-full">
         <div className="flex justify-end">
-          <h1 className="mt-10 mr-8 w-40 border-b-1 border-[#417F56] text-right text-2xl font-semibold text-[#313231]">
+          <h1 className=" mr-8 mb-4 py-2 border-b-1 border-[#417F56] text-right text-2xl font-semibold text-[#313231]">
             غذای غیر ایرانی
           </h1>
         </div>
@@ -97,7 +97,7 @@ const Productsmainpage2: React.FC<PopulardishesProps> = ({
         <div className="relative mx-auto w-full max-w-full p-5">
           <div className="overflow-hidden">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
+              className="flex transition-transform  duration-500 ease-in-out"
               style={{
                 width: `${(isLoading ? skeletonArray.length : data.length) * (100 / productsPerPage)}%`,
                 transform: `translateX(-${(currentIndex * 100) / productsPerPage}%)`,
@@ -109,7 +109,7 @@ const Productsmainpage2: React.FC<PopulardishesProps> = ({
                       key={index}
                       className={`w-65 sm:w-1/${productsPerPage} box-border flex-shrink-0 p-2`}
                     >
-                      <div className="animate-pulse overflow-hidden rounded-lg border border-gray-200 bg-[#f0f0f0] shadow-lg">
+                      <div className="animate-pulse overflow-hidden rounded-lg border border-gray-200  bg-[#f0f0f0] shadow-lg">
                         <div className="h-48 w-full bg-gray-300"></div>
                         <div className="p-4">
                           <div className="mb-2 h-4 w-3/4 rounded bg-gray-300"></div>

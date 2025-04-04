@@ -87,18 +87,18 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
   const skeletonArray = Array.from({ length: productsPerPage })
 
   return (
-    <section className="mx-auto flex w-350 flex-col items-center justify-center">
-      <div className="mx-auto h-[455px] w-93 rounded-2xl sm:w-[30%] md:w-[40%] lg:w-[85%]">
+    <section className="mx-auto my-10 flex  w-full flex-col items-center justify-center">
+      <div className="mx-auto  rounded-2xl w-full">
         <div className="flex justify-end">
-          <h1 className="mt-10 mr-8 w-40 border-b-1 border-[#417F56] text-right text-2xl font-semibold text-[#313231]">
+          <h1 className=" mr-8 mb-4 py-2 border-b-1 border-[#417F56] text-right text-2xl font-semibold text-[#313231]">
             غذای ایرانی
           </h1>
         </div>
 
-        <div className="relative mx-auto w-full max-w-full p-5">
+        <div className="relative mx-auto w-full max-w-full ">
           <div className="overflow-hidden">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
+              className="flex   transition-transform duration-500 ease-in-out"
               style={{
                 width: `${(isLoading ? skeletonArray.length : data.length) * (100 / productsPerPage)}%`,
                 transform: `translateX(-${(currentIndex * 100) / productsPerPage}%)`,
@@ -123,7 +123,7 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
                 : data.map((product) => (
                     <div
                       key={product.id}
-                      className={`w-65 sm:w-1/${productsPerPage} box-border flex-shrink-0 p-2`}
+                      className={` mx-3 box-border flex-shrink-0 w-65 sm:w-1/${productsPerPage}`}
                     >
                       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-transform duration-300 hover:scale-105">
                         <img
