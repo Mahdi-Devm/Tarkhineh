@@ -31,7 +31,7 @@ const foodData = [
 function SiteExplanation() {
   return (
     <div
-      className="mx-auto mt-10 w-300 rounded-2xl bg-cover bg-center p-4 sm:p-6 md:p-8"
+      className="mx-auto my-5 w-full bg-amber-100 rounded-2xl bg-cover bg-center p-4"
       style={{
         backgroundImage: `url(${imagebg})`,
         backgroundBlendMode: 'lighten',
@@ -42,10 +42,10 @@ function SiteExplanation() {
         {foodData.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-start rounded-xl p-4 text-right backdrop-blur-md"
+            className="flex flex-col text-center items-start rounded-xl p-4  backdrop-blur-md"
           >
-            <div className="mb-4 self-center">{item.icon}</div>
-            <h3 className="text-center text-base font-semibold text-white sm:text-lg md:text-xl">
+            <div className="mb-2 self-center">{item.icon}</div>
+            <h3 className="text-center w-full text-base font-semibold text-white mb-3 sm:text-lg md:text-xl">
               {item.title}
             </h3>
             <p className="text-center text-sm leading-relaxed text-stone-100">

@@ -82,7 +82,7 @@ function MainPage() {
       <Restaurantmenu />
       <Supporters />
       <Productsmainpage data={safeData} isLoading={isLoading} />
-      {/* <SiteExplanation /> */}
+      <SiteExplanation />
       <Productsmainpage2 data={safeData2} isLoading={fetchProducts2isLoading} />
 
       <ArticleSkeleton />
