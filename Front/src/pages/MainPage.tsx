@@ -3,13 +3,50 @@ import SliderNext from '../components/SLider/SliderNext'
 import ArticleSkeleton from '../components/HomePgae/ArticleSkeleton'
 import Supporters from '../components/HomePgae/Supporters'
 import SiteExplanation from '../components/HomePgae/SiteExplanation'
+import { useQuery } from '@tanstack/react-query'
+import Cookies from 'js-cookie'
+import { BASEURL } from '../api'
+import axios from 'axios'
+import Productsmainpage from '../components/HomePgae/productsmainpage'
+interface Product {
+  id: number
+  name: string
+  price: number
+  rating: number
+  image_url: string
+}
+
+const fetchProducts = async (): Promise<Product[]> => {
+  const token = Cookies.get('accessToken')
+  try {
+    const res = await axios.get(`${BASEURL}/client/products/5?page=1`, {
+      method: 'GET',
+      headers: {
+        Accept: '*/*',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    console.log(res.data.products)
+
+    return res.data.products
+  } catch (err) {
+    console.error(err)
+    throw new Error('Failed to fetch products')
+  }
+}
 
 function MainPage() {
+  const { data, isLoading } = useQuery<Product[]>({
+    queryKey: ['fetchProductsmainpage'],
+    queryFn: fetchProducts,
+  })
+
   return (
     <div className="flex flex-col">
       <SliderNext />
       <Restaurantmenu />
       <Supporters />
+      <Productsmainpage data={data ?? []} isLoading={isLoading} />
       <SiteExplanation />
 
       <ArticleSkeleton />

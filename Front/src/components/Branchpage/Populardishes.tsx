@@ -3,6 +3,7 @@ import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { BASEURL } from '../../api'
 
 interface Product {
   id: number
@@ -77,7 +78,7 @@ const Populardishes: React.FC<PopulardishesProps> = ({ data }) => {
                 <div className="overflow-hidden rounded-lg border border-gray-200 bg-[#e5e5e5] shadow-lg transition-transform hover:scale-105">
                   <img
                     className="h-48 w-full object-cover"
-                    src={`http://localhost:3000/${product.image_url}`}
+                    src={`${BASEURL}/${product.image_url}`}
                     alt={product.name}
                   />
                   <div className="p-4">

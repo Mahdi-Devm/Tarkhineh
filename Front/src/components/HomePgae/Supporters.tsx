@@ -1,32 +1,42 @@
 import { motion } from 'framer-motion'
-import image1 from '../../assets/imagemenures/pizza-text-2-1.png'
-import image2 from '../../assets/imagemenures/pizza.png'
-import image3 from '../../assets/imagemenures/pizza-text-2.png'
-import image4 from '../../assets/imagemenures/pizza-text-2-1.png'
-import image5 from '../../assets/imagemenures/pizza.png'
-
-// Array of images
 const imageSupporters = [
-  { link: image1 },
-  { link: image2 },
-  { link: image3 },
-  { link: image4 },
-  { link: image5 },
+  {
+    name: "McDonald's",
+    font: 'font-extrabold text-stone-200 text-xl sm:text-2xl lg:text-3xl font-sans',
+  },
+  {
+    name: 'KFC',
+    font: 'font-black text-stone-200 text-xl sm:text-2xl lg:text-3xl font-serif',
+  },
+  {
+    name: 'Burger King',
+    font: 'font-semibold text-stone-200 text-xl sm:text-2xl lg:text-2xl font-mono',
+  },
+  {
+    name: "Domino's Pizza",
+    font: 'font-bold text-stone-200 text-base sm:text-lg lg:text-2xl font-sans',
+  },
+  {
+    name: 'Subway',
+    font: 'font-medium text-stone-200 text-xl sm:text-2xl lg:text-3xl font-serif',
+  },
 ]
 
-function Supporters() {
+const Supporters = () => {
   return (
-    <div className="relative mx-auto flex h-50 w-70 flex-col rounded-2xl sm:w-200">
-      <p className="absolute top-2 left-1/2 mx-auto w-82 -translate-x-1/2 rounded-lg p-4 text-sm font-semibold text-black sm:w-90 sm:text-xl md:mb-4 md:w-120">
+    <div className="mx-auto flex h-50 w-70 flex-col rounded-2xl sm:w-300">
+      <p className="mx-auto w-82 rounded-lg p-4 text-sm font-semibold text-black sm:w-90 sm:text-xl md:mb-4 md:w-120">
         سراسری 5+ هزار<span className="text-[#FFB936]"> حامیان مالی</span> با ما
         خوشحال هستند
       </p>
 
-      <div className="mx-auto mt-15 flex w-full space-x-4 overflow-hidden rounded-2xl bg-[#74aa86] p-4 sm:w-1/2 sm:flex-wrap sm:space-x-0 lg:w-full xl:w-full">
+      <div className="mx-auto mt-5 grid w-80 grid-cols-2 items-center justify-center gap-4 rounded-2xl bg-[#74aa86] p-4 sm:w-250 sm:grid-cols-3 md:grid-cols-5 lg:max-w-screen-lg">
         {imageSupporters.map((item, index) => (
           <motion.div
             key={index}
-            className="mx-auto flex-shrink-0 sm:w-1/2 lg:w-1/5 xl:w-1/5"
+            className={`px-2 py-2 text-center ${
+              index > 3 ? 'hidden sm:block' : ''
+            }`}
             whileHover={{
               scale: 1.1,
               boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
@@ -35,11 +45,7 @@ function Supporters() {
               cursor: 'pointer',
             }}
           >
-            <img
-              src={item.link}
-              alt={`Supporter ${index}`}
-              className="mx-auto h-12 w-36 rounded-lg p-2 sm:h-16 sm:w-40 md:h-20 md:w-48 lg:h-24 lg:w-56 xl:h-18 xl:w-64"
-            />
+            <p className={`${item.font}`}>{item.name}</p>
           </motion.div>
         ))}
       </div>
