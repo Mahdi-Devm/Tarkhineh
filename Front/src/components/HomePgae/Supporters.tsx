@@ -24,13 +24,13 @@ const imageSupporters = [
 
 const Supporters = () => {
   return (
-    <div className="mx-auto flex h-50 w-70 flex-col rounded-2xl sm:w-300">
-      <p className="mx-auto w-82 rounded-lg p-4 text-sm font-semibold text-black sm:w-90 sm:text-xl md:mb-4 md:w-120">
+    <div className="mx-auto flex  flex-col w-full rounded-2xl  ">
+      <p className="mx-auto rounded-lg p-4 text-sm font-semibold text-black sm:w-90 sm:text-xl text-center md:mb-4 md:w-120">
         سراسری 5+ هزار<span className="text-[#FFB936]"> حامیان مالی</span> با ما
         خوشحال هستند
       </p>
 
-      <div className="mx-auto mt-5 grid w-80 grid-cols-2 items-center justify-center gap-4 rounded-2xl bg-[#74aa86] p-4 sm:w-250 sm:grid-cols-3 md:grid-cols-5 lg:max-w-screen-lg">
+      <div className="mx-auto mt-5 grid grid-cols-2 items-center justify-center gap-4 rounded-2xl bg-[#74aa86] p-4 w-full sm:grid-cols-3 md:grid-cols-5 ">
         {imageSupporters.map((item, index) => (
           <motion.div
             key={index}
