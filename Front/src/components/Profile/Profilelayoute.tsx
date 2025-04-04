@@ -19,6 +19,7 @@ const editProfile = async (token:string,id: number,inputsValues:any) => {
       lastname: inputsValues.family,
       ShowName: inputsValues.userName,
       email: inputsValues.email,
+      birthDay: inputsValues.birthDay
     })
   })
 
