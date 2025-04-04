@@ -1,8 +1,5 @@
 import imagebg from '../../assets/imagemenures/food-shape-2.png'
-import { CiPizza } from 'react-icons/ci'
-import { CiDeliveryTruck } from 'react-icons/ci'
-import { CiBurger } from 'react-icons/ci'
-import { CiTrophy } from 'react-icons/ci'
+import { CiPizza, CiDeliveryTruck, CiBurger, CiTrophy } from 'react-icons/ci'
 
 const foodData = [
   {
@@ -18,13 +15,13 @@ const foodData = [
     icon: <CiBurger className="text-5xl font-semibold text-[#FFB936]" />,
   },
   {
-    title: 'تحویل سریع و سریع',
+    title: 'تحویل سریع و سریع و آسان',
     description:
       'تیمی متشکل از رویاپردازان و انجام دهندگان موسیقی و هنر تعاملی منحصر به فرد را ایجاد می کنند',
     icon: <CiDeliveryTruck className="text-5xl font-semibold text-[#FFB936]" />,
   },
   {
-    title: '100٪ غذاهای تازه',
+    title: '100٪ غذاهای تازه طبیعی',
     description:
       'تیمی متشکل از رویاپردازان و انجام دهندگان موسیقی و هنر تعاملی منحصر به فرد را ایجاد می کنند',
     icon: <CiTrophy className="text-5xl font-semibold text-[#FFB936]" />,
@@ -34,24 +31,26 @@ const foodData = [
 function SiteExplanation() {
   return (
     <div
-      className="mx-auto flex h-70 w-340 items-center justify-center rounded-2xl p-2"
+      className="mx-auto mt-10 w-300 rounded-2xl bg-cover bg-center p-4 sm:p-6 md:p-8"
       style={{
         backgroundImage: `url(${imagebg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundColor: 'rgb(40, 36, 36)',
         backgroundBlendMode: 'lighten',
+        backgroundColor: 'rgb(40, 36, 36)',
       }}
     >
-      <div className="mx-auto flex w-320 space-x-4 p-2">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {foodData.map((item, index) => (
           <div
             key={index}
-            className="flex w-76 flex-col rounded-xl p-4 text-right"
+            className="flex flex-col items-start rounded-xl p-4 text-right backdrop-blur-md"
           >
-            <div className="mb-4 ml-58 w-70">{item.icon}</div>
-            <h3 className="text-xl font-semibold text-[#fff]">{item.title}</h3>
-            <p className="text-sm text-stone-100">{item.description}</p>
+            <div className="mb-4 self-center">{item.icon}</div>
+            <h3 className="text-center text-base font-semibold text-white sm:text-lg md:text-xl">
+              {item.title}
+            </h3>
+            <p className="text-center text-sm leading-relaxed text-stone-100">
+              {item.description}
+            </p>
           </div>
         ))}
       </div>
