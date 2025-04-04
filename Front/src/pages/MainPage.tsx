@@ -7,7 +7,8 @@ import { useQuery } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
 import { BASEURL } from '../api'
 import axios from 'axios'
-import Productsmainpage from '../components/HomePgae/productsmainpage'
+import Productsmainpage from '../components/HomePgae/Productsmainpage'
+
 import Productsmainpage2 from '../components/HomePgae/Productsmainpage2'
 interface Product {
   id: number
@@ -65,18 +66,24 @@ function MainPage() {
     queryKey: ['fetchProductsmainpage2'],
     queryFn: fetchProduct,
   })
-
+  const safeData =
+    data?.map((product) => ({
+      ...product,
+      TotalStars: product.rating * 3,
+    })) ?? []
+  const safeData2 =
+    fetchProducts2?.map((product) => ({
+      ...product,
+      TotalStars: product.rating * 3,
+    })) ?? []
   return (
     <div className="flex flex-col">
       <SliderNext />
       <Restaurantmenu />
       <Supporters />
-      <Productsmainpage data={data ?? []} isLoading={isLoading} />
+      <Productsmainpage data={safeData} isLoading={isLoading} />
       <SiteExplanation />
-      <Productsmainpage2
-        data={fetchProducts2 ?? []}
-        isLoading={fetchProducts2isLoading}
-      />
+      <Productsmainpage2 data={safeData2} isLoading={fetchProducts2isLoading} />
 
       <ArticleSkeleton />
     </div>

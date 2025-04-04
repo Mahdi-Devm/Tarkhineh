@@ -40,7 +40,7 @@ const BodyBranchpage: React.FC = () => {
 
   return (
     <section className="flex flex-col items-center justify-center">
-      <Preferences data={data ?? []} />
+      <Preferences data={data ?? []} isLoading={isLoading} />
       <Populardishes data={data ?? []} />
       <Iraniancuisine data={data ?? []} />
     </section>

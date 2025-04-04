@@ -9,12 +9,14 @@ import { CiShoppingCart } from 'react-icons/ci'
 import { CiStar } from 'react-icons/ci'
 import { useMutation } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
+import { useQueryClient } from '@tanstack/react-query'
 interface Product {
   id: number
   name: string
   price: number
   rating: number
   image_url: string
+  TotalStars: number
 }
 
 interface PopulardishesProps {
@@ -27,6 +29,7 @@ const Productsmainpage2: React.FC<PopulardishesProps> = ({
   isLoading,
 }) => {
   const Token = Cookies.get('accessToken')
+  const queryClient = useQueryClient()
   const dispatch = useDispatch()
   const [productsPerPage, setProductsPerPage] = useState(
     window.innerWidth >= 1300 ? 5 : 4,
@@ -132,7 +135,7 @@ const Productsmainpage2: React.FC<PopulardishesProps> = ({
                             {[...Array(5)].map((_, index) => (
                               <CiStar
                                 key={index}
-                                className={`w-[25px] cursor-pointer transition-all duration-300 sm:h-[24px] sm:w-[22px] ${index < product.TotalStars ? 'text-yellow-400' : 'text-gray-500'}`}
+                                className={`w-[25px] cursor-pointer transition-all duration-300 sm:h-[24px] sm:w-[22px] ${index ? 'text-yellow-400' : 'text-gray-500'}`}
                                 onClick={() => {
                                   console.log(typeof product.id, typeof index)
                                   setRate.mutate([+product.id, +(index + 1)])

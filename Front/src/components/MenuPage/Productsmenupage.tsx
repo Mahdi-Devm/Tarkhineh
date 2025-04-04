@@ -65,7 +65,8 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
                     className="cursor-pointer transition-transform duration-300 hover:scale-125"
                     onClick={() => toggleFavorite(product.id)}
                   >
-                    {likes.data.some(
+                    {Array.isArray(likes.data) &&
+                    likes.data.some(
                       (item) => item.product.id === product.id,
                     ) ? (
                       <CiHeart
