@@ -38,8 +38,6 @@ const BodyBranchpage: React.FC = () => {
     queryFn: fetchProducts,
   })
 
-  if (isLoading) return <p>Loading...</p>
-
   return (
     <section className="flex flex-col items-center justify-center">
       <Preferences data={data ?? []} />

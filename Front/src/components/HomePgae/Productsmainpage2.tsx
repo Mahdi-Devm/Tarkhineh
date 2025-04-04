@@ -22,7 +22,7 @@ interface PopulardishesProps {
   isLoading: boolean
 }
 
-const Productsmainpage: React.FC<PopulardishesProps> = ({
+const Productsmainpage2: React.FC<PopulardishesProps> = ({
   data,
   isLoading,
 }) => {
@@ -87,7 +87,7 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
       <div className="mx-auto h-[455px] w-93 rounded-2xl sm:w-[30%] md:w-[40%] lg:w-[85%]">
         <div className="flex justify-end">
           <h1 className="mt-10 mr-8 w-40 border-b-1 border-[#417F56] text-right text-2xl font-semibold text-[#313231]">
-            غذای ایرانی
+            غذای غیر ایرانی
           </h1>
         </div>
 
@@ -209,4 +209,4 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
   )
 }
 
-export default Productsmainpage
+export default Productsmainpage2
