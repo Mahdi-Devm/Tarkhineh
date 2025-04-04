@@ -80,7 +80,7 @@ function Interests() {
             className="flex flex-col items-center gap-2 rounded-2xl bg-white p-4 shadow-md transition hover:scale-105 hover:shadow-lg"
           >
             <img
-              src={`http://localhost:3000/${item.product.image_url}`}
+              src={`${BASEURL}/${item.product.image_url}`}
               alt={item.product.name}
               className="h-[180px] w-full max-w-xs rounded-lg object-cover"
             />

@@ -18,16 +18,13 @@ interface Product {
 const fetchProducts = async (): Promise<Product[]> => {
   const token = Cookies.get('accessToken')
   try {
-    const res = await axios.get(
-      `${BASEURL}/admin/products/subCategory/28?page=1`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: '*/*',
-          Authorization: `Bearer ${token}`,
-        },
+    const res = await axios.get(`${BASEURL}/client/products/5?page=1`, {
+      method: 'GET',
+      headers: {
+        Accept: '*/*',
+        Authorization: `Bearer ${token}`,
       },
-    )
+    })
     return res.data.products
   } catch (err) {
     console.error(err)
