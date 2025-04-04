@@ -2,7 +2,7 @@ import { toast } from 'react-toastify'
 import { CiTrash, CiHeart, CiStar } from 'react-icons/ci'
 import { addProduct, removeProduct } from '../../redux/shopCard/shopCardSlice'
 import { useDispatch } from 'react-redux'
-import { BASEURL } from '../../api'
+import { BASEURLFORIMAGE } from '../../api'
 import { ProductsMenuPageProps } from '../../pages/MenuPage'
 
 const SkeletonCard = () => (
@@ -55,7 +55,7 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
               style={{ minHeight: '158px' }}
             >
               <img
-                src={`${BASEURL}/${product.image_url}`}
+                src={`${BASEURLFORIMAGE}${product.image_url}`}
                 alt=""
                 className="h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 sm:block md:hidden"
               />
@@ -149,7 +149,7 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
                 </div>
               </div>
               <img
-                src={`${BASEURL}/${product.image_url}`}
+                src={`${BASEURLFORIMAGE}${product.image_url}`}
                 alt=""
                 className="hidden h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 md:block"
               />

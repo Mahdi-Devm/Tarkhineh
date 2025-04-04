@@ -4,7 +4,7 @@ import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import { BASEURL } from '../../api'
+import { BASEURL, BASEURLFORIMAGE } from '../../api'
 import { CiShoppingCart } from 'react-icons/ci'
 import { CiStar } from 'react-icons/ci'
 import { useMutation } from '@tanstack/react-query'
@@ -127,7 +127,7 @@ const Productsmainpage2: React.FC<PopulardishesProps> = ({
                       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-transform duration-300 hover:scale-105">
                         <img
                           className="h-58 w-full rounded-t-xl object-cover"
-                          src={`${BASEURL}/${product.image_url}`}
+                          src={`${BASEURLFORIMAGE}${product.image_url}`}
                           alt={product.name}
                         />
                         <div className="flex flex-col justify-between gap-3 p-4">
