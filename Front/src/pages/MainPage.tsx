@@ -81,9 +81,9 @@ function MainPage() {
       <SliderNext />
       <Restaurantmenu />
       <Supporters />
-      <Productsmainpage data={safeData} isLoading={isLoading} />
-      <SiteExplanation />
-      <Productsmainpage2 data={safeData2} isLoading={fetchProducts2isLoading} />
+      {/* <Productsmainpage data={safeData} isLoading={isLoading} /> */}
+      {/* <SiteExplanation /> */}
+      {/* <Productsmainpage2 data={safeData2} isLoading={fetchProducts2isLoading} /> */}
 
       <ArticleSkeleton />
     </div>
