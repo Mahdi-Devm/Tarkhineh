@@ -1,9 +1,10 @@
 import { useQuery } from 'react-query'
+import { BASEURL } from '../api'
 
 export default function useGetUser(Token)  {
 
   const fetchUserData = async () => {
-    const data = await fetch('http://localhost:3000/api/v1/client/users/getMe',{
+    const data = await fetch(`${BASEURL}/client/users/getMe`,{
       headers: {
           'Content-Type': 'application/json',
           'Authorization':`Bearer ${Token}`,
