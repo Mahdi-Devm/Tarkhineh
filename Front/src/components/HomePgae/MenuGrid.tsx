@@ -11,10 +11,10 @@ interface MenuGridProps {
 const MenuGrid: FC<MenuGridProps> = ({ images, descriptions, isMobile }) => {
   return (
     <div
-      className={`grid ${
+      className={`grid  w-full justify-items-center ${
         isMobile
-          ? 'grid-cols-2 gap-4'
-          : 'grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4'
+          ? 'grid-cols-2 gap-6'
+          : 'grid-cols-2 gap-y-32 sm:grid-cols-2 md:grid-cols-4'
       }`}
     >
       {images.slice(0, isMobile ? 4 : images.length).map((img, index) => {
