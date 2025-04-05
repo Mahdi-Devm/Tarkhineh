@@ -16,13 +16,13 @@ const MenuItem: FC<MenuItemProps> = ({ img, description, index, isMobile }) => {
       transition={{ duration: 0.8, delay: index * 0.2 }}
       viewport={{ once: true }}
       className={`relative ${
-        isMobile ? 'mb-18 flex h-[130px] w-[140px]' : 'flex h-[220px] w-[220px]'
+        isMobile ? 'mb-18 flex h-[130px] w-[140px]' : 'flex h-[220px] w-[270px]'
       } flex-col items-center justify-center rounded-lg bg-[#417F56] shadow-xl`}
     >
       <img
         src={img}
         alt={`Food item ${index + 1}`}
-        className={`absolute left-1/2 z-20  -translate-x-1/2 transform object-cover transition-all duration-300 ${
+        className={`absolute left-1/2 z-20 -translate-x-1/2 transform object-cover transition-all duration-300 ${
           isMobile
             ? index === 0
               ? '-top-25 w-[140px]'
