@@ -2,9 +2,41 @@ import { toast } from 'react-toastify'
 import { CiTrash, CiHeart, CiStar } from 'react-icons/ci'
 import { addProduct, removeProduct } from '../../redux/shopCard/shopCardSlice'
 import { useDispatch } from 'react-redux'
-import { BASEURLFORIMAGE } from '../../api'
-import { ProductsMenuPageProps } from '../../pages/MenuPage'
+import { BASEURL } from '../../api'
+interface Product {
+  id: number
+  name: string
+  price: number
+  description: string
+  image_url: string
+  coupon?: {
+    percent: number
+  }
+  TotalStars: number
+}
 
+interface Like {
+  product: {
+    id: number
+  }
+}
+
+interface ProductsMenuPageProps {
+  toggleFavorite: (id: number) => void
+  likeProduct: {
+    mutate: (id: number) => void
+  }
+  setRate: {
+    mutate: ([id, rate]: [number, number]) => void
+  }
+  isProductInCart: (id: number) => boolean
+  likes: {
+    data: Like[]
+  }
+  products: Product[]
+  productsLoading: boolean
+  isLoading: boolean
+}
 const SkeletonCard = () => (
   <div className="flex animate-pulse flex-col items-center justify-between rounded-lg bg-gray-100 p-4 shadow-md sm:flex-row sm:gap-6">
     <div className="h-[158px] w-[230px] rounded-md bg-gray-200" />
@@ -55,7 +87,7 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
               style={{ minHeight: '158px' }}
             >
               <img
-                src={`${BASEURLFORIMAGE}${product.image_url}`}
+                src={`${BASEURL}/${product.image_url}`}
                 alt=""
                 className="h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 sm:block md:hidden"
               />
@@ -149,7 +181,7 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
                 </div>
               </div>
               <img
-                src={`${BASEURLFORIMAGE}${product.image_url}`}
+                src={`${BASEURL}/${product.image_url}`}
                 alt=""
                 className="hidden h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 md:block"
               />

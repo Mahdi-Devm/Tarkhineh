@@ -57,7 +57,7 @@ function Interests() {
 
   return (
     <div className="p-4">
-      <HeaderListProfile tilte="علاقمندی‌ها" />
+      <HeaderListProfile title="علاقمندی‌ها" />
 
       <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
         <input

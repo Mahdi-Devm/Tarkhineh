@@ -3,7 +3,7 @@ import HeaderListProfile from './HeaderListProfile'
 function Addresses() {
   return (
     <div>
-      <HeaderListProfile tilte="آدرس‌های من" />
+      <HeaderListProfile title="آدرس‌های من" />
     </div>
   )
 }
