@@ -1,8 +1,13 @@
 import { useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import { salesDetailsData } from '../../../constants/salesDetailsData'
+import type { ApexOptions } from 'apexcharts'
+
 const MyApexChart = () => {
-  const [state] = useState({
+  const [state] = useState<{
+    series: { name?: string; data: any[] }[]
+    options: ApexOptions
+  }>({
     series: [
       {
         data: salesDetailsData,
@@ -29,7 +34,7 @@ const MyApexChart = () => {
           },
         },
       },
-      colors: ['#47875C'], // 👈 اضافه شده برای تغییر رنگ
+      colors: ['#47875C'],
       annotations: {
         yaxis: [
           {
@@ -41,7 +46,9 @@ const MyApexChart = () => {
           {
             x: new Date('14 Nov 2024').getTime(),
             borderColor: '#999',
-            yAxisIndex: 0,
+            label: {
+              text: 'Event',
+            },
           },
         ],
       },
@@ -50,7 +57,9 @@ const MyApexChart = () => {
       },
       markers: {
         size: 0,
-        style: 'hollow',
+        strokeWidth: 2,
+        strokeColors: '#fff',
+        shape: 'circle',
       },
       xaxis: {
         type: 'datetime',
@@ -82,7 +91,6 @@ const MyApexChart = () => {
           />
         </div>
       </div>
-      <div id="html-dist"></div>
     </section>
   )
 }
