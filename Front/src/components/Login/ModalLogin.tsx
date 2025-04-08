@@ -132,7 +132,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className={`fixed h-full w-full backdrop-blur-sm ${
+      className={`fixed left-0 h-full w-full backdrop-blur-sm ${
         isMobile
           ? 'bg-opacity-50 bottom-0'
           : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform'
