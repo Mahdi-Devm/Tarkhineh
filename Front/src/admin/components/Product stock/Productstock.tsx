@@ -1,17 +1,16 @@
+import React from 'react'
 import Box from '@mui/material/Box'
-import { DataGrid } from '@mui/x-data-grid'
-
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import ColorCircle from '../../../constants/ColorCircle'
-
-import products1Logo from '../../assets/images/ProductStock/Image1.png'
-import products2Logo from '../../assets/images/ProductStock/Image2.png'
-import products3Logo from '../../assets/images/ProductStock/Image1.png'
-import products4Logo from '../../assets/images/ProductStock/Image3.png'
-import products5Logo from '../../assets/images/ProductStock/Image4.png'
-import { useState } from 'react'
 import ActionButtons from '../../../constants/ActionButtons'
 
-export const rows = [
+import products1Logo from '../../assets/images/ProductStock/Image.png'
+import products2Logo from '../../assets/images/ProductStock/Image1.png'
+import products3Logo from '../../assets/images/ProductStock/Image2.png'
+import products4Logo from '../../assets/images/ProductStock/Image3.png'
+import products5Logo from '../../assets/images/ProductStock/Image4.png'
+
+const rows = [
   {
     id: 1,
     image: products1Logo,
@@ -59,13 +58,23 @@ export const rows = [
   },
 ]
 
-export const columns = (handleDelete) => [
+type Product = {
+  id: number
+  image: string
+  productName: string
+  price: number
+  category: string
+  piece: number
+  availableColor: string[]
+}
+
+export const columns = (handleDelete: (id: number) => void): GridColDef[] => [
   {
     field: 'image',
     headerName: 'Image',
     width: 100,
-    renderCell: (params) => (
-      <img src={params.value} alt="Product" width="50" height="50" />
+    renderCell: (params: GridRenderCellParams<Product>) => (
+      <img src={params.row.image} alt="Product" width="50" height="50" />
     ),
   },
   {
@@ -99,8 +108,10 @@ export const columns = (handleDelete) => [
     headerName: 'Available Color',
     width: 150,
     editable: true,
-    renderCell: (params) => {
-      const colors = Array.isArray(params.value) ? params.value : ['gray']
+    renderCell: (params: GridRenderCellParams<Product>) => {
+      const colors = Array.isArray(params.row.availableColor)
+        ? params.row.availableColor
+        : ['gray']
       return <ColorCircle colors={colors} />
     },
   },
@@ -109,7 +120,7 @@ export const columns = (handleDelete) => [
     headerName: 'Actions',
     sortable: false,
     width: 160,
-    renderCell: (params) => (
+    renderCell: (params: GridRenderCellParams<Product>) => (
       <Box
         sx={{
           display: 'flex',
@@ -125,40 +136,19 @@ export const columns = (handleDelete) => [
   },
 ]
 
-const ProductDataGrid = () => {
-  const [rowsData, setRowsData] = useState(rows)
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [selectedId, setSelectedId] = useState(null)
+const ProductDataGrid: React.FC = () => {
+  const rowsData = rows
 
-  const handleDeleteClick = (id) => {
-    setSelectedId(id)
-    setOpenDeleteDialog(true)
+  const handleDeleteClick = (id: number) => {
+    console.log('Product to delete:', id)
   }
 
-  const handleDeleteConfirm = () => {
-    setRowsData((prevRows) =>
-      prevRows.filter((Proudct) => Proudct.id !== selectedId),
-    )
-    setOpenDeleteDialog(false)
-  }
-
-  const handleDeleteCancel = () => {
-    setOpenDeleteDialog(false)
-  }
   return (
-    <Box
-      sx={{
-        height: 480,
-        width: '100%',
-        padding: 2,
-        backgroundColor: '#fff',
-      }}
-    >
+    <Box sx={{ height: 480, width: '100%', p: 2, backgroundColor: '#fff' }}>
       <DataGrid
         rows={rowsData}
         columns={columns(handleDeleteClick)}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSizeOptions={[5]}
         disableRowSelectionOnClick
       />
     </Box>

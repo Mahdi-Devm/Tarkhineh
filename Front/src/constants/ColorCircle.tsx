@@ -1,7 +1,10 @@
-import PropTypes from 'prop-types'
 import { Box } from '@mui/material'
 
-const ColorCircle = ({ colors }) => {
+type ColorCircleProps = {
+  colors: string[]
+}
+
+const ColorCircle = ({ colors }: ColorCircleProps) => {
   return (
     <Box
       sx={{
@@ -13,7 +16,7 @@ const ColorCircle = ({ colors }) => {
         height: '100%',
       }}
     >
-      {colors.map((color, index) => (
+      {colors.map((color: string, index: number) => (
         <Box
           key={index}
           sx={{
@@ -26,10 +29,6 @@ const ColorCircle = ({ colors }) => {
       ))}
     </Box>
   )
-}
-
-ColorCircle.propTypes = {
-  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default ColorCircle

@@ -1,8 +1,13 @@
 import { Button } from '@mui/material'
 import { FaEdit, FaTrash } from 'react-icons/fa'
-import PropTypes from 'prop-types'
+import { GridRenderCellParams } from '@mui/x-data-grid'
 
-function ActionButtons({ handleDelete, params }) {
+type ActionButtonsProps = {
+  handleDelete: (id: number) => void
+  params: GridRenderCellParams<any>
+}
+
+function ActionButtons({ handleDelete, params }: ActionButtonsProps) {
   return (
     <div
       style={{
@@ -50,20 +55,12 @@ function ActionButtons({ handleDelete, params }) {
           transition: '0.2s',
           '&:hover': { backgroundColor: '#FFCDD2' },
         }}
-        onClick={() => handleDelete(params.id)}
+        onClick={() => handleDelete(Number(params.id))}
       >
         <FaTrash size={18} />
       </Button>
     </div>
   )
-}
-
-ActionButtons.propTypes = {
-  handleDelete: PropTypes.func.isRequired,
-  params: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    row: PropTypes.object.isRequired,
-  }).isRequired,
 }
 
 export default ActionButtons
