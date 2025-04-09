@@ -4,7 +4,6 @@ import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import { BASEURLFORIMAGE } from '../../api'
 import { CiShoppingCart } from 'react-icons/ci'
 
 interface Product {
@@ -98,7 +97,7 @@ const Preferences: React.FC<PopulardishesProps> = ({ data, isLoading }) => {
                       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-transform duration-300 hover:scale-105">
                         <img
                           className="h-58 w-full rounded-t-xl object-cover"
-                          src={`${BASEURLFORIMAGE}${product.image_url}`}
+                          src={product.image_url}
                           alt={product.name}
                         />
                         <div className="flex flex-col justify-between gap-3 p-4">

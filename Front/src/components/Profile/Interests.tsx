@@ -1,7 +1,7 @@
 import HeaderListProfile from './HeaderListProfile'
 import Cookies from 'js-cookie'
 import { useQuery } from '@tanstack/react-query'
-import { BASEURL, BASEURLFORIMAGE } from '../../api'
+import { BASEURL } from '../../api'
 import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { useDispatch } from 'react-redux'
 
@@ -84,7 +84,7 @@ function Interests() {
             className="flex flex-col items-center gap-2 rounded-2xl bg-white p-4 shadow-md transition hover:scale-105 hover:shadow-lg"
           >
             <img
-              src={`${BASEURLFORIMAGE}${item.product.image_url}`}
+              src={item.product.image_url}
               alt={item.product.name}
               className="h-[180px] w-full max-w-xs rounded-lg object-cover"
             />

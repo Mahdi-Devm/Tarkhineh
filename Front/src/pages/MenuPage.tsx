@@ -12,6 +12,11 @@ import { BASEURL } from '../api'
 import { RootState } from '../redux/store'
 
 import Productsmenupage from '../components/MenuPage/Productsmenupage'
+interface Like {
+  product: {
+    id: number
+  }
+}
 
 interface Category {
   id: number
@@ -50,6 +55,7 @@ const fetchCategories = async (): Promise<Category[]> => {
       Authorization: `Bearer ${token}`,
     },
   })
+
   if (!response.ok) throw new Error('خطا در دریافت داده‌ها')
   const data = await response.json()
   return data.categories
@@ -86,12 +92,13 @@ const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
       },
     },
   )
+
   if (!response.ok) throw new Error('خطا در دریافت محصولات')
   const data = await response.json()
   return data.products
 }
 
-const getLikedProduct = async () => {
+const getLikedProduct = async (): Promise<{ data: Like[] }> => {
   const token = Cookies.get('accessToken')
   const response = await fetch(`${BASEURL}/client/likes`, {
     headers: {
@@ -100,7 +107,8 @@ const getLikedProduct = async () => {
     },
     method: 'GET',
   })
-  return response.json()
+  const data = await response.json()
+  return { data } // Ensure this matches { data: Like[] }
 }
 
 const MenuPage = () => {
@@ -129,7 +137,7 @@ const MenuPage = () => {
     enabled: !!selectedSubCategory,
   })
 
-  const { data: likes } = useQuery({
+  const { data: likesData } = useQuery<{ data: Like[] }>({
     queryKey: ['likes'],
     queryFn: getLikedProduct,
   })
@@ -183,7 +191,7 @@ const MenuPage = () => {
 
   const setRate = useMutation<void, Error, [number, number]>({
     mutationFn: ([id, rate]) => {
-      return fetch(`${BASEURL}/client/star`, {
+      return fetch(`${BASEURL}/client/stars`, {
         headers: {
           'content-Type': 'application/json',
           authorization: `Bearer ${Token}`,
@@ -259,9 +267,9 @@ const MenuPage = () => {
           likeProduct={likeProduct}
           setRate={setRate}
           isProductInCart={isProductInCart}
-          likes={likes}
+          likes={{ data: likesData?.data || [] }} // Match the expected structure
           products={products ?? []}
-          isLoading={isLoading}
+          isLoading={isLoading || productsLoading} // Combine loading states
           productsLoading={productsLoading}
         />
       </div>

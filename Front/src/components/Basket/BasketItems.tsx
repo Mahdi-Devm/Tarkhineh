@@ -10,7 +10,6 @@ import {
 import { useAuth } from '../../Context/AuthContext'
 import { Link } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
-import { BASEURLFORIMAGE } from '../../api'
 
 interface Props {
   items: Product[]
@@ -34,7 +33,7 @@ const BasketItems = ({ items }: Props) => {
             <div className="aspect-square w-[150px] bg-green-200 max-md:hidden">
               <img
                 className="w-full object-cover"
-                src={`${BASEURLFORIMAGE}/${item.image_url}`}
+                src={item.image_url}
                 alt={item.name}
               />
             </div>

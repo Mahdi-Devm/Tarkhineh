@@ -2,7 +2,6 @@ import { toast } from 'react-toastify'
 import { CiTrash, CiHeart, CiStar } from 'react-icons/ci'
 import { addProduct, removeProduct } from '../../redux/shopCard/shopCardSlice'
 import { useDispatch } from 'react-redux'
-import { BASEURLFORIMAGE } from '../../api'
 interface Product {
   id: number
   name: string
@@ -31,7 +30,7 @@ interface ProductsMenuPageProps {
   }
   isProductInCart: (id: number) => boolean
   likes: {
-    data: Like[]
+    data?: Like[]
   }
   products: Product[]
   productsLoading: boolean
@@ -61,7 +60,6 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
   isLoading,
 }) => {
   const dispatch = useDispatch()
-
   if (isLoading || productsLoading) {
     return (
       <div className="mt-6">
@@ -74,12 +72,17 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
       </div>
     )
   }
-
+  console.log('Likes data structure:', likes?.data)
+  console.log('First like item:', likes?.data?.[0])
   return (
     <div className="mt-6">
       <h3 className="mb-4 text-2xl font-semibold">محصولات</h3>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
         {products?.map((product) => {
+          const isLiked =
+            likes?.data?.some((item) => item?.product?.id === product.id) ||
+            false
+          console.log(`Product ${product.id} is liked:`, isLiked)
           return (
             <div
               key={product.id}
@@ -87,16 +90,13 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
               style={{ minHeight: '158px' }}
             >
               <img
-                src={`${BASEURLFORIMAGE}${product.image_url}`}
+                src={`${product.image_url}`}
                 alt=""
                 className="h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 sm:block md:hidden"
               />
               <div className="mt-4 flex w-full flex-col sm:mr-4 sm:w-2/3 sm:pl-4">
                 <div className="flex items-center justify-between">
-                  <div
-                    className="cursor-pointer transition-transform duration-300 hover:scale-125"
-                    onClick={() => toggleFavorite(product.id)}
-                  >
+                  <div onClick={() => toggleFavorite(product.id)}>
                     {Array.isArray(likes.data) &&
                     likes.data.some(
                       (item) => item.product.id === product.id,
@@ -181,7 +181,7 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
                 </div>
               </div>
               <img
-                src={`${BASEURLFORIMAGE}${product.image_url}`}
+                src={product.image_url}
                 alt=""
                 className="hidden h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 md:block"
               />
