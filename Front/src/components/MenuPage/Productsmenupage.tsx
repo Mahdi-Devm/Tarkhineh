@@ -72,17 +72,12 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
       </div>
     )
   }
-  console.log('Likes data structure:', likes?.data)
-  console.log('First like item:', likes?.data?.[0])
+
   return (
     <div className="mt-6">
       <h3 className="mb-4 text-2xl font-semibold">محصولات</h3>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
         {products?.map((product) => {
-          const isLiked =
-            likes?.data?.some((item) => item?.product?.id === product.id) ||
-            false
-          console.log(`Product ${product.id} is liked:`, isLiked)
           return (
             <div
               key={product.id}
