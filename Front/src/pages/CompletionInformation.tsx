@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import PaymentBreadcrumb from '../components/Basket/PaymentBreadcrumb'
 
 import BasketAddresses from '../components/Basket/BasketAddresses'
@@ -12,7 +12,7 @@ import {
 
 function CompletionInformation() {
   const { deliverOption } = useSelector((state: RootState) => state.orderInfo)
-
+  const { products } = useSelector((state: RootState) => state.cardReducer)
   console.log('deliver set to', deliverOption)
   const { orderInfo } = store.getState()
   console.log(orderInfo)
@@ -23,6 +23,7 @@ function CompletionInformation() {
   }
 
   const { pathname } = useLocation()
+  const navigate=useNavigate()
 
   return (
     <>
@@ -90,14 +91,8 @@ function CompletionInformation() {
           </div>
         </div>
         <OrderDetail>
-        <button disabled className='w-full disabled:opacity-55'>
-        <Link
-        
-          to={'/cart/completion-info/payment'}
-          className="mt-2 w-full block rounded-md bg-green-900 py-2 text-center text-white"
-        >
+        <button onClick={()=>navigate('/cart/completion-info/payment')} disabled={products.length == 0} className='w-full rounded-lg py-2 mt-2 text-white hover:bg-green-800/90  bg-green-900 disabled:opacity-55'>
           ثبت اطلاعات
-        </Link>
         </button>
         
         </OrderDetail>
