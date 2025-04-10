@@ -16,7 +16,7 @@ function Footer() {
       <div className="absolute inset-0 bg-gray-800 opacity-50 mix-blend-multiply"></div>
 
       <div className="relative mx-auto flex max-w-screen-xl flex-col gap-8 md:flex-row md:gap-16">
-        <div className="w-full md:w-[60%]">
+        <div className=" w-full bg-red-300-50 rounded-2xl border-zinc-600 py-2 px-3 backdrop-blur-lg text-right md:w-[60%]">
           <h3 className="mb-4 text-right text-2xl font-bold md:text-3xl">
             پیام به ترخینه
           </h3>

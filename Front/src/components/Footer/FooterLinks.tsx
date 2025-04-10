@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function FooterLinks() {
   return (
-    <div className="text-right">
+    <div className="w-full bg-red-300-50 rounded-2xl border-zinc-600 py-2 px-4 backdrop-blur-lg text-right">
       <h3 className="mb-4 w-[100%] text-2xl font-bold text-white md:text-3xl">
         دسترسی آسان
       </h3>
