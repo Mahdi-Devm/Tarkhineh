@@ -19,8 +19,8 @@ function Contact() {
         ))}
       </div>
 
-      <div className="mx-auto mt-12 flex flex-col items-start justify-center gap-10 rounded-3xl bg-stone-100 p-5 md:flex-row">
-        <div className="w-150 rounded-lg bg-white p-6">
+      <div className="mx-auto mt-12 flex flex-col items-start justify-center gap-10  rounded-3xl text-right bg-stone-200 p-5 md:flex-row">
+        <div className=" rounded-lg bg-white w-full p-6">
           <h1 className="mb-4 text-xl font-semibold">فرم را پر کنید</h1>
           <p className="mb-4 text-gray-600">
             آدرس ایمیل شما منتشر نخواهد شد. فیلدهای الزامی علامت گذاری شده اند *

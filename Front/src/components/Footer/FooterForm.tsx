@@ -23,7 +23,7 @@ function FooterForm() {
   }
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit(handleClick)}>
+    <form className="space-y-4 " onSubmit={handleSubmit(handleClick)}>
       <div className="flex flex-col gap-4 md:flex-row">
         <textarea
           {...register('message', { required: 'پیام نمی‌تواند خالی باشد' })}
