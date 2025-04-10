@@ -33,7 +33,7 @@ const BasketItems = ({ items }: Props) => {
           >
             <div className="aspect-square w-[150px] bg-green-200 max-md:hidden">
               <img
-                className="w-full object-cover"
+                className="w-full h-full object-cover"
                 src={item.image_url}
                 alt={item.name}
               />
