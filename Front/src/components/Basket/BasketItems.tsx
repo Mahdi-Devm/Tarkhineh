@@ -7,9 +7,10 @@ import {
   clearProduct,
   removeProduct,
 } from '../../redux/shopCard/shopCardSlice'
-import { useAuth } from '../../Context/AuthContext'
+
 import { Link } from 'react-router-dom'
 import { FaTrash } from 'react-icons/fa'
+import PrivateRoute from '../../PrivateRoute'
 
 interface Props {
   items: Product[]
@@ -21,7 +22,7 @@ const BasketItems = ({ items }: Props) => {
   console.log(discount)
 
   const dispatch = useDispatch()
-  const { isAuthenticated } = useAuth()
+  
   return (
     <main className="mx-auto my-6 flex max-w-[1224px] flex-col items-center gap-3 rounded-md border-zinc-400 text-[#353535] lg:flex-row-reverse">
       <div className="max-h-[400px] w-full space-y-3 self-start overflow-y-auto rounded-xl border border-zinc-400 p-3">
@@ -121,18 +122,17 @@ const BasketItems = ({ items }: Props) => {
           <span>تومان {total.toLocaleString()}</span>
           <span>مبلغ قابل پرداخت</span>
 
-          {!isAuthenticated ? (
+          <PrivateRoute>
+
             <Link
               to={'/cart/completion-info'}
               className="mt-2 w-full rounded-lg bg-green-700 p-2 text-center text-white transition-all ease-in hover:bg-green-700/80"
-            >
+              >
               تکمیل اطلاعات{' '}
             </Link>
-          ) : (
-            <button className="mt-2 w-full rounded-lg bg-amber-200 p-2">
-              ورود
-            </button>
-          )}
+              </PrivateRoute>
+           
+         
         </div>
       </div>
     </main>

@@ -144,7 +144,7 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
                           pauseOnHover: true,
                           draggable: true,
                           progress: undefined,
-                          theme: 'colored',
+                          
                         },
                       )
                     }}
