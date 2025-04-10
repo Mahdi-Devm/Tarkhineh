@@ -9,7 +9,7 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="flex h-[115px] items-center justify-around px-4 md:justify-between md:px-8 lg:px-16">
+    <header className="flex katibeh-regular h-[115px] items-center justify-around px-4 md:justify-between md:px-8 lg:px-16">
       <div className="hidden md:flex">
         <IconHeader />
       </div>
