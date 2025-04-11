@@ -111,25 +111,30 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
                     {product.name}
                   </h4>
                 </div>
-                <div className="mt-5 flex items-center justify-between">
-                  <p className="text-[14px] text-[#353535] sm:text-[18px]">
-                    <span>
+                <div className="mt-5 flex relative items-center  justify-between">
+                  <p className="text-[14px]  text-[#353535] sm:text-[18px]">
+                    <span className='flex flex-row-reverse'>
                       {product.coupon
-                        ? +product.price * product.coupon.percent -
-                          +product.price
-                        : product.price}{' '}
+                        ? <div className='flex flex-col'>
+                          <span className='border p-1 rounded-md text-zinc-400 line-through'>{product.price}</span>
+                          <span>{+product.price-(+product.price * product.coupon.percent/100)}</span>
+                        
+                        </div> 
+                          
+                        : product.price}
                     </span>
                     <span>تومان</span>
                   </p>
                   <p className="text-[12px] text-[#353535] sm:text-[14px]">
                     {product.description}
                   </p>
-                </div>
-                {product.coupon && (
-                  <div className="mt-2 flex w-fit text-red-800">
-                    {product.coupon?.percent}%
+                  {product.coupon && (
+                  <div className="mt-2 flex w-fit absolute rounded-full -top-5 -left-3 p-1 text-[12px] bg-red-700 text-white -rotate-45">
+                    {product.coupon?.percent}
                   </div>
                 )}
+                </div>
+                
                 <div className="mt-8 mb-3 flex items-center justify-center gap-1">
                   <button
                     onClick={() => {
