@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 
 const editProfile = async (token:string,id: number,inputsValues:any) => {
 
-  const response = await fetch(`http://localhost:3000/api/v1/client/users/${id}`, {
+  const response = await fetch(`https://tarkhine-app.onrender.com/api/v1/client/users/${id}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -31,8 +31,6 @@ function ProfileLayout () {
   const useToken = Cookies.get('accessToken') || ''
 
   const user =  useGetUser(useToken)
-
-  console.log(user,typeof user)
   
   const [inputsValues,setInputsValues] = useState({
     name: "",
@@ -65,12 +63,12 @@ function ProfileLayout () {
         name: user.data.firstname,
         family: user.data.lastname,
         userName: user.data.ShowName,
-        phoneNumber: mobile, // Added missing phoneNumber field
+        phoneNumber: mobile,
         email: user.data.email,
         birthDay: user.data.birthDay
       })
     }
-  },[user.isSuccess,user.data]) // Added user dependency
+  },[user.isSuccess,user.data])
 
   return (
     <div>
@@ -119,6 +117,21 @@ function ProfileLayout () {
                 {isEmpty.userName && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
               </div>
 
+              <div className="relative">
+                <input
+                  type="text"
+                  id="job"
+                  className="peer w-full rounded-md border border-gray-300 p-2 text-xs focus:ring-2 focus:ring-[#2E5940] focus:outline-none sm:text-sm"
+                  placeholder=" "
+                />
+                <label
+                  htmlFor="job"
+                  className="absolute top-1/2 left-2 -translate-y-1/2 transform text-gray-200 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#BFD8BD] sm:left-3 sm:peer-placeholder-shown:text-base sm:peer-focus:text-sm"
+                >
+                  وظیفه
+                </label>
+              </div>
+              
               <div className="relative">
                 <input
                   type="text"

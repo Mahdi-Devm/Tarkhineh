@@ -18,16 +18,13 @@ interface Product {
 const fetchProducts = async (): Promise<Product[]> => {
   const token = Cookies.get('accessToken')
   try {
-    const res = await axios.get(
-      `${BASEURL}/admin/products/subCategory/28?page=1`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: '*/*',
-          Authorization: `Bearer ${token}`,
-        },
+    const res = await axios.get(`${BASEURL}/client/products/5?page=1`, {
+      method: 'GET',
+      headers: {
+        Accept: '*/*',
+        Authorization: `Bearer ${token}`,
       },
-    )
+    })
     return res.data.products
   } catch (err) {
     console.error(err)
@@ -41,11 +38,9 @@ const BodyBranchpage: React.FC = () => {
     queryFn: fetchProducts,
   })
 
-  if (isLoading) return <p>Loading...</p>
-
   return (
     <section className="flex flex-col items-center justify-center">
-      <Preferences data={data ?? []} />
+      <Preferences data={data ?? []} isLoading={isLoading} />
       <Populardishes data={data ?? []} />
       <Iraniancuisine data={data ?? []} />
     </section>

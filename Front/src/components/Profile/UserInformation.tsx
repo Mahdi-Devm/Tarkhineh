@@ -1,13 +1,18 @@
 import { useNumber } from '../../Context/NumberUserForProfile'
+import Cookies from 'js-cookie'
+import useGetUser from '../../hooks/useGetUser'
+
 
 function UserInformation() {
   const { mobile } = useNumber()
+  const token = Cookies.get('accessToken')
+  const { data: userData } = useGetUser(token || '')
 
   return (
     <div className="mt-3 flex flex-row items-center justify-between gap-4 sm:gap-10">
       <div className="flex flex-col items-start justify-center gap-y-2 sm:gap-y-4">
         <h1 className="text-[16px] text-[#353535] sm:text-[18px]">
-          کاربر ترخینه
+           {userData?.ShowName ||  'کاربر ترخینه'}
         </h1>
         <p className="text-[10px] text-[#717171] sm:text-[12px]">{mobile}</p>
       </div>

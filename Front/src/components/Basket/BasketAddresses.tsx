@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import { getAddress } from '../../redux/orderInfo/orderInfoSlice'
 import Map from './Map'
 import { FaTrash } from 'react-icons/fa'
+import { BASEURL } from '../../api'
 export interface AddressData {
   latitude: string
   longitude: string
@@ -31,7 +32,7 @@ const BasketAddresses = () => {
   const fetchAddresses = async () => {
     try {
       const token = Cookies.get('accessToken')
-      const res = await fetch('http://localhost:3000/api/v1/client/address', {
+      const res = await fetch(`${BASEURL}/client/address`, {
         headers: {
           'Content-type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -62,7 +63,7 @@ const BasketAddresses = () => {
       }
 
       const token = Cookies.get('accessToken')
-      const res = await fetch('http://localhost:3000/api/v1/client/address', {
+      const res = await fetch(`${BASEURL}/client/address`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -89,16 +90,13 @@ const BasketAddresses = () => {
   const deleteAddress = async (id: number) => {
     try {
       const token = Cookies.get('accessToken')
-      const res = await fetch(
-        `http://localhost:3000/api/v1/client/address/${id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
+      const res = await fetch(`${BASEURL}/client/address/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
 
       if (!res.ok) {
         throw new Error('خطا در حذف آدرس')
