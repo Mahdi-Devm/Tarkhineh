@@ -2,14 +2,19 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { useEffect, useState } from 'react'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { CiShoppingCart } from 'react-icons/ci'
 import { useMutation } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
 import { Alert, Snackbar } from '@mui/material'
 // Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from 'swiper/modules'
+import {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+  Autoplay,
+} from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -40,7 +45,6 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
   const [productsPerPage, setProductsPerPage] = useState(
     window.innerWidth >= 1300 ? 5 : 4,
   )
-  const [currentIndex, setCurrentIndex] = useState(0)
   const Token = Cookies.get('accessToken') || ''
   const [alertOpen, setAlertOpen] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
@@ -60,51 +64,36 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const showNext = () => {
-    if (currentIndex < Math.ceil(data.length / productsPerPage) - 1) {
-      setCurrentIndex(currentIndex + 1)
-    }
-  }
-
-  const showPrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1)
-    }
-  }
-
   const skeletonArray = Array.from({ length: productsPerPage })
 
   const likeProduct = useMutation({
-    mutationFn: (id: number) => fetch(`https://tarkhine-app.onrender.com/api/v1/client/likes/${id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${Token}`,
-      },
-      method: 'POST'
-    }).then(res => res.json())
+    mutationFn: (id: number) =>
+      fetch(`https://tarkhine-app.onrender.com/api/v1/client/likes/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Token}`,
+        },
+        method: 'POST',
+      }).then((res) => res.json()),
   })
 
   useEffect(() => {
-
     if (likeProduct.data?.message == 'Product liked !') {
-
       setAlertMessage('محصول به علاقه‌مندی‌ها اضافه شد')
       setAlertOpen(true)
-
     } else if (likeProduct.data?.message == 'product disliked !') {
-
       setAlertMessage('محصول از علاقه مندی ها برداشته شد')
       setAlertOpen(true)
-
     } else if (likeProduct.isError) {
-
       setAlertMessage('خطا در افزودن محصول به علاقه‌مندی‌ها')
       setAlertOpen(true)
     }
-
   }, [likeProduct.isSuccess, likeProduct.isError])
 
-  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const handleCloseAlert = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
     if (reason === 'clickaway') {
       return
     }
@@ -159,7 +148,7 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
 
         <div className="relative mx-auto w-full max-w-full">
           {isLoading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {skeletonArray.map((_, index) => (
                 <div
                   key={index}
@@ -177,13 +166,19 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
           ) : (
             <div className="slider-container">
               <Swiper
-                modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+                modules={[
+                  Navigation,
+                  Pagination,
+                  Mousewheel,
+                  Keyboard,
+                  Autoplay,
+                ]}
                 spaceBetween={20}
                 slidesPerView={productsPerPage}
                 navigation
-                pagination={{ 
+                pagination={{
                   clickable: true,
-                  el: '.swiper-pagination'
+                  el: '.swiper-pagination',
                 }}
                 mousewheel={true}
                 keyboard={true}
@@ -199,14 +194,13 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
                   <SwiperSlide key={product.id}>
                     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-transform duration-300 hover:scale-105">
                       <img
-                        className="h-60 w-full rounded-t-xl object-cover"
+                        className="h-55 w-full rounded-t-xl object-cover"
                         src={`${product.image_url}`}
                         alt={product.name}
                       />
                       <div className="flex flex-col justify-between gap-2 p-3">
                         <div className="flex justify-between">
-                          <div className="flex space-x-1">
-                          </div>
+                          <div className="flex space-x-1"></div>
                           <div className="text-right text-xs font-semibold">
                             {product.name}
                           </div>
@@ -214,10 +208,8 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
 
                         <div className="flex items-center justify-between gap-1">
                           <button
-                            onClick={() =>
-                              likeProduct.mutate(product.id)
-                            }
-                            className="flex items-center gap-1 rounded-md border border-gray-300 px-1.5 py-0.5 text-xs text-gray-600 transition hover:bg-gray-100"
+                            onClick={() => likeProduct.mutate(product.id)}
+                            className="flex items-center gap-1 rounded-md border border-gray-300 px-2 py-0.5 text-xs text-gray-600 transition hover:bg-gray-100"
                           >
                             ❤️ <span>علاقه‌مندی</span>
                           </button>
@@ -225,7 +217,9 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
                           <button
                             onClick={() => {
                               dispatch(addProduct(product))
-                              setAlertMessage('محصول با موفقیت به سبد خرید اضافه شد!')
+                              setAlertMessage(
+                                'محصول با موفقیت به سبد خرید اضافه شد!',
+                              )
                               setAlertOpen(true)
                             }}
                             className="group flex-1 cursor-pointer rounded-md border border-transparent bg-[#417F56] px-4 py-0.5 text-xs text-white transition-all duration-300 hover:border-[#417F56] hover:bg-white"
