@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 import { useQuery } from '@tanstack/react-query'
 import { BASEURL } from '../../api'
 import { addProduct } from '../../redux/shopCard/shopCardSlice'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 interface Interest {
@@ -50,6 +51,19 @@ function Interests() {
     queryFn: fetchData,
   })
 
+  const [filterData, setFilterData] = useState(data)
+  
+  const handleFilter = (e: any) => {
+    const filteredData = data?.filter((item) => item.product.name.toLowerCase().includes(e.target.value.toLowerCase()))
+
+    if (e.target.value === '') {
+      setFilterData(data)
+      return
+    }
+    
+    setFilterData(filteredData)
+  }
+
   const dispatch = useDispatch()
 
   if (isLoading) return <p>در حال بارگذاری...</p>
@@ -64,6 +78,7 @@ function Interests() {
           className="h-[41px] w-full max-w-md rounded-2xl bg-stone-100 p-2"
           type="text"
           placeholder="جستجو"
+          onChange={(e) => handleFilter(e)}
         />
         <div className="flex w-full gap-2 overflow-x-auto md:justify-center">
           {dataInterests.map((item) => (
@@ -78,7 +93,7 @@ function Interests() {
       </div>
 
       <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {data?.map((item, index) => (
+        {filterData?.map((item, index) => (
           <div
             key={index}
             className="flex flex-col items-center gap-2 rounded-2xl bg-white p-4 shadow-md transition hover:scale-105 hover:shadow-lg"

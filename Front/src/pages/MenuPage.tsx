@@ -100,7 +100,8 @@ const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
 
 const getLikedProduct = async (): Promise<{ data: Like[] }> => {
   const token = Cookies.get('accessToken')
-  const response = await fetch(`${BASEURL}/client/likes`, {
+
+  const respons = await fetch(`${BASEURL}/client/likes`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -159,11 +160,13 @@ const MenuPage = () => {
 
   useEffect(() => {
     if (selectedSubCategory) {
-      queryClient.invalidateQueries({
-        queryKey: ['products', selectedSubCategory],
-      })
+      queryClient.invalidateQueries({ queryKey: ['products', selectedSubCategory] })
     }
   }, [selectedSubCategory, queryClient])
+
+  useEffect(() => {
+    setSelectedCategory(Number(param))
+  }, [param])
 
   const productsInCart = useSelector(
     (state: RootState) => state.cardReducer.products,
@@ -211,6 +214,8 @@ const MenuPage = () => {
   const toggleFavorite = (productId: number) => {
     likeProduct.mutate(productId)
   }
+
+  console.log(products)
 
   return (
     <>

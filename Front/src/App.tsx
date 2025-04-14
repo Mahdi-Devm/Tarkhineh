@@ -125,7 +125,7 @@ const App = () => {
             {showScrollButton && (
               <button
                 onClick={scrollToTop}
-                className="fixed bottom-8 left-8 h-16 w-16 cursor-pointer rounded-full bg-[#f0f0f0ab] p-4 text-[#2c5a38] shadow-lg transition-all duration-300 ease-in-out hover:bg-[#82ac9299] hover:text-white hover:shadow-xl"
+                className="fixed bottom-8 left-8 h-16 w-16 cursor-pointer rounded-full bg-[#ffffff] p-4 text-[#2c5a38] shadow-[0_0_10px_rgba(0,0,0,0.3)] transition-all duration-300 ease-in-out hover:bg-[#82ac92dd] hover:text-white"
               >
                 <span className="text-3xl font-semibold">&#8593;</span>
               </button>

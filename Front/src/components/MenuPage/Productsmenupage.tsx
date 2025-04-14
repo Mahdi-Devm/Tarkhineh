@@ -73,6 +73,8 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
     )
   }
 
+  console.log(products)
+
   return (
     <div className="mt-6">
       <h3 className="mb-4 text-2xl font-semibold">محصولات</h3>
@@ -85,7 +87,7 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
               style={{ minHeight: '158px' }}
             >
               <img
-                src={`${product.image_url}`}
+                src={product.image_url}
                 alt=""
                 className="h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 sm:block md:hidden"
               />
@@ -181,7 +183,7 @@ const Productsmenupage: React.FC<ProductsMenuPageProps> = ({
                 </div>
               </div>
               <img
-                src={product.image_url}
+                src={`${product.image_url}`}
                 alt=""
                 className="hidden h-[158px] w-[230px] rounded-md object-cover transition-transform duration-300 hover:scale-105 md:block"
               />

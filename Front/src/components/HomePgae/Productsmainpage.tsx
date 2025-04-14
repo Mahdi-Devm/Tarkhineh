@@ -1,10 +1,21 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { addProduct } from '../../redux/shopCard/shopCardSlice'
-import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { CiShoppingCart } from 'react-icons/ci'
+import { useMutation } from '@tanstack/react-query'
+import Cookies from 'js-cookie'
+import { Alert, Snackbar } from '@mui/material'
+// Swiper imports
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Mousewheel, Keyboard, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
+// Add custom CSS for Swiper pagination
+import './swiper-custom.css'
 
 interface Product {
   id: number
@@ -13,6 +24,7 @@ interface Product {
   rating: number
   image_url: string
   TotalStars: number
+  CountStar: number
 }
 
 interface PopulardishesProps {
@@ -29,6 +41,9 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
     window.innerWidth >= 1300 ? 5 : 4,
   )
   const [currentIndex, setCurrentIndex] = useState(0)
+  const Token = Cookies.get('accessToken') || ''
+  const [alertOpen, setAlertOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,8 +74,82 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
 
   const skeletonArray = Array.from({ length: productsPerPage })
 
+  const likeProduct = useMutation({
+    mutationFn: (id: number) => fetch(`https://tarkhine-app.onrender.com/api/v1/client/likes/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Token}`,
+      },
+      method: 'POST'
+    }).then(res => res.json())
+  })
+
+  useEffect(() => {
+
+    if (likeProduct.data?.message == 'Product liked !') {
+
+      setAlertMessage('محصول به علاقه‌مندی‌ها اضافه شد')
+      setAlertOpen(true)
+
+    } else if (likeProduct.data?.message == 'product disliked !') {
+
+      setAlertMessage('محصول از علاقه مندی ها برداشته شد')
+      setAlertOpen(true)
+
+    } else if (likeProduct.isError) {
+
+      setAlertMessage('خطا در افزودن محصول به علاقه‌مندی‌ها')
+      setAlertOpen(true)
+    }
+
+  }, [likeProduct.isSuccess, likeProduct.isError])
+
+  const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setAlertOpen(false)
+  }
+
+  console.log(likeProduct.data)
+
+  // Swiper breakpoints configuration
+  const swiperBreakpoints = {
+    320: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+    },
+    640: {
+      slidesPerView: 3,
+      spaceBetween: 15,
+    },
+    768: {
+      slidesPerView: 4,
+      spaceBetween: 15,
+    },
+    1300: {
+      slidesPerView: 5,
+      spaceBetween: 20,
+    },
+  }
+
   return (
     <section className="mx-auto my-10 flex w-full flex-col items-center justify-center">
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity="success"
+          sx={{ width: '100%', bgcolor: '#417F56', color: 'white' }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
+
       <div className="mx-auto w-full rounded-2xl">
         <div className="flex justify-end">
           <h1 className="mr-8 mb-4 border-b-1 border-[#417F56] py-2 text-right text-2xl font-semibold text-[#313231]">
@@ -69,97 +158,88 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
         </div>
 
         <div className="relative mx-auto w-full max-w-full">
-          <div className="overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{
-                width: `${(isLoading ? skeletonArray.length : data.length) * (100 / productsPerPage)}%`,
-                transform: `translateX(-${(currentIndex * 100) / productsPerPage}%)`,
-              }}
-            >
-              {isLoading
-                ? skeletonArray.map((_, index) => (
-                    <div
-                      key={index}
-                      className={`w-65 sm:w-1/${productsPerPage} box-border flex-shrink-0 p-2`}
-                    >
-                      <div className="animate-pulse overflow-hidden rounded-lg border border-gray-200 bg-[#f0f0f0] shadow-lg">
-                        <div className="h-48 w-full bg-gray-300"></div>
-                        <div className="p-4">
-                          <div className="mb-2 h-4 w-3/4 rounded bg-gray-300"></div>
-                          <div className="mb-2 h-3 w-1/2 rounded bg-gray-300"></div>
-                          <div className="mt-4 h-8 w-full rounded bg-gray-300"></div>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                : data.map((product) => (
-                    <div
-                      key={product.id}
-                      className={`mx-3 box-border w-65 flex-shrink-0 sm:w-1/${productsPerPage}`}
-                    >
-                      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-transform duration-300 hover:scale-105">
-                        <img
-                          className="h-58 w-full rounded-t-xl object-cover"
-                          src={product.image_url}
-                          alt={product.name}
-                        />
-                        <div className="flex flex-col justify-between gap-3 p-4">
-                          <div className="flex justify-between">
-                            <div className="border-b-1 border-[#417F56] text-right text-sm font-semibold">
-                              {product.price} $
-                            </div>
-                            <div className="text-right text-sm font-semibold">
-                              {product.name}
-                            </div>
-                          </div>
-
-                          <div className="flex items-center justify-between gap-2">
-                            <button
-                              onClick={() => {
-                                dispatch(addProduct(product))
-                                toast.success(
-                                  '✅ محصول با موفقیت به سبد خرید اضافه شد!',
-                                  {
-                                    position: 'top-right',
-                                    autoClose: 2000,
-                                    hideProgressBar: false,
-                                    closeOnClick: true,
-                                    pauseOnHover: true,
-                                    draggable: true,
-                                    progress: undefined,
-                                    theme: 'colored',
-                                  },
-                                )
-                              }}
-                              className="group flex-1 cursor-pointer rounded-md border border-transparent bg-[#417F56] px-6 py-1 text-sm text-white transition-all duration-300 hover:border-[#417F56] hover:bg-white"
-                            >
-                              <CiShoppingCart className="mx-auto text-2xl transition-all duration-300 group-hover:text-[#417F56]" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+          {isLoading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {skeletonArray.map((_, index) => (
+                <div
+                  key={index}
+                  className="animate-pulse overflow-hidden rounded-lg border border-gray-200 bg-[#f0f0f0] shadow-lg"
+                >
+                  <div className="h-60 w-full bg-gray-300"></div>
+                  <div className="p-4">
+                    <div className="mb-2 h-4 w-3/4 rounded bg-gray-300"></div>
+                    <div className="mb-2 h-3 w-1/2 rounded bg-gray-300"></div>
+                    <div className="mt-4 h-8 w-full rounded bg-gray-300"></div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-
-          {!isLoading && (
-            <>
-              <button
-                onClick={showPrev}
-                className="absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 text-black/40 shadow-lg backdrop-blur-sm"
+          ) : (
+            <div className="slider-container">
+              <Swiper
+                modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+                spaceBetween={20}
+                slidesPerView={productsPerPage}
+                navigation
+                pagination={{ 
+                  clickable: true,
+                  el: '.swiper-pagination'
+                }}
+                mousewheel={true}
+                keyboard={true}
+                loop={true}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+                breakpoints={swiperBreakpoints}
+                className="mySwiper"
               >
-                <FaChevronLeft className="text-xl" />
-              </button>
+                {data.map((product) => (
+                  <SwiperSlide key={product.id}>
+                    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-transform duration-300 hover:scale-105">
+                      <img
+                        className="h-60 w-full rounded-t-xl object-cover"
+                        src={`${product.image_url}`}
+                        alt={product.name}
+                      />
+                      <div className="flex flex-col justify-between gap-2 p-3">
+                        <div className="flex justify-between">
+                          <div className="flex space-x-1">
+                          </div>
+                          <div className="text-right text-xs font-semibold">
+                            {product.name}
+                          </div>
+                        </div>
 
-              <button
-                onClick={showNext}
-                className="absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-white/80 p-2 text-black/40 shadow-lg backdrop-blur-sm"
-              >
-                <FaChevronRight className="text-xl" />
-              </button>
-            </>
+                        <div className="flex items-center justify-between gap-1">
+                          <button
+                            onClick={() =>
+                              likeProduct.mutate(product.id)
+                            }
+                            className="flex items-center gap-1 rounded-md border border-gray-300 px-1.5 py-0.5 text-xs text-gray-600 transition hover:bg-gray-100"
+                          >
+                            ❤️ <span>علاقه‌مندی</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              dispatch(addProduct(product))
+                              setAlertMessage('محصول با موفقیت به سبد خرید اضافه شد!')
+                              setAlertOpen(true)
+                            }}
+                            className="group flex-1 cursor-pointer rounded-md border border-transparent bg-[#417F56] px-4 py-0.5 text-xs text-white transition-all duration-300 hover:border-[#417F56] hover:bg-white"
+                          >
+                            <CiShoppingCart className="mx-auto text-xl transition-all duration-300 group-hover:text-[#417F56]" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div className="swiper-pagination mt-8"></div>
+            </div>
           )}
         </div>
       </div>

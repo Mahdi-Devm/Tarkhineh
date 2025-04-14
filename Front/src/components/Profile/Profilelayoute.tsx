@@ -4,9 +4,10 @@ import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import useGetUser from '../../hooks/useGetUser'
-import { BASEURL } from '../../api'
-const editProfile = async (token: string, id: number, inputsValues: any) => {
-  const response = await fetch(`${BASEURL}/client/users/${id}`, {
+
+const editProfile = async (token:string,id: number,inputsValues:any) => {
+
+  const response = await fetch(`https://tarkhine-app.onrender.com/api/v1/client/users/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -17,7 +18,8 @@ const editProfile = async (token: string, id: number, inputsValues: any) => {
       lastname: inputsValues.family,
       ShowName: inputsValues.userName,
       email: inputsValues.email,
-    }),
+      birthDay: inputsValues.birthDay
+    })
   })
 
   return response.json()
@@ -27,12 +29,12 @@ function ProfileLayout() {
   const { mobile } = useNumber()
   const useToken = Cookies.get('accessToken') || ''
 
-  const user = useGetUser(useToken)
-
-  const [inputsValues, setInputsValues] = useState({
-    name: '',
-    family: '',
-    userName: '',
+  const user =  useGetUser(useToken)
+  
+  const [inputsValues,setInputsValues] = useState({
+    name: "",
+    family: "",
+    userName: "",
     phoneNumber: mobile,
     email: '',
     birthDay: '',
@@ -71,7 +73,7 @@ function ProfileLayout() {
         birthDay: user.data.birthDay,
       })
     }
-  }, [user.isSuccess, user.data])
+  },[user.isSuccess,user.data])
 
   return (
     <div>
@@ -121,30 +123,24 @@ function ProfileLayout() {
                     نام نمایشی
                   </label>
                 </div>
-                {isEmpty.userName && (
-                  <span className="mt-1 text-[10px] text-red-500">
-                    این فیلد نمی‌تواند خالی باشد
-                  </span>
-                )}
+                {isEmpty.userName && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
               </div>
 
-              <div className="relative flex flex-col">
-                <div className="relative">
-                  <input
-                    type="text"
-                    id="job"
-                    className="peer w-full rounded-md border border-gray-300 p-2 text-xs focus:ring-2 focus:ring-[#2E5940] focus:outline-none sm:text-sm"
-                    placeholder=" "
-                  />
-                  <label
-                    htmlFor="job"
-                    className="absolute top-1/2 left-2 -translate-y-1/2 transform text-gray-200 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#BFD8BD] sm:left-3 sm:peer-placeholder-shown:text-base sm:peer-focus:text-sm"
-                  >
-                    وظیفه
-                  </label>
-                </div>
+              <div className="relative">
+                <input
+                  type="text"
+                  id="job"
+                  className="peer w-full rounded-md border border-gray-300 p-2 text-xs focus:ring-2 focus:ring-[#2E5940] focus:outline-none sm:text-sm"
+                  placeholder=" "
+                />
+                <label
+                  htmlFor="job"
+                  className="absolute top-1/2 left-2 -translate-y-1/2 transform text-gray-200 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#BFD8BD] sm:left-3 sm:peer-placeholder-shown:text-base sm:peer-focus:text-sm"
+                >
+                  وظیفه
+                </label>
               </div>
-
+              
               <div className="relative">
                 <input
                   type="text"
@@ -217,11 +213,7 @@ function ProfileLayout() {
                     onChange={(event) => inputValueChange(event)}
                   />
                 </div>
-                {isEmpty.birthDay && (
-                  <span className="mt-1 text-[10px] text-red-500">
-                    این فیلد نمی‌تواند خالی باشد
-                  </span>
-                )}
+                {isEmpty.birthDay && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
               </div>
 
               {/* Removed duplicate birthdate */}

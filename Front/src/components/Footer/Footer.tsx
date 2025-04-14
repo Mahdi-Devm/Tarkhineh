@@ -8,7 +8,7 @@ import footerimage from '../../assets/optimized/f.jpg'
 function Footer() {
   return (
     <footer
-      className="relative mt-10 w-full bg-cover bg-center px-4 py-8 text-white sm:px-4 md:px-16 lg:px-32"
+      className="relative mt-10 w-full bg-cover bg-center py-8 text-white sm:px-8 md:px-16 lg:px-32"
       style={{
         backgroundImage: `url(${footerimage})`,
       }}
