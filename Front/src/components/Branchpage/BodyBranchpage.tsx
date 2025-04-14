@@ -6,14 +6,7 @@ import Populardishes from './Populardishes'
 import Iraniancuisine from './Iraniancuisine'
 import Preferences from './Preferences'
 import { BASEURL } from '../../api'
-
-interface Product {
-  id: number
-  name: string
-  price: number
-  rating: number
-  image_url: string
-}
+import { Product } from '../../types/Product'
 
 const fetchProducts = async (): Promise<Product[]> => {
   const token = Cookies.get('accessToken')

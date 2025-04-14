@@ -101,7 +101,7 @@ const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
 const getLikedProduct = async (): Promise<{ data: Like[] }> => {
   const token = Cookies.get('accessToken')
 
-  const respons = await fetch(`${BASEURL}/client/likes`, {
+  const response = await fetch(`${BASEURL}/client/likes`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -109,7 +109,7 @@ const getLikedProduct = async (): Promise<{ data: Like[] }> => {
     method: 'GET',
   })
   const data = await response.json()
-  return { data } // Ensure this matches { data: Like[] }
+  return { data }
 }
 
 const MenuPage = () => {
@@ -160,7 +160,9 @@ const MenuPage = () => {
 
   useEffect(() => {
     if (selectedSubCategory) {
-      queryClient.invalidateQueries({ queryKey: ['products', selectedSubCategory] })
+      queryClient.invalidateQueries({
+        queryKey: ['products', selectedSubCategory],
+      })
     }
   }, [selectedSubCategory, queryClient])
 

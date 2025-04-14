@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import { Pagination, Autoplay } from 'swiper/modules'
 import type { SwiperRef } from 'swiper/react'
 import { images, texts } from '../../constants/ItemSlider'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'

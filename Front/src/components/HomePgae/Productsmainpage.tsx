@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { CiShoppingCart } from 'react-icons/ci'
 import { useMutation } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
-import { Alert, Snackbar } from '@mui/material'
+import { Alert, Snackbar, SnackbarCloseReason } from '@mui/material'
 // Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react'
 import {
@@ -29,7 +29,7 @@ interface Product {
   rating: number
   image_url: string
   TotalStars: number
-  CountStar: number
+  CountStar?: number
 }
 
 interface PopulardishesProps {
@@ -91,8 +91,8 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
   }, [likeProduct.isSuccess, likeProduct.isError])
 
   const handleCloseAlert = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string,
+    _event: React.SyntheticEvent<Element, Event> | Event,
+    reason?: SnackbarCloseReason,
   ) => {
     if (reason === 'clickaway') {
       return

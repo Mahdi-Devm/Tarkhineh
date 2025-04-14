@@ -16,6 +16,8 @@ interface Product {
   price: number
   rating: number
   image_url: string
+  TotalStars: number
+  CountStar?: number
 }
 
 const fetchProducts = async (): Promise<Product[]> => {

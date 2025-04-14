@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { CiShoppingCart } from 'react-icons/ci'
 import { useMutation } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
-import { Alert, Snackbar } from '@mui/material'
+import { Alert, Snackbar, SnackbarCloseReason } from '@mui/material'
 // Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react'
 import {
@@ -22,15 +22,7 @@ import 'swiper/css/pagination'
 // Add custom CSS for Swiper pagination
 import './swiper-custom.css'
 
-interface Product {
-  id: number
-  name: string
-  price: number
-  rating: number
-  image_url: string
-  TotalStars: number
-  CountStar: number
-}
+import { Product } from '../../types/Product'
 
 interface PopulardishesProps {
   data: Product[]
@@ -88,12 +80,16 @@ const Populardishes: React.FC<PopulardishesProps> = ({ data, isLoading }) => {
   }, [likeProduct.isSuccess, likeProduct.isError])
 
   const handleCloseAlert = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string,
+    _event: React.SyntheticEvent<any, Event> | Event | null,
+    reason?: SnackbarCloseReason,
   ) => {
     if (reason === 'clickaway') {
       return
     }
+    setAlertOpen(false)
+  }
+
+  const handleAlertClose = (_event: React.SyntheticEvent<Element, Event>) => {
     setAlertOpen(false)
   }
 
@@ -128,7 +124,7 @@ const Populardishes: React.FC<PopulardishesProps> = ({ data, isLoading }) => {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
         <Alert
-          onClose={handleCloseAlert}
+          onClose={handleAlertClose}
           severity="success"
           sx={{ width: '100%', bgcolor: '#417F56', color: 'white' }}
         >
