@@ -3,7 +3,7 @@ import HeaderListProfile from './HeaderListProfile'
 function Trackingorders() {
   return (
     <div>
-      <HeaderListProfile tilte="پیگیری سفارشات" />
+      <HeaderListProfile title="پیگیری سفارشات" />
     </div>
   )
 }

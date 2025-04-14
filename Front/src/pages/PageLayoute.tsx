@@ -4,9 +4,9 @@ import Footer from '../components/Footer/Footer'
 
 function PageLayoute() {
   return (
-    <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
+    <div className="mx-auto min-h-screen">
       <Header />
-      <main className="p-4">
+      <main className="mx-auto max-w-[1400px] p-3">
         <Outlet />
       </main>
       <Footer />

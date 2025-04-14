@@ -1,0 +1,45 @@
+/* Custom styles for Swiper */
+.slider-container {
+  position: relative;
+  padding-bottom: 50px; /* Space for pagination dots */
+}
+
+.swiper-pagination {
+  position: relative !important;
+  bottom: 0 !important;
+  margin-top: 20px;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  margin: 0 8px !important;
+  background-color: #c4c4c4;
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #417F56;
+  opacity: 1;
+}
+
+/* Improve navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #417F56 !important;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 18px !important;
+}
+
+/* Make sure the pagination is visible and not overlapping with slides */
+.mySwiper {
+  margin-bottom: 20px;
+} 

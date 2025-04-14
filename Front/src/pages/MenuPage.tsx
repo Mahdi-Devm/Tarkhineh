@@ -2,16 +2,21 @@ import { FiChevronDown } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { CiShoppingCart } from 'react-icons/ci'
-
-import Cookies from 'js-cookie'
 import { useSelector } from 'react-redux'
+import Cookies from 'js-cookie'
 
-import 'react-toastify/dist/ReactToastify.css'
+import { Link, useParams } from 'react-router-dom'
+
 import SimpleSlider from '../components/SLider/SliderNext'
-import { useParams, Link } from 'react-router-dom'
 import { BASEURL } from '../api'
 import { RootState } from '../redux/store'
+
 import Productsmenupage from '../components/MenuPage/Productsmenupage'
+interface Like {
+  product: {
+    id: number
+  }
+}
 
 interface Category {
   id: number
@@ -27,28 +32,11 @@ interface Coupon {
   id: number
   percent: number
 }
-export interface ProductsMenuPageProps {
-  toggleFavorite: (productId: number) => void
-  likeProduct: {
-    mutate: (id: number) => void
-  }
-  setRate: {
-    mutate: ([productId, rate]: [number, number]) => void
-  }
-  isProductInCart: (productId: number) => boolean
-  likes: {
-    data?: {
-      product: { id: number }
-    }[]
-  }
-  products?: Product[]
-  isLoading: boolean
-  productsLoading: boolean
-}
+
 export interface Product {
   id: number
   name: string
-  price: string
+  price: number
   image_url: string
   description: string
   rating: number
@@ -67,10 +55,9 @@ const fetchCategories = async (): Promise<Category[]> => {
       Authorization: `Bearer ${token}`,
     },
   })
+
   if (!response.ok) throw new Error('خطا در دریافت داده‌ها')
   const data = await response.json()
-  console.log(data.categories)
-
   return data.categories
 }
 
@@ -105,12 +92,13 @@ const fetchProduct = async (subCategoryId: string): Promise<Product[]> => {
       },
     },
   )
+
   if (!response.ok) throw new Error('خطا در دریافت محصولات')
   const data = await response.json()
   return data.products
 }
 
-const getLikedProduct = async () => {
+const getLikedProduct = async (): Promise<{ data: Like[] }> => {
   const token = Cookies.get('accessToken')
 
   const respons = await fetch(`${BASEURL}/client/likes`, {
@@ -120,16 +108,17 @@ const getLikedProduct = async () => {
     },
     method: 'GET',
   })
-  return respons.json()
+  const data = await response.json()
+  return { data } // Ensure this matches { data: Like[] }
 }
 
 const MenuPage = () => {
-
   const param = useParams().category || '1'
   const Token = Cookies.get('accessToken')
-  const [selectedCategory, setSelectedCategory] = useState<number>(1)
+  const [selectedCategory, setSelectedCategory] = useState<number>(
+    Number(param),
+  )
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('')
-
   const queryClient = useQueryClient()
 
   const { data: categories, isLoading } = useQuery<Category[]>({
@@ -149,10 +138,14 @@ const MenuPage = () => {
     enabled: !!selectedSubCategory,
   })
 
+  const { data: likesData } = useQuery<{ data: Like[] }>({
+    queryKey: ['likes'],
+    queryFn: getLikedProduct,
+  })
+
   useEffect(() => {
     if (selectedCategory) {
       setSelectedSubCategory('')
-      queryClient.invalidateQueries({ queryKey: ['subcategory', selectedCategory] })
       queryClient.invalidateQueries({
         queryKey: ['subcategory', selectedCategory],
       })
@@ -180,13 +173,11 @@ const MenuPage = () => {
   )
 
   const isProductInCart = (productId: number) => {
-    return productsInCart?.some((product: Product) => product.id === productId) ?? false
+    return (
+      productsInCart?.some((product: Product) => product.id === productId) ??
+      false
+    )
   }
-
-  const likes = useQuery({
-    queryKey: ['likes'],
-    queryFn: getLikedProduct,
-  })
 
   const likeProduct = useMutation({
     mutationFn: (id: number) =>
@@ -195,9 +186,7 @@ const MenuPage = () => {
           authorization: `Bearer ${Token}`,
         },
         method: 'POST',
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data)),
+      }).then((res) => res.json()),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['likes'] })
     },
@@ -215,9 +204,7 @@ const MenuPage = () => {
           product_id: id,
           star: rate,
         }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data))
+      }).then((res) => res.json())
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] })
@@ -225,11 +212,7 @@ const MenuPage = () => {
   })
 
   const toggleFavorite = (productId: number) => {
-    products?.map((product) =>
-      product.id === productId
-        ? { ...product, isFavorite: !product.isFavorite }
-        : product,
-    )
+    likeProduct.mutate(productId)
   }
 
   console.log(products)
@@ -267,13 +250,11 @@ const MenuPage = () => {
               onChange={(e) => setSelectedSubCategory(e.target.value)}
               className="h-12 w-full cursor-pointer appearance-none rounded-full bg-[#417F56] px-6 pr-10 text-white shadow-md transition-all duration-300 outline-none hover:bg-[#355E44] hover:shadow-lg focus:ring-2 focus:ring-[#2E5E3A] sm:w-50"
             >
-              {subCategories &&
-                Array.isArray(subCategories) &&
-                subCategories.map((subcategory) => (
-                  <option key={subcategory.id} value={subcategory.id}>
-                    {subcategory.title}
-                  </option>
-                ))}
+              {subCategories?.map((subcategory) => (
+                <option key={subcategory.id} value={subcategory.id}>
+                  {subcategory.title}
+                </option>
+              ))}
             </select>
             <FiChevronDown className="absolute top-1/2 right-5 -translate-y-1/2 text-xl text-white transition-transform duration-300 ease-in-out" />
           </div>
@@ -291,9 +272,9 @@ const MenuPage = () => {
           likeProduct={likeProduct}
           setRate={setRate}
           isProductInCart={isProductInCart}
-          likes={likes}
-          products={products}
-          isLoading={isLoading}
+          likes={{ data: likesData?.data || [] }} // Match the expected structure
+          products={products ?? []}
+          isLoading={isLoading || productsLoading} // Combine loading states
           productsLoading={productsLoading}
         />
       </div>

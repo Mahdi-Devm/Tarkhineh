@@ -1,17 +1,16 @@
 import { useNumber } from '../../Context/NumberUserForProfile'
 import HeaderListProfile from './HeaderListProfile'
-import useGetUser from '../../hooks/useGetUser'
 import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-
+import useGetUser from '../../hooks/useGetUser'
 
 const editProfile = async (token:string,id: number,inputsValues:any) => {
 
   const response = await fetch(`https://tarkhine-app.onrender.com/api/v1/client/users/${id}`, {
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
     },
     method: 'PUT',
     body: JSON.stringify({
@@ -26,7 +25,7 @@ const editProfile = async (token:string,id: number,inputsValues:any) => {
   return response.json()
 }
 
-function ProfileLayout () {
+function ProfileLayout() {
   const { mobile } = useNumber()
   const useToken = Cookies.get('accessToken') || ''
 
@@ -37,42 +36,48 @@ function ProfileLayout () {
     family: "",
     userName: "",
     phoneNumber: mobile,
-    email: "",
-    birthDay: ""
+    email: '',
+    birthDay: '',
   })
 
-  const [isEmpty,setIsEmpty] = useState({
+  const [isEmpty, setIsEmpty] = useState({
     name: false,
     family: false,
     userName: false,
     email: false,
-    birthDay: false
+    birthDay: false,
   })
 
-  const editProfileRequest = useMutation<void, Error, [string, number, object]>({
-    mutationFn: ([token,id,inputsValues]) => editProfile(token,id,inputsValues)
-  })
+  const editProfileRequest = useMutation<void, Error, [string, number, object]>(
+    {
+      mutationFn: ([token, id, inputsValues]) =>
+        editProfile(token, id, inputsValues),
+    },
+  )
 
-  const inputValueChange = (e:any) => {
-    setInputsValues({...inputsValues, [e.target.getAttribute('id')]: e.target.value})
-  } 
+  const inputValueChange = (e: any) => {
+    setInputsValues({
+      ...inputsValues,
+      [e.target.getAttribute('id')]: e.target.value,
+    })
+  }
 
   useEffect(() => {
-    if(user.isSuccess && user.data) {
+    if (user.isSuccess && user.data) {
       setInputsValues({
         name: user.data.firstname,
         family: user.data.lastname,
         userName: user.data.ShowName,
         phoneNumber: mobile,
         email: user.data.email,
-        birthDay: user.data.birthDay
+        birthDay: user.data.birthDay,
       })
     }
   },[user.isSuccess,user.data])
 
   return (
     <div>
-      <HeaderListProfile tilte="پروفایل من" />
+      <HeaderListProfile title="پروفایل من" />
       <div className="flex h-full items-center justify-center px-2 py-6 sm:px-4 sm:py-10">
         <form className="flex w-full max-w-md flex-col items-center space-y-4 rounded-lg p-3 transition-all duration-500 hover:scale-105 sm:max-w-4xl sm:space-y-6 sm:p-4 md:p-8">
           <div className="grid w-full grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 md:gap-8">
@@ -88,13 +93,17 @@ function ProfileLayout () {
                     onChange={(event) => inputValueChange(event)}
                   />
                   <label
-                    htmlFor="lastname"
+                    htmlFor="family"
                     className="absolute top-1/2 left-2 -translate-y-1/2 transform text-gray-200 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#BFD8BD] peer-[&:not(:placeholder-shown)]:hidden sm:left-3 sm:peer-placeholder-shown:text-base sm:peer-focus:text-sm"
                   >
                     نام خانوادگی
                   </label>
                 </div>
-                {isEmpty.family && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
+                {isEmpty.family && (
+                  <span className="mt-1 text-[10px] text-red-500">
+                    این فیلد نمی‌تواند خالی باشد
+                  </span>
+                )}
               </div>
 
               <div className="relative flex flex-col">
@@ -108,7 +117,7 @@ function ProfileLayout () {
                     onChange={(event) => inputValueChange(event)}
                   />
                   <label
-                    htmlFor="showName"
+                    htmlFor="userName"
                     className="absolute top-1/2 left-2 -translate-y-1/2 transform text-gray-200 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#BFD8BD] peer-[&:not(:placeholder-shown)]:hidden sm:left-3 sm:peer-placeholder-shown:text-base sm:peer-focus:text-sm"
                   >
                     نام نمایشی
@@ -140,7 +149,6 @@ function ProfileLayout () {
                   value={mobile}
                   disabled={true}
                   placeholder=" "
-                  onChange={(event) => inputValueChange(event)}
                 />
               </div>
             </div>
@@ -157,13 +165,17 @@ function ProfileLayout () {
                     onChange={(event) => inputValueChange(event)}
                   />
                   <label
-                    htmlFor="displayName"
+                    htmlFor="name"
                     className="absolute top-1/2 left-2 -translate-y-1/2 transform text-gray-200 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-xs peer-focus:text-[#BFD8BD] peer-[&:not(:placeholder-shown)]:hidden sm:left-3 sm:peer-placeholder-shown:text-base sm:peer-focus:text-sm"
                   >
                     نام
                   </label>
                 </div>
-                {isEmpty.name && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
+                {isEmpty.name && (
+                  <span className="mt-1 text-[10px] text-red-500">
+                    این فیلد نمی‌تواند خالی باشد
+                  </span>
+                )}
               </div>
 
               <div className="relative flex flex-col">
@@ -183,7 +195,11 @@ function ProfileLayout () {
                     آدرس ایمیل
                   </label>
                 </div>
-                {isEmpty.email && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
+                {isEmpty.email && (
+                  <span className="mt-1 text-[10px] text-red-500">
+                    این فیلد نمی‌تواند خالی باشد
+                  </span>
+                )}
               </div>
 
               <div className="relative flex flex-col">
@@ -199,6 +215,8 @@ function ProfileLayout () {
                 </div>
                 {isEmpty.birthDay && <span className="text-[10px] text-red-500 mt-1">این فیلد نمی‌تواند خالی باشد</span>}
               </div>
+
+              {/* Removed duplicate birthdate */}
             </div>
           </div>
 
@@ -219,12 +237,25 @@ function ProfileLayout () {
                   family: !inputsValues.family,
                   userName: !inputsValues.userName,
                   email: !inputsValues.email,
-                  birthDay: !inputsValues.birthDay
+                  birthDay: !inputsValues.birthDay,
                 })
-                if(inputsValues.name && inputsValues.family && inputsValues.userName && inputsValues.email && inputsValues.birthDay) {
-                  editProfileRequest.mutate([useToken,user.data.id,inputsValues])
-                  console.log(editProfileRequest.data,editProfileRequest.error,editProfileRequest.isError)
-                  console.log(user.id,typeof user.id)
+                if (
+                  inputsValues.name &&
+                  inputsValues.family &&
+                  inputsValues.userName &&
+                  inputsValues.email &&
+                  inputsValues.birthDay
+                ) {
+                  editProfileRequest.mutate([
+                    useToken,
+                    user.data.id,
+                    inputsValues,
+                  ])
+                  console.log(
+                    editProfileRequest.data,
+                    editProfileRequest.error,
+                    editProfileRequest.isError,
+                  )
                 }
 
                 setTimeout(() => {
@@ -233,9 +264,9 @@ function ProfileLayout () {
                     family: false,
                     userName: false,
                     email: false,
-                    birthDay: false
+                    birthDay: false,
                   })
-                },3000)
+                }, 3000)
               }}
             >
               ذخیره اطلاعات

@@ -1,10 +1,10 @@
 import HeaderListProfile from './HeaderListProfile'
 import Cookies from 'js-cookie'
-import { useQuery,useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { BASEURL } from '../../api'
-import { useDispatch, useSelector } from 'react-redux'
 import { addProduct } from '../../redux/shopCard/shopCardSlice'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 interface Interest {
   name: string
@@ -71,7 +71,7 @@ function Interests() {
 
   return (
     <div className="p-4">
-      <HeaderListProfile tilte="علاقمندی‌ها" />
+      <HeaderListProfile title="علاقمندی‌ها" />
 
       <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
         <input
@@ -99,16 +99,18 @@ function Interests() {
             className="flex flex-col items-center gap-2 rounded-2xl bg-white p-4 shadow-md transition hover:scale-105 hover:shadow-lg"
           >
             <img
-              src={`${BASEURL}/${item.product.image_url}`}
+              src={item.product.image_url}
               alt={item.product.name}
               className="h-[180px] w-full max-w-xs rounded-lg object-cover"
             />
             <h2 className="text-lg font-semibold">{item.product.name}</h2>
             <p className="text-[#717171]">تومان {item.product.price}</p>
-            <button onClick={() => {
-              dispatch(addProduct(item.product)
-            )}}
-              className="h-[40px] w-[80%] rounded-md bg-[#417F56] text-white hover:bg-[#315A3D]">
+            <button
+              onClick={() => {
+                dispatch(addProduct(item.product))
+              }}
+              className="h-[40px] w-[80%] rounded-md bg-[#417F56] text-white hover:bg-[#315A3D]"
+            >
               افزودن به سبد خرید
             </button>
           </div>

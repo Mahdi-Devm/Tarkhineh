@@ -1,40 +1,19 @@
 import { motion } from 'framer-motion'
-const imageSupporters = [
-  {
-    name: "McDonald's",
-    font: 'font-extrabold text-stone-200 text-xl sm:text-2xl lg:text-3xl font-sans',
-  },
-  {
-    name: 'KFC',
-    font: 'font-black text-stone-200 text-xl sm:text-2xl lg:text-3xl font-serif',
-  },
-  {
-    name: 'Burger King',
-    font: 'font-semibold text-stone-200 text-xl sm:text-2xl lg:text-2xl font-mono',
-  },
-  {
-    name: "Domino's Pizza",
-    font: 'font-bold text-stone-200 text-base sm:text-lg lg:text-2xl font-sans',
-  },
-  {
-    name: 'Subway',
-    font: 'font-medium text-stone-200 text-xl sm:text-2xl lg:text-3xl font-serif',
-  },
-]
+import { imageSupporters } from '../../constants/datapagemainforprouducts'
 
 const Supporters = () => {
   return (
-    <div className="mx-auto flex h-50 w-70 flex-col rounded-2xl sm:w-300">
-      <p className="mx-auto w-82 rounded-lg p-4 text-sm font-semibold text-black sm:w-90 sm:text-xl md:mb-4 md:w-120">
+    <div className="mx-auto flex w-full flex-col rounded-2xl ">
+      <p className="mx-auto rounded-lg p-4 text-center text-sm font-semibold text-black  sm:text-xl md:mb-4 ">
         سراسری 5+ هزار<span className="text-[#FFB936]"> حامیان مالی</span> با ما
         خوشحال هستند
       </p>
 
-      <div className="mx-auto mt-5 grid w-80 grid-cols-2 items-center justify-center gap-4 rounded-2xl bg-[#74aa86] p-4 sm:w-250 sm:grid-cols-3 md:grid-cols-5 lg:max-w-screen-lg">
+      <div className="mx-auto mt-5 items-center justify-evenly  rounded-2xl bg-[#74aa86] p-4 flex flex-wrap ">
         {imageSupporters.map((item, index) => (
           <motion.div
             key={index}
-            className={`px-2 py-2 text-center ${
+            className={`px-2 py-2 text-nowrap text-center ${
               index > 3 ? 'hidden sm:block' : ''
             }`}
             whileHover={{

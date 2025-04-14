@@ -55,7 +55,7 @@ const shopCardSlice = createSlice({
         (product) => product.id === action.payload.id,
       )
       if (existingItem) {
-        state.amount += parseFloat(existingItem.price)
+        state.amount += +existingItem.price
         //increase quantity of existing product
         existingItem.qty++
         // increase discount value
@@ -63,9 +63,9 @@ const shopCardSlice = createSlice({
           state.discount +=
             (+existingItem.price * existingItem.coupon.percent) / 100
           state.total +=
-            parseFloat(existingItem.price) -
+            +existingItem.price -
             (+existingItem.price * existingItem.coupon.percent) / 100
-        } else state.total += parseFloat(existingItem.price)
+        } else state.total += +existingItem.price
       } else {
         state.products.push({ ...action.payload, qty: 1 })
         state.amount += parseFloat(action.payload.price)

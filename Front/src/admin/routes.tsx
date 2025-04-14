@@ -11,6 +11,14 @@ const Contact = lazy(() => import('./page/Contact'))
 
 const routes: RouteObject[] = [
   {
+    path: 'PanelAdmin//favorites',
+    element: (
+      <AdminLayout>
+        <Favorites />
+      </AdminLayout>
+    ),
+  },
+  {
     path: 'PanelAdmin//Dashboard',
     element: (
       <AdminLayout>
@@ -18,19 +26,12 @@ const routes: RouteObject[] = [
       </AdminLayout>
     ),
   },
+
   {
     path: 'PanelAdmin//products',
     element: (
       <AdminLayout>
         <Products />
-      </AdminLayout>
-    ),
-  },
-  {
-    path: 'PanelAdmin//favorites',
-    element: (
-      <AdminLayout>
-        <Favorites />
       </AdminLayout>
     ),
   },

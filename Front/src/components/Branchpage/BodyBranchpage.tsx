@@ -37,12 +37,13 @@ const BodyBranchpage: React.FC = () => {
     queryKey: ['fetchProducts'],
     queryFn: fetchProducts,
   })
-
+  const safeData: Product[] = data ?? []
   return (
     <section className="flex flex-col items-center justify-center">
-      <Preferences data={data ?? []} isLoading={isLoading} />
-      <Populardishes data={data ?? []} />
-      <Iraniancuisine data={data ?? []} />
+      <Preferences data={safeData} isLoading={isLoading} />
+
+      <Populardishes data={safeData} isLoading={isLoading} />
+      <Iraniancuisine data={safeData} isLoading={isLoading} />
     </section>
   )
 }

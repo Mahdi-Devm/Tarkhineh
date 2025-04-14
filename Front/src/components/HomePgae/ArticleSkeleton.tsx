@@ -42,7 +42,7 @@ function ArticleSkeleton() {
       initial={{ opacity: 0, y: 50 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      className="relative mx-auto mt-10 flex h-auto w-full max-w-7xl flex-col items-center justify-between rounded-2xl p-6 text-white sm:mt-15 sm:h-106 sm:flex-row sm:p-10"
+      className="relative mx-auto mt-10 flex h-auto w-[90%] max-w-[1280px] flex-col items-center justify-between rounded-2xl p-6 text-white sm:mt-15 sm:h-106 sm:flex-row sm:p-10"
       style={{
         backgroundImage: `url(${iamgebg})`,
         backgroundSize: 'cover',

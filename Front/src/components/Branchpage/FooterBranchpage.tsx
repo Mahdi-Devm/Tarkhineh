@@ -1,77 +1,68 @@
-import { useState, useEffect } from 'react'
+import { useRef } from 'react'
 import { testimonials } from '../../constants/testimonials'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import type { Swiper as SwiperType } from 'swiper'
+
+// Not directly importing CSS to avoid TypeScript issues
+import './swiper-custom.css'
 
 const TestimonialsSlider = () => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-  }
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
-    )
-  }
-
-  useEffect(() => {
-    const autoSlide = setInterval(nextSlide, 5000)
-    return () => clearInterval(autoSlide)
-  }, [])
+  const swiperRef = useRef<SwiperType | null>(null)
 
   return (
     <div className="mx-auto h-[300px] w-[350px] rounded-xl bg-gradient-to-br from-white to-[#326141] p-4 text-white shadow-2xl sm:h-[400px] sm:w-[370px] md:h-[300px] md:w-[1100px]">
       <div className="relative h-[300px] overflow-hidden rounded-lg sm:h-[400px] md:h-[300px]">
-        <div
-          className="flex transition-transform duration-700 ease-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        <Swiper
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={0}
+          slidesPerView={1}
+          navigation={{
+            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next',
+          }}
+          pagination={{
+            clickable: true,
+            el: '.swiper-pagination',
+            bulletActiveClass: 'swiper-pagination-bullet-active',
+            bulletClass: 'swiper-pagination-bullet',
+          }}
+          loop={true}
+          grabCursor={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          className="h-full w-full testimonials-swiper"
         >
           {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="flex min-w-full flex-col items-center justify-center px-4"
-            >
-              <img
-                src={testimonial.img}
-                alt={testimonial.name}
-                className="mb-2 h-24 w-24 transform rounded-full border-2 border-[#326141] shadow-lg transition-transform duration-500 hover:scale-110 sm:h-16 sm:w-16 md:h-24 md:w-24"
-              />
-              <h4 className="text-lg font-bold drop-shadow-md sm:text-base md:text-lg">
-                {testimonial.name}
-              </h4>
-              <p className="mt-2 max-w-[700px] text-center text-base leading-relaxed text-gray-800 sm:max-w-[250px] sm:text-sm md:max-w-[700px] md:text-base">
-                "{testimonial.text}"
-              </p>
-            </div>
+            <SwiperSlide key={index}>
+              <div className="flex h-full flex-col items-center justify-center px-4">
+                <img
+                  src={testimonial.img}
+                  alt={testimonial.name}
+                  className="mb-2 h-24 w-24 transform rounded-full border-2 border-[#326141] shadow-lg transition-transform duration-500 hover:scale-110 sm:h-16 sm:w-16 md:h-24 md:w-24"
+                />
+                <h4 className="text-lg font-bold drop-shadow-md sm:text-base md:text-lg">
+                  {testimonial.name}
+                </h4>
+                <p className="mt-2 max-w-[700px] text-center text-base leading-relaxed text-gray-800 sm:max-w-[250px] sm:text-sm md:max-w-[700px] md:text-base">
+                  "{testimonial.text}"
+                </p>
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
 
-        <button
-          onClick={prevSlide}
-          className="hover:[#1d3926] absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 sm:p-1 md:p-2"
-        >
+        <div className="swiper-button-prev absolute top-1/2 left-2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 hover:bg-[#1d3926] sm:p-1 md:p-2">
           ❮
-        </button>
-        <button
-          onClick={nextSlide}
-          className="hover:[#326141] absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 sm:p-1 md:p-2"
-        >
-          ❯
-        </button>
-
-        <div className="mt-5 flex justify-center space-x-1 sm:mt-4 md:mt-10">
-          {testimonials.map((_, index) => (
-            <span
-              key={index}
-              className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-300 ${
-                index === currentIndex
-                  ? 'scale-150 bg-[#326141] shadow-md'
-                  : 'bg-gray-500 hover:bg-[#274e34]'
-              } sm:h-2 sm:w-2 md:h-3 md:w-3`}
-              onClick={() => setCurrentIndex(index)}
-            ></span>
-          ))}
         </div>
+        <div className="swiper-button-next absolute top-1/2 right-2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-[#326141] p-2 text-white shadow-lg transition-transform duration-300 hover:bg-[#1d3926] sm:p-1 md:p-2">
+          ❯
+        </div>
+
+        <div className="swiper-pagination mt-5 flex justify-center space-x-1 sm:mt-4 md:mt-10"></div>
       </div>
     </div>
   )

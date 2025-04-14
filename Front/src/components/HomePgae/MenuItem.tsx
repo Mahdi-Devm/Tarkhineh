@@ -16,7 +16,7 @@ const MenuItem: FC<MenuItemProps> = ({ img, description, index, isMobile }) => {
       transition={{ duration: 0.8, delay: index * 0.2 }}
       viewport={{ once: true }}
       className={`relative ${
-        isMobile ? 'mb-18 flex h-[130px] w-[140px]' : 'flex h-[220px] w-[280px]'
+        isMobile ? 'mb-18 flex h-[130px] w-[140px]' : 'flex h-[220px] w-[270px]'
       } flex-col items-center justify-center rounded-lg bg-[#417F56] shadow-xl`}
     >
       <img

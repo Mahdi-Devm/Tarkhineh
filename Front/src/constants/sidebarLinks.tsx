@@ -9,9 +9,14 @@ import { IoMdContacts } from 'react-icons/io'
 
 export const sidebarLinks = [
   {
-    LinkName: 'Home',
-    Link: '/PanelAdmin/Dashboard',
+    LinkName: 'Dashboard',
+    Link: '/PanelAdmin/favorites',
     icon: <SpeedIcon className="h-6 w-5" />,
+  },
+  {
+    LinkName: 'favorites',
+    Link: '/PanelAdmin//favorites',
+    icon: <TiHeart className="h-6 w-5" />,
   },
 
   {
@@ -19,11 +24,7 @@ export const sidebarLinks = [
     Link: '/PanelAdmin/products',
     icon: <AiOutlineProduct className="h-6 w-5" />,
   },
-  {
-    LinkName: 'favorites',
-    Link: '/PanelAdmin/favorites',
-    icon: <TiHeart className="h-6 w-5" />,
-  },
+
   {
     LinkName: 'order-lists',
     Link: '/PanelAdmin/order-lists',

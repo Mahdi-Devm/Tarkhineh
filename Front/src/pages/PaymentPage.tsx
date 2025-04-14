@@ -27,9 +27,7 @@ function PaymentPage() {
         Authorization: `Bearer ${token}`,
       },
     })
-    console.log(res)
     const data = await res.json()
-    console.log(data)
     if (res.status === 200) {
       window.location = data.url
     }

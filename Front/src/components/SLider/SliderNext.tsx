@@ -23,7 +23,7 @@ const SimpleSlider: React.FC = () => {
 
   return (
     <div className="w-full max-w-[1400px] mx-auto overflow-hidden relative">
-      <div className="h-[120px] sm:h-[150px] md:h-[180px] lg:h-[200px]">
+      <div className="h-[120px] sm:h-[150px] md:h-[180px] lg:h-[350px]">
         <Swiper
           ref={swiperRef}
           modules={[Autoplay, Pagination]}
