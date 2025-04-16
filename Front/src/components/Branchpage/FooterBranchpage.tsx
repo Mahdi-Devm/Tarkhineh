@@ -22,18 +22,18 @@ const TestimonialsSlider = () => {
             prevEl: '.swiper-button-prev',
             nextEl: '.swiper-button-next',
           }}
-          pagination={{
-            clickable: true,
-            el: '.swiper-pagination',
-            bulletActiveClass: 'swiper-pagination-bullet-active',
-            bulletClass: 'swiper-pagination-bullet',
-          }}
+          // pagination={{
+          //   clickable: true,
+          //   el: '.swiper-pagination',
+          //   bulletActiveClass: 'swiper-pagination-bullet-active',
+          //   bulletClass: 'swiper-pagination-bullet',
+          // }}
           loop={true}
           grabCursor={true}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 5000,
+          //   disableOnInteraction: false,
+          // }}
           className="h-full w-full testimonials-swiper"
         >
           {testimonials.map((testimonial, index) => (

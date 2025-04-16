@@ -177,21 +177,21 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
           ) : (
             <div className="slider-container">
               <Swiper
-                modules={[Navigation, Pagination, Mousewheel, Keyboard, Autoplay]}
+                modules={[Navigation, Pagination, Mousewheel, Keyboard]}
                 spaceBetween={20}
                 slidesPerView={productsPerPage}
                 navigation
-                pagination={{ 
-                  clickable: true,
-                  el: '.swiper-pagination'
-                }}
+                // pagination={{ 
+                //   clickable: true,
+                //   el: '.swiper-pagination'
+                // }}
                 mousewheel={true}
                 keyboard={true}
                 loop={true}
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                }}
+                // autoplay={{
+                //   delay: 5000,
+                //   disableOnInteraction: false,
+                // }}
                 breakpoints={swiperBreakpoints}
                 className="mySwiper"
               >

@@ -84,7 +84,7 @@ const Preferences: React.FC<PopulardishesProps> = ({ data, isLoading }) => {
                 spaceBetween={20}
                 slidesPerView={slidesPerView}
                 navigation={true}
-                pagination={{ clickable: true }}
+                // pagination={{ clickable: true }}
                 mousewheel={{
                   forceToAxis: true,
                   sensitivity: 1.5,

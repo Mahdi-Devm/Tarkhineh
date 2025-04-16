@@ -28,7 +28,7 @@ const SimpleSlider: React.FC = () => {
           ref={swiperRef}
           modules={[Autoplay, Pagination]}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
+          // pagination={{ clickable: true }}
           slidesPerView={1}
           loop={true}
           className="w-full h-full rounded-lg shadow-md"
