@@ -1,0 +1,1 @@
+export const adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlRhcmtoaW5lLWFkbWluQGdtYWlsLmNvbSIsImFkbWluSWQiOiIxIiwiaWF0IjoxNzQ0MTQ4MTg1fQ.lwkvbSO4nMNqI_OzUfM2eGIq1EXfULek5i6sXXDokzs'
