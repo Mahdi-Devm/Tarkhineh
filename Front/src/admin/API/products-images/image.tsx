@@ -1,9 +1,4 @@
 const deleteImage = async (token: string,path: string) => {
-
-    console.log(token)    
-    console.log(path)    
-
-
     const response = await fetch(`https://tarkhine-app.onrender.com/api/v1/admin/products/delete/image`,{
         headers: {
             'Content-Type': 'application/json',
