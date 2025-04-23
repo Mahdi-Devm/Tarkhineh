@@ -183,10 +183,10 @@ const Productsmainpage: React.FC<PopulardishesProps> = ({
                 mousewheel={true}
                 keyboard={true}
                 loop={true}
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                }}
+                // autoplay={{
+                //   delay: 5000,
+                //   disableOnInteraction: false,
+                // }}
                 breakpoints={swiperBreakpoints}
                 className="mySwiper"
               >
